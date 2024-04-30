@@ -7,14 +7,20 @@ namespace Sample.MediatRPipelines.Domain.PipelineBehavior
         : IPipelineBehavior<TRequest, TResponse>
         where TRequest : ICommand<TResponse>
     {
+        private readonly IAuthService _authService;
 
-        public CommandAuthorizationBehavior()
+        public CommandAuthorizationBehavior(IAuthService authService)
         {
+            _authService = authService;
         }
 
-        public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            if (!_authService.OperationAlowed())
+                throw new NotImplementedException();
+
+            return await next();
+
         }
     }
 }
