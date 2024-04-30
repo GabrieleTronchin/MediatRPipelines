@@ -16,8 +16,10 @@ namespace Sample.MediatRPipelines.Domain.PipelineBehavior
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            if (!_authService.OperationAlowed())
-                throw new NotImplementedException();
+            var response = _authService.OperationAlowed();
+
+            if (!response.IsSuccess)
+                throw response.Exception ?? new Exception();
 
             return await next();
 

@@ -2,6 +2,6 @@
 {
     public interface IAuthService
     {
-        bool OperationAlowed();
+        AuthResponse OperationAlowed();
     }
 }
