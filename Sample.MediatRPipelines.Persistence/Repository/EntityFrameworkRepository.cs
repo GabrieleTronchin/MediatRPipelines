@@ -4,10 +4,10 @@ namespace Sample.MediatRPipelines.Persistence.Repository;
 
 public class EntityFrameworkRepository<T> : IRepository<T> where T : class
 {
-    private readonly DbContext _context;
+    private readonly SampleDbContext _context;
     private readonly DbSet<T> _dbSet;
 
-    public EntityFrameworkRepository(DbContext context)
+    public EntityFrameworkRepository(SampleDbContext context)
     {
         _context = context;
         _dbSet = _context.Set<T>();

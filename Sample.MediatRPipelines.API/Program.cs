@@ -43,5 +43,12 @@ app.MapPost("/SampleRequest", ([FromBody] SampleBody sampleBody, IMediator media
 .WithName("SampleRequest")
 .WithOpenApi();
 
+app.MapGet("/SampleEntity", (IMediator mediator) =>
+{
+    return mediator.Send(new SampleEntityQuery());
+})
+.WithName("SampleEntity")
+.WithOpenApi();
+
 
 app.Run();

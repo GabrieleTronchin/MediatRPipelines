@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Queries\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Sample.MediatRPipelines.Persistence\Sample.MediatRPipelines.Persistence.csproj" />
   </ItemGroup>
 
