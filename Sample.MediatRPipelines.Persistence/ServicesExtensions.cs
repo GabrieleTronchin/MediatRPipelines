@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
+using Sample.MediatRPipelines.Persistence.UoW;
 
 namespace Sample.MediatRPipelines.Persistence;
 
@@ -15,6 +16,9 @@ public static class ServicesExtensions
                 .EnableSensitiveDataLogging()
                 .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning));
         });
+
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
 

@@ -1,11 +1,10 @@
-﻿namespace Sample.MediatRPipelines.Persistence
+﻿namespace Sample.MediatRPipelines.Persistence;
+
+public class SampleEntity
 {
-    public class SampleEntity
-    {
-        public Guid Id { get; set; }
-        public string Description { get; set; }
+    public Guid Id { get; set; }
+    public string Description { get; set; }
 
-        public DateTime RegistrationTime { get; set; }
+    public DateTime RegistrationTime { get; set; }
 
-    }
 }
