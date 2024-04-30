@@ -1,6 +1,6 @@
 ﻿using Bogus;
 
-namespace Sample.MediatRPipelines.Domain
+namespace Sample.MediatRPipelines.Domain.AuthService
 {
 
     public class AuthResponse()

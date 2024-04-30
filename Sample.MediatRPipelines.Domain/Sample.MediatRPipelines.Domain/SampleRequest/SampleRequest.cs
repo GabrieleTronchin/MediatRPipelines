@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Sample.MediatRPipelines.Domain.Primitives;
 
-namespace Sample.MediatRPipelines.Domain.SampleRquest
+namespace Sample.MediatRPipelines.Domain.SampleRequest
 {
     public class SampleRequest : IRequest<SampleRequestComplete>
     {

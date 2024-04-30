@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Sample.MediatRPipelines.Domain.AuthService;
 using Sample.MediatRPipelines.Domain.Primitives;
 
 namespace Sample.MediatRPipelines.Domain.PipelineBehavior

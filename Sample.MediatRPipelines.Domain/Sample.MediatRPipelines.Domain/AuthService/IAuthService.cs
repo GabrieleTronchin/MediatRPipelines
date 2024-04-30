@@ -1,4 +1,4 @@
-﻿namespace Sample.MediatRPipelines.Domain
+﻿namespace Sample.MediatRPipelines.Domain.AuthService
 {
     public interface IAuthService
     {

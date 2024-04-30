@@ -26,6 +26,7 @@ namespace Sample.MediatRPipelines.Domain.PipelineBehavior
             var response = await next();
 
             stopwatch.Stop();
+
             _logger.LogInformation($"Handled {typeof(TResponse).Name} in {stopwatch.ElapsedMilliseconds} ms");
             stopwatch.Reset();
 

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Sample.MediatRPipelines.Domain.AuthService;
 using Sample.MediatRPipelines.Domain.PipelineBehavior;
 
 namespace Sample.MediatRPipelines.Domain;
