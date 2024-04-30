@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.MediatRPipelines.Domain", "Sample.MediatRPipelines.Domain\Sample.MediatRPipelines.Domain.csproj", "{1E143B2D-5333-4288-9206-471C5072EA09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.MediatRPipelines.Domain.Test", "Sample.MediatRPipelines.Domain.Test\Sample.MediatRPipelines.Domain.Test.csproj", "{AA8A5A2E-D87A-4C9D-BF3C-6BDB69A4051E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.MediatRPipelines.API", "Sample.MediatRPipelines.API\Sample.MediatRPipelines.API.csproj", "{EAE905C0-C32C-42D6-A2D9-965AACDEC491}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{1E143B2D-5333-4288-9206-471C5072EA09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E143B2D-5333-4288-9206-471C5072EA09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E143B2D-5333-4288-9206-471C5072EA09}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA8A5A2E-D87A-4C9D-BF3C-6BDB69A4051E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA8A5A2E-D87A-4C9D-BF3C-6BDB69A4051E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA8A5A2E-D87A-4C9D-BF3C-6BDB69A4051E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA8A5A2E-D87A-4C9D-BF3C-6BDB69A4051E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAE905C0-C32C-42D6-A2D9-965AACDEC491}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAE905C0-C32C-42D6-A2D9-965AACDEC491}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAE905C0-C32C-42D6-A2D9-965AACDEC491}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAE905C0-C32C-42D6-A2D9-965AACDEC491}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

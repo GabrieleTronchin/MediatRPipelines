@@ -1,0 +1,6 @@
+@Sample.MediatRPipelines.API_HostAddress = http://localhost:5005
+
+GET {{Sample.MediatRPipelines.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

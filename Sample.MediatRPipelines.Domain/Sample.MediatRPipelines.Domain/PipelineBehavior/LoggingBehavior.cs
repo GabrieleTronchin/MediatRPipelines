@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using Sample.MediatRPipelines.Domain.Primitives;
 using System.Diagnostics;
-using System.Numerics;
 
 namespace Sample.MediatRPipelines.Domain.PipelineBehavior
 {
