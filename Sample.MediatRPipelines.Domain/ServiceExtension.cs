@@ -1,14 +1,14 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Sample.MediatRPipelines.Domain.AuthService;
+using Sample.MediatRPipelines.Domain.FakeAuth;
 using Sample.MediatRPipelines.Domain.PipelineBehavior;
 
 namespace Sample.MediatRPipelines.Domain;
 
 public static class ServicesExtensions
 {
-    public static IServiceCollection AddMediatRDomainSample(this IServiceCollection services)
+    public static IServiceCollection AddMediatorSample(this IServiceCollection services)
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ServicesExtensions).Assembly));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Sample.MediatRPipelines.API.Models;
 using Sample.MediatRPipelines.Domain;
 using Sample.MediatRPipelines.Domain.SampleCommand;
-using Sample.MediatRPipelines.Domain.SampleRquest;
+using Sample.MediatRPipelines.Domain.SampleRequest;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddMediatRDomainSample();
+builder.Services.AddMediatorSample();
 
 var app = builder.Build();
 
