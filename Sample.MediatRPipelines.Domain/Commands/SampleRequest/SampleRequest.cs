@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Sample.MediatRPipelines.Domain.Primitives;
 
 namespace Sample.MediatRPipelines.Domain.Commands.SampleRequest;
 
