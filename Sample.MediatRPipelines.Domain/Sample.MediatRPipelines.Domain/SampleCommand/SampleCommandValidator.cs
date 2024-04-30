@@ -10,5 +10,12 @@ public sealed class SampleCommandValidator : AbstractValidator<SampleCommand>
         RuleFor(command => command.Id)
             .NotEmpty()
             .NotEqual(Guid.Empty);
+
+
+        RuleFor(command => command.Description)
+          .NotEmpty();
+
     }
+
 }
+

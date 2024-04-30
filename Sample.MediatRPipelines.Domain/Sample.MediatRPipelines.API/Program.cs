@@ -1,6 +1,9 @@
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Sample.MediatRPipelines.API.Models;
 using Sample.MediatRPipelines.Domain;
 using Sample.MediatRPipelines.Domain.SampleCommand;
+using Sample.MediatRPipelines.Domain.SampleRquest;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,13 +24,20 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPost("/SampleRequest", (IMediator mediator) =>
+app.MapPost("/SampleCommand", ([FromBody] SampleBody sampleBody, IMediator mediator) =>
 {
-    //TODO Add bogus
-    mediator.Send(new SampleCommand() { Id = Guid.NewGuid(), Description = "Sample Description", EventTime = DateTime.UtcNow });
+    return mediator.Send(new SampleCommand() { Id = Guid.NewGuid(), Description = sampleBody.Description, EventTime = DateTime.UtcNow });
+})
+.WithName("SampleCommand")
+.WithOpenApi();
+
+app.MapPost("/SampleRequest", ([FromBody] SampleBody sampleBody, IMediator mediator) =>
+{
+    return mediator.Send(new SampleRequest() { Id = Guid.NewGuid(), Description = sampleBody.Description, EventTime = DateTime.UtcNow });
 })
 .WithName("SampleRequest")
 .WithOpenApi();
+
 
 app.Run();
 
