@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Sample.MediatRPipelines.Domain.SampleRequest;
+namespace Sample.MediatRPipelines.Domain.Commands.SampleRequest;
 
 public class SampleRequestHandler : IRequestHandler<SampleRequest, SampleRequestComplete>
 {

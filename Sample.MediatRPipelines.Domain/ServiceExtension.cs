@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Sample.MediatRPipelines.Domain.FakeAuth;
-using Sample.MediatRPipelines.Domain.PipelineBehavior;
+using Sample.MediatRPipelines.Domain.Pipelines;
 
 namespace Sample.MediatRPipelines.Domain;
 

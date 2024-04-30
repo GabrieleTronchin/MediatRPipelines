@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Sample.MediatRPipelines.Domain.Primitives;
 using System.Diagnostics;
 
-namespace Sample.MediatRPipelines.Domain.PipelineBehavior;
+namespace Sample.MediatRPipelines.Domain.Pipelines;
 
 public sealed class LoggingBehavior<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>
