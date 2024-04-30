@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
 using MediatR;
-using System.Windows.Input;
+using Sample.MediatRPipelines.Domain.Primitives;
 
 
 namespace Sample.MediatRPipelines.Domain.PipelineBehavior
 {
     public sealed class ValidationBehavior<TRequest, TResponse>
         : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : ICommand
+        where TRequest : ICommand<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
