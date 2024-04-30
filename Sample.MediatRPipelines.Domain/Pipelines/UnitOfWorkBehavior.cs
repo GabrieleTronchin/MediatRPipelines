@@ -1,9 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using Sample.MediatRPipelines.Domain.FakeAuth;
 using Sample.MediatRPipelines.Domain.Primitives;
 using Sample.MediatRPipelines.Persistence.UoW;
-using System.Data.Common;
 
 namespace Sample.MediatRPipelines.Domain.Pipelines;
 
@@ -33,7 +31,7 @@ public class UnitOfWorkBehavior<TRequest, TResponse>
         {
             _logger.LogError(ex, "An error occured on transaction.");
             await connection.RollbackAsync();
-        } 
+        }
         finally
         {
             connection.Dispose();
