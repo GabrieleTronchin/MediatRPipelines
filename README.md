@@ -2,7 +2,13 @@
 
 ## Introduction to MediatR
 
-MediatR, available as a NuGet package for .NET, embodies the mediator design pattern, a strategy aimed at decoupling communication between objects. By fostering such decoupling, MediatR enhances flexibility and maintainability within software architectures. For a comprehensive understanding of this pattern, you can refer to the following resource: [Refactoring Guru - Mediator Design Pattern](https://refactoring.guru/design-patterns/mediator). A well-established implementation of this pattern for .NET is MediatR, whose official GitHub project can be found at the following link: [MediatR GitHub Repository](https://github.com/jbogard/MediatR).
+MediatR, available as a NuGet package for .NET, embodies the mediator design pattern, a strategy aimed at decoupling communication between objects.
+
+By fostering such decoupling, MediatR enhances flexibility and maintainability within software architectures. 
+
+For a comprehensive understanding of this pattern, you can refer to the following resource: [Refactoring Guru - Mediator Design Pattern](https://refactoring.guru/design-patterns/mediator). 
+
+A well-established implementation of this pattern for .NET is MediatR, whose official GitHub project can be found [here](https://github.com/jbogard/MediatR).
 
 ## Fundamentals of MediatR
 
@@ -16,7 +22,8 @@ For the scope of this project, our focus is primarily on the Request behavior, p
 
 ## Understanding MediatR Pipelines
 
-Within the mediator Request flow, there exists a clear distinction between a publisher and a subscriber. By leveraging MediatR pipelines, we can effectively intercept this flow and introduce customized logic into the process.
+Within the mediator Request flow, there exists a clear distinction between a publisher and a subscriber. 
+By leveraging MediatR pipelines, we can effectively intercept this flow and introduce customized logic into the process.
 
 To implement a pipeline, one needs to inherit from the interface `IPipelineBehavior<TRequest, TResponse>`.
 
@@ -69,11 +76,13 @@ public sealed class MyPipelineBehavior<TRequest, TResponse>
 
 ## Practical Application of MediatR Pipeline
 
-Now let's delve into a practical use case for MediatR Pipelines. In this project, you will find 4 different pipeline behaviors.
+Now let's delve into a practical use case for MediatR Pipelines.
+In this project, you will find 4 different pipeline behaviors.
 
 ### Logging Behavior
 
-The first use case is to log information before and after the execution of a request. In this use case, the pipeline logs the execution time of the request.
+The first use case is to log information before and after the execution of a request. 
+In this use case, the pipeline logs the execution time of the request.
 
 ```csharp
 public sealed class LoggingBehavior<TRequest, TResponse>
@@ -107,7 +116,8 @@ public sealed class LoggingBehavior<TRequest, TResponse>
 
 ### Validation Behavior
 
-Another use case is to validate the input message request before executing the request. In this case, we use [FluentValidation](https://github.com/FluentValidation/FluentValidation).
+Another use case is to validate the input message request before executing the request. 
+In this case, we use [FluentValidation](https://github.com/FluentValidation/FluentValidation).
 
 ```csharp
 public sealed class ValidationBehavior<TRequest, TResponse>
@@ -150,6 +160,11 @@ public sealed class ValidationBehavior<TRequest, TResponse>
 
 ### Authorization Behavior
 
+Similar to the validation pipeline, we can implement a custom authorization pipeline.
+To do it, we inject a custom `IAuthService` and use it in the pre-processing section.
+
+In this project, the custom `IAuthService` uses Bogus to return a random exception or not.
+
 ```csharp
 public class CommandAuthorizationBehavior<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>
@@ -164,7 +179,7 @@ public class CommandAuthorizationBehavior<TRequest, TResponse>
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
-        var response = _authService.OperationAlowed();
+        var response = _authService.OperationAllowed();
 
         if (!response.IsSuccess)
             throw response.Exception ?? new Exception();
@@ -175,6 +190,10 @@ public class CommandAuthorizationBehavior<TRequest, TResponse>
 ```
 
 ### Unit Of Work Behavior
+
+The last use case is perhaps the most useful: a common pattern that we can put in place using MediatR pipeline is the Unit Of Work pattern.
+
+To implement this use case, we inject an `IUnitOfWork` interface into the pipeline and manage the transaction inside the pipeline.
 
 ```csharp
 public class UnitOfWorkBehavior<TRequest, TResponse>
@@ -192,7 +211,9 @@ public class UnitOfWorkBehavior<TRequest, TResponse>
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
-        using var connection = await _uow.BeginTransaction();
+        using var connection =
+
+        await _uow.BeginTransaction();
         TResponse? response = default;
         try
         {
@@ -214,6 +235,15 @@ public class UnitOfWorkBehavior<TRequest, TResponse>
 }
 ``` 
 
-With these enrichments, the text now offers a clearer understanding of MediatR Pipelines and
+## Testing the Application
 
- their practical implementation in a .NET environment.
+Starting the application, the Swagger page will appear:
+
+![Swagger Page](assets/SwaggerHome.png)
+
+You can find 4 different endpoints:
+
+- **SampleCommand**: Use this endpoint to test the command. This command passes through all the MediatR pipelines: Logging -> Validation -> Authorization.
+- **SampleRequest**: Use this endpoint to skip all the pipelines. This works because it uses the plain `IRequest` instead of the custom `ICommand`.
+- **SampleEntity**: This endpoint is useful to test the result of adding a Sample entity endpoint.
+- **AddSampleEntity**: This endpoint uses `ITransactionCommand` interface and is a sample of Unit of Work pipeline behavior. In this project, it also implements a sample of the IRepository pattern using EF with an InMemory Database.
