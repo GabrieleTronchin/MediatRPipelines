@@ -1,24 +1,33 @@
 # Experimenting With MediatR Pipelines
 
-## About MediatR
+## Introduction to MediatR
 
-MediatR, available as a NuGet package for .NET, embodies the mediator design pattern. This pattern serves to decouple communication between objects, enhancing flexibility and maintainability in software architectures. For a comprehensive understanding of this pattern, you can refer to the following resource: [Refactoring Guru - Mediator Design Pattern](https://refactoring.guru/design-patterns/mediator). A well-established implementation of this pattern for .NET is MediatR. You can find the official GitHub project for MediatR at the following link: [MediatR GitHub Repository](https://github.com/jbogard/MediatR).
+MediatR, available as a NuGet package for .NET, embodies the mediator design pattern, a strategy aimed at decoupling communication between objects. 
 
-## Basic MediatR Info
+By fostering such decoupling, MediatR enhances flexibility and maintainability within software architectures. 
 
-In simple terms, MediatR operates in three modes:
+For a comprehensive understanding of this pattern, you can refer to the following resource: [Refactoring Guru - Mediator Design Pattern](https://refactoring.guru/design-patterns/mediator). 
 
-- **Request**: Involves a single receiver with a service response.
-- **Notification**: Engages multiple receivers with no service response.
-- **StreamRequest**: Utilizes a single receiver for stream operations with a service response.
+A well-established implementation of this pattern for .NET is MediatR, whose official GitHub project can be found at the following link: [MediatR GitHub Repository](https://github.com/jbogard/MediatR).
 
-For this project, our focus lies on the Request behavior, particularly on MediatR Pipelines.
+## Fundamentals of MediatR
 
-## MediatR Pipelines
+In essence, MediatR operates across three primary modes:
 
-In the mediator Request flow, there exists a publisher and a subscriber. Utilizing MediatR pipelines allows us to intercept this flow and introduce logic in the middle of the process.
+- **Request**: Involving a single receiver with a service response.
+- **Notification**: Engaging multiple receivers without a service response.
+- **StreamRequest**: Utilizing a single receiver for stream operations with a service response.
 
-To implement a pipeline, we need to inherit from the interface "IPipelineBehavior<TRequest, TResponse>". At this point, we must implement the Handle method. Here's a sample:
+For the scope of this project, our focus is primarily on the Request behavior, particularly on exploring MediatR Pipelines.
+
+## Understanding MediatR Pipelines
+
+Within the mediator Request flow, there exists a clear distinction between a publisher and a subscriber. 
+By leveraging MediatR pipelines, we can effectively intercept this flow and introduce customized logic into the process.
+
+To implement a pipeline, one needs to inherit from the interface "IPipelineBehavior<TRequest, TResponse>". 
+
+At this juncture, the imperative is to implement the Handle method, as demonstrated below:
 
 ```csharp
 public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
@@ -33,8 +42,40 @@ public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TRe
 }
 ```
 
-As depicted in the code, we can introduce logic before or after calling the next step in the mediator pipeline.
+As illustrated in the provided code snippet, this approach enables the insertion of logic both before and after invoking the subsequent step in the mediator pipeline.
 
-We can create multiple pipeline behavior, ...TODO
+Furthermore, the creation of multiple pipeline behaviors, registered in sequence, facilitates the establishment of a cohesive chain of behaviors.
 
-## MediatR Use Case
+```csharp
+   //Just register the behaviors in the order you would like them to be called.
+   services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+   services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+   services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CommandAuthorizationBehavior<,>));
+   services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
+
+```
+
+
+Another noteworthy technique employed in this project involves the customization of the default interface of MediatR's IRequest.
+
+By inheriting the default IRequest interface and crafting our custom Interface, such as ICommand, we gain the ability to explicitly filter pipelines for specific interfaces.
+
+Sample implementation of a custom IRequest:
+
+```csharp
+public interface ICommand<out TResponse> : IRequest<TResponse>
+{
+}
+```
+
+Sample instantiation of a pipeline tailored exclusively for ICommand:
+
+```csharp
+public sealed class MyPipelineBehavior<TRequest, TResponse>
+    : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : ICommand<TResponse>
+```
+
+## Practical Application of MediatR
+
+Now let's delve into a practical use case for MediatR.
