@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using MediatR.Pipeline;
 
 namespace Sample.MediatRPipelines.Domain.Primitives;
 

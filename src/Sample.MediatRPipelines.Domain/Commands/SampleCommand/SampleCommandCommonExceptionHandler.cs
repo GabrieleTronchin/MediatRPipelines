@@ -1,6 +1,5 @@
 ﻿using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
-using System.Net.NetworkInformation;
 
 namespace Sample.MediatRPipelines.Domain.Commands.SampleCommand;
 
@@ -17,7 +16,7 @@ internal class SampleCommandCommonExceptionHandler : IRequestExceptionHandler<Sa
     {
         _logger.LogError(exception, $"---- Exception Handler: '{nameof(SampleCommandCommonExceptionHandler)}'");
 
-        state.SetHandled(new SampleCommandComplete() { Id = Guid.Empty});
+        state.SetHandled(new SampleCommandComplete() { Id = Guid.Empty });
 
     }
 }
