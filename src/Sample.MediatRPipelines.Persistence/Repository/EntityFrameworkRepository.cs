@@ -2,7 +2,8 @@
 
 namespace Sample.MediatRPipelines.Persistence.Repository;
 
-public class EntityFrameworkRepository<T> : IRepository<T> where T : class
+public class EntityFrameworkRepository<T> : IRepository<T>
+    where T : class
 {
     private readonly SampleDbContext _context;
     private readonly DbSet<T> _dbSet;

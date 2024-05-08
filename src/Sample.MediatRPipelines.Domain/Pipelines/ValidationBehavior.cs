@@ -2,11 +2,9 @@
 using MediatR;
 using Sample.MediatRPipelines.Domain.Primitives;
 
-
 namespace Sample.MediatRPipelines.Domain.Pipelines;
 
-public sealed class ValidationBehavior<TRequest, TResponse>
-    : IPipelineBehavior<TRequest, TResponse>
+public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ICommand<TResponse>
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
@@ -19,17 +17,19 @@ public sealed class ValidationBehavior<TRequest, TResponse>
     public async Task<TResponse> Handle(
         TRequest request,
         RequestHandlerDelegate<TResponse> next,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken
+    )
     {
         var context = new ValidationContext<TRequest>(request);
 
         var validationFailures = await Task.WhenAll(
-            _validators.Select(validator => validator.ValidateAsync(context)));
+            _validators.Select(validator => validator.ValidateAsync(context))
+        );
 
         var errors = _validators
-                 .Select(x => x.Validate(context))
-                 .SelectMany(x => x.Errors)
-                 .Where(x => x != null);
+            .Select(x => x.Validate(context))
+            .SelectMany(x => x.Errors)
+            .Where(x => x != null);
 
         if (errors.Any())
         {

@@ -7,16 +7,22 @@ public class SampleRequestHandler : IRequestHandler<SampleRequest, SampleRequest
 {
     private readonly ILogger<SampleRequestHandler> _logger;
 
-
     public SampleRequestHandler(ILogger<SampleRequestHandler> logger)
-
     {
         _logger = logger;
     }
 
-    public async Task<SampleRequestComplete> Handle(SampleRequest request, CancellationToken cancellationToken)
+    public async Task<SampleRequestComplete> Handle(
+        SampleRequest request,
+        CancellationToken cancellationToken
+    )
     {
-        _logger.LogInformation("Request Executed Id:{Id};Description:{Description};EventTime:{EventTime}", request.Id, request.Description, request.EventTime);
+        _logger.LogInformation(
+            "Request Executed Id:{Id};Description:{Description};EventTime:{EventTime}",
+            request.Id,
+            request.Description,
+            request.EventTime
+        );
         return new SampleRequestComplete() { Id = request.Id };
     }
 }

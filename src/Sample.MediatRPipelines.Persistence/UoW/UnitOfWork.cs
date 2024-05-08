@@ -4,7 +4,6 @@ namespace Sample.MediatRPipelines.Persistence.UoW;
 
 public class UnitOfWork(SampleDbContext context) : IDisposable, IUnitOfWork
 {
-
     public async Task<IDbContextTransaction> BeginTransaction()
     {
         return await context.Database.BeginTransactionAsync();
@@ -19,5 +18,4 @@ public class UnitOfWork(SampleDbContext context) : IDisposable, IUnitOfWork
     {
         context.Dispose();
     }
-
 }
