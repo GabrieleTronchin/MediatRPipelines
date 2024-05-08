@@ -3,6 +3,5 @@
     public class SampleBody
     {
         public string Description { get; set; }
-
     }
 }

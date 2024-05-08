@@ -2,10 +2,7 @@
 
 namespace Sample.MediatRPipelines.Domain.Commands.SampleRequest;
 
-public class SampleEntityQuery : IQueryRequest<IEnumerable<SampleEntityQueryComplete>>
-{
-
-}
+public class SampleEntityQuery : IQueryRequest<IEnumerable<SampleEntityQueryComplete>> { }
 
 public record SampleEntityQueryComplete
 {

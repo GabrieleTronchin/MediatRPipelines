@@ -9,7 +9,6 @@ public class SampleCommand : ICommand<SampleCommandComplete>
     public DateTime EventTime { get; set; }
 
     public string Description { get; set; }
-
 }
 
 public record SampleCommandComplete

@@ -6,5 +6,4 @@ public class SampleEntity
     public string Description { get; set; }
 
     public DateTime RegistrationTime { get; set; }
-
 }

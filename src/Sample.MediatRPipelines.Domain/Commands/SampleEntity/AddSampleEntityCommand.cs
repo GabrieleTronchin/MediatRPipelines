@@ -9,7 +9,6 @@ public class AddSampleEntityCommand : ITransactionCommand<AddSampleEntityCommand
     public DateTime EventTime { get; set; }
 
     public string Description { get; set; }
-
 }
 
 public record AddSampleEntityCommandComplete
