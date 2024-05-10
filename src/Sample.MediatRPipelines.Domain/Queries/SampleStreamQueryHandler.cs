@@ -20,12 +20,11 @@ public class SampleStreamQueryHandler
         CancellationToken cancellationToken
     )
     {
-        foreach (var entity in await _repository.GetAll())
+
+        await foreach (var entity in _repository.GetStream(cancellationToken))
         {
             if (cancellationToken.IsCancellationRequested)
                 break;
-
-            await Task.Delay(1000);
 
             yield return new SampleStreamEntityQueryComplete()
             {

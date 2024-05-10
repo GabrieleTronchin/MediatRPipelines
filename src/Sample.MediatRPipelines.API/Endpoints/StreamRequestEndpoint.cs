@@ -10,12 +10,16 @@ public class StreamRequestEndpoint : IEndpoint
     {
         app.MapGet(
                 "/SampleStreamEntity",
-                 async (IMediator mediator) =>
+                 async (IMediator mediator, CancellationToken cancellationToken) =>
                 {
-                   return mediator.CreateStream(new SampleStreamEntityQuery());
+                    return mediator.CreateStream(new SampleStreamEntityQuery(), cancellationToken);
                 }
             )
             .WithName("SampleStreamEntity")
+            .Produces<IAsyncEnumerable<SampleStreamEntityQueryComplete>>()
             .WithOpenApi();
+
+
+
     }
 }
