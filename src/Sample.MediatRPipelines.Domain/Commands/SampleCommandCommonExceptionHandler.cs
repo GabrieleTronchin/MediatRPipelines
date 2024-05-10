@@ -1,7 +1,7 @@
 ﻿using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 
-namespace Sample.MediatRPipelines.Domain.Commands.SampleCommand;
+namespace Sample.MediatRPipelines.Domain.Commands;
 
 internal class SampleCommandCommonExceptionHandler
     : IRequestExceptionHandler<SampleCommand, SampleCommandComplete, Exception>

@@ -1,6 +1,6 @@
 ﻿using Sample.MediatRPipelines.Domain.Primitives;
 
-namespace Sample.MediatRPipelines.Domain.Commands.SampleRequest;
+namespace Sample.MediatRPipelines.Domain.Queries.Entity;
 
 public class SampleEntityQuery : IQueryRequest<IEnumerable<SampleEntityQueryComplete>> { }
 

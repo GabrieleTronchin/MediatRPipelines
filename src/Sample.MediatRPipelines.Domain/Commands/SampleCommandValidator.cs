@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Sample.MediatRPipelines.Domain.Commands.SampleCommand;
+namespace Sample.MediatRPipelines.Domain.Commands;
 
 public sealed class SampleCommandValidator : AbstractValidator<SampleCommand>
 {

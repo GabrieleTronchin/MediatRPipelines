@@ -1,6 +1,6 @@
 ﻿using Sample.MediatRPipelines.Domain.Primitives;
 
-namespace Sample.MediatRPipelines.Domain.Commands.SampleCommand;
+namespace Sample.MediatRPipelines.Domain.TransactionCommand;
 
 public class AddSampleEntityCommand : ITransactionCommand<AddSampleEntityCommandComplete>
 {

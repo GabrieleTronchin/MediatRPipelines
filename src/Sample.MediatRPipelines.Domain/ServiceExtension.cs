@@ -2,7 +2,9 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Sample.MediatRPipelines.Domain.FakeAuth;
-using Sample.MediatRPipelines.Domain.Pipelines;
+using Sample.MediatRPipelines.Domain.Pipelines.Command;
+using Sample.MediatRPipelines.Domain.Pipelines.Stream;
+using Sample.MediatRPipelines.Domain.Pipelines.TransactionCommand;
 
 namespace Sample.MediatRPipelines.Domain;
 
@@ -22,6 +24,15 @@ public static class ServicesExtensions
             typeof(CommandAuthorizationBehavior<,>)
         );
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
+
+        services.AddTransient(
+            typeof(IStreamPipelineBehavior<,>),
+            typeof(GenericStreamLoggingBehavior<,>)
+        );
+        services.AddTransient(
+            typeof(IStreamPipelineBehavior<,>),
+            typeof(SampleFilterStreamBehavior<,>)
+        );
 
         services.AddValidatorsFromAssembly(typeof(ServicesExtensions).Assembly);
 

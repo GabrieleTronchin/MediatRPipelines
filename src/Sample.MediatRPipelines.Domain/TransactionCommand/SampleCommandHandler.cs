@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Sample.MediatRPipelines.Persistence;
 using Sample.MediatRPipelines.Persistence.Repository;
 
-namespace Sample.MediatRPipelines.Domain.Commands.SampleCommand;
+namespace Sample.MediatRPipelines.Domain.TransactionCommand;
 
 public class AddSampleEntityCommandHandler
     : IRequestHandler<AddSampleEntityCommand, AddSampleEntityCommandComplete>

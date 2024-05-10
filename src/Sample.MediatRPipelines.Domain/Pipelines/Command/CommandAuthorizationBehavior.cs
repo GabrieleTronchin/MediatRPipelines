@@ -2,7 +2,7 @@
 using Sample.MediatRPipelines.Domain.FakeAuth;
 using Sample.MediatRPipelines.Domain.Primitives;
 
-namespace Sample.MediatRPipelines.Domain.Pipelines;
+namespace Sample.MediatRPipelines.Domain.Pipelines.Command;
 
 public class CommandAuthorizationBehavior<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>

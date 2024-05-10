@@ -19,14 +19,26 @@ public class EntityFrameworkRepository<T> : IRepository<T>
         return await _dbSet.FindAsync(id);
     }
 
-    public async Task<IEnumerable<T>> GetAll()
+    public async Task<IEnumerable<T>> GetAll(CancellationToken cancellationToken = default)
     {
-        return await _dbSet.ToListAsync();
+        return await _dbSet.ToListAsync(cancellationToken);
     }
 
-    public async Task Add(T entity)
+    public async IAsyncEnumerable<T> GetStream(CancellationToken cancellationToken = default)
     {
-        await _dbSet.AddAsync(entity);
+        var datas = _dbSet.AsAsyncEnumerable<T>();
+        await foreach (var data in datas)
+        {
+            if (cancellationToken.IsCancellationRequested)
+                break;
+
+            yield return data;
+        }
+    }
+
+    public async Task Add(T entity, CancellationToken cancellationToken = default)
+    {
+        await _dbSet.AddAsync(entity, cancellationToken);
     }
 
     public void Update(T entity)
