@@ -10,4 +10,3 @@ internal class SampleEntityConfiguration : IEntityTypeConfiguration<SampleEntity
         builder.HasKey(t => t.Id);
     }
 }
-

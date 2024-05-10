@@ -2,7 +2,6 @@ using Sample.MediatRPipelines.API;
 using Sample.MediatRPipelines.Domain;
 using Sample.MediatRPipelines.Persistence;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -24,7 +23,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 
 app.MapEndpoints();
 

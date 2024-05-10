@@ -10,19 +10,17 @@ public static class ServicesExtensions
 {
     public static IServiceCollection AddPersistenceLayer(this IServiceCollection services)
     {
-
         services.AddDbContext<SampleDbContext>(options =>
         {
-            options.UseInMemoryDatabase("SampleDb")
+            options
+                .UseInMemoryDatabase("SampleDb")
                 .EnableSensitiveDataLogging()
                 .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning));
         });
-
 
         services.AddTransient<IRepository<SampleEntity>, EntityFrameworkRepository<SampleEntity>>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
-
     }
 }

@@ -11,19 +11,38 @@ public class RequestsAndCommandEndpoints : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("/SampleCommand", ([FromBody] SampleBody sampleBody, IMediator mediator) =>
-        {
-            return mediator.Send(new SampleCommand() { Id = Guid.NewGuid(), Description = sampleBody.Description, EventTime = DateTime.UtcNow });
-        })
-        .WithName("SampleCommand")
-        .WithOpenApi();
+        app.MapPost(
+                "/SampleCommand",
+                ([FromBody] SampleBody sampleBody, IMediator mediator) =>
+                {
+                    return mediator.Send(
+                        new SampleCommand()
+                        {
+                            Id = Guid.NewGuid(),
+                            Description = sampleBody.Description,
+                            EventTime = DateTime.UtcNow
+                        }
+                    );
+                }
+            )
+            .WithName("SampleCommand")
+            .WithOpenApi();
 
-        app.MapPost("/SampleRequest", ([FromBody] SampleBody sampleBody, IMediator mediator) =>
-        {
-            return mediator.Send(new SampleRequest() { Id = Guid.NewGuid(), Description = sampleBody.Description, EventTime = DateTime.UtcNow });
-        })
-        .WithName("SampleRequest")
-        .WithOpenApi();
-
+        app.MapPost(
+                "/SampleRequest",
+                ([FromBody] SampleBody sampleBody, IMediator mediator) =>
+                {
+                    return mediator.Send(
+                        new SampleRequest()
+                        {
+                            Id = Guid.NewGuid(),
+                            Description = sampleBody.Description,
+                            EventTime = DateTime.UtcNow
+                        }
+                    );
+                }
+            )
+            .WithName("SampleRequest")
+            .WithOpenApi();
     }
 }
