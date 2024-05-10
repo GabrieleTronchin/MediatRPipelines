@@ -1,10 +1,5 @@
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Sample.MediatRPipelines.API;
-using Sample.MediatRPipelines.API.Models;
 using Sample.MediatRPipelines.Domain;
-using Sample.MediatRPipelines.Domain.Commands.SampleCommand;
-using Sample.MediatRPipelines.Domain.Commands.SampleRequest;
 using Sample.MediatRPipelines.Persistence;
 
 
