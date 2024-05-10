@@ -1,17 +1,17 @@
 ﻿// Ignore Spelling: auth
 
-using System.Runtime.CompilerServices;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Sample.MediatRPipelines.Domain.FakeAuth;
-using Sample.MediatRPipelines.Domain.Queries;
+using Sample.MediatRPipelines.Domain.Queries.StreamEntityWithFilter;
+using System.Runtime.CompilerServices;
 
 namespace Sample.MediatRPipelines.Domain.Pipelines;
 
 public class SampleFilterStreamBehavior<TRequest, TResponse>
     : IStreamPipelineBehavior<TRequest, TResponse>
-    where TRequest : SampleStreamEntityQuery
-    where TResponse : SampleStreamEntityQueryComplete
+    where TRequest : SampleStreamEntityWithPipeFilterQuery
+    where TResponse : SampleStreamEntityWithPipeFilterQueryResult
 {
     private readonly ILogger<SampleFilterStreamBehavior<TRequest, TResponse>> _logger;
     private readonly IAuthService _authService;

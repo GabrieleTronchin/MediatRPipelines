@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Sample.MediatRPipelines.API.Endpoints.Primitives;
-using Sample.MediatRPipelines.Domain.Queries;
+using Sample.MediatRPipelines.Domain.Queries.StreamEntity;
+using Sample.MediatRPipelines.Domain.Queries.StreamEntityWithFilter;
 
 namespace Sample.MediatRPipelines.API.Endpoints;
 
@@ -16,7 +17,19 @@ public class StreamRequestEndpoint : IEndpoint
                 }
             )
             .WithName("SampleStreamEntity")
-            .Produces<IAsyncEnumerable<SampleStreamEntityQueryComplete>>()
+            .Produces<IAsyncEnumerable<SampleStreamEntityQueryResult>>()
             .WithOpenApi();
+
+
+        app.MapGet(
+            "/SampleStreamEntityWithPipeFilter",
+            async (IMediator mediator, CancellationToken cancellationToken) =>
+            {
+                return mediator.CreateStream(new SampleStreamEntityWithPipeFilterQuery(), cancellationToken);
+            }
+        )
+        .WithName("SampleStreamEntityWithPipeFilter")
+        .Produces<IAsyncEnumerable<SampleStreamEntityWithPipeFilterQueryResult>>()
+        .WithOpenApi();
     }
 }

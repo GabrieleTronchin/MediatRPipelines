@@ -1,22 +1,21 @@
 ﻿using MediatR;
-using Sample.MediatRPipelines.Domain.Queries;
 using Sample.MediatRPipelines.Persistence;
 using Sample.MediatRPipelines.Persistence.Repository;
 
-namespace Sample.MediatRPipelines.Domain.Commands.SampleRequest;
+namespace Sample.MediatRPipelines.Domain.Queries.StreamEntityWithFilter;
 
-public class SampleStreamQueryHandler
-    : IStreamRequestHandler<SampleStreamEntityQuery, SampleStreamEntityQueryComplete>
+public class SampleStreamQueryWithPipeFilterHandler
+    : IStreamRequestHandler<SampleStreamEntityWithPipeFilterQuery, SampleStreamEntityWithPipeFilterQueryResult>
 {
     private readonly IRepository<SampleEntity> _repository;
 
-    public SampleStreamQueryHandler(IRepository<SampleEntity> repository)
+    public SampleStreamQueryWithPipeFilterHandler(IRepository<SampleEntity> repository)
     {
         _repository = repository;
     }
 
-    public async IAsyncEnumerable<SampleStreamEntityQueryComplete> Handle(
-        SampleStreamEntityQuery request,
+    public async IAsyncEnumerable<SampleStreamEntityWithPipeFilterQueryResult> Handle(
+        SampleStreamEntityWithPipeFilterQuery request,
         CancellationToken cancellationToken
     )
     {
@@ -25,7 +24,7 @@ public class SampleStreamQueryHandler
             if (cancellationToken.IsCancellationRequested)
                 break;
 
-            yield return new SampleStreamEntityQueryComplete()
+            yield return new SampleStreamEntityWithPipeFilterQueryResult()
             {
                 Id = entity.Id,
                 Description = entity.Description,

@@ -2,7 +2,7 @@
 using Sample.MediatRPipelines.Persistence;
 using Sample.MediatRPipelines.Persistence.Repository;
 
-namespace Sample.MediatRPipelines.Domain.Commands.SampleRequest;
+namespace Sample.MediatRPipelines.Domain.Queries.Entity;
 
 public class SampleQueryHandler
     : IRequestHandler<SampleEntityQuery, IEnumerable<SampleEntityQueryComplete>>
