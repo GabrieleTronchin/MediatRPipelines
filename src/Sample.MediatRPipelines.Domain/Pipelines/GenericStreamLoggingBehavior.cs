@@ -1,19 +1,14 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sample.MediatRPipelines.Domain.Pipelines;
 
-public class GenericStreamPipelineBehavior<TRequest, TResponse> : IStreamPipelineBehavior<TRequest, TResponse>
+public class GenericStreamLoggingBehavior<TRequest, TResponse> : IStreamPipelineBehavior<TRequest, TResponse>
 {
-    private readonly ILogger<GenericStreamPipelineBehavior<TRequest, TResponse>> _logger;
+    private readonly ILogger<GenericStreamLoggingBehavior<TRequest, TResponse>> _logger;
 
-    public GenericStreamPipelineBehavior(ILogger<GenericStreamPipelineBehavior<TRequest, TResponse>> logger)
+    public GenericStreamLoggingBehavior(ILogger<GenericStreamLoggingBehavior<TRequest, TResponse>> logger)
     {
         _logger = logger;
     }
