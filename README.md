@@ -235,6 +235,76 @@ public class UnitOfWorkBehavior<TRequest, TResponse>
 }
 ``` 
 
+## Handle Exceptions with Exception Handler
+
+Another useful feature of MediatR is the RequestExceptionHandler. With this feature, we can intercept exceptions raised from the request handler. 
+
+By specifying the exception type on the IRequestExceptionHandler interface, you can decide which exception you are going to handle.
+
+Here are some samples demonstrating handling a generic Exception:
+
+```csharp
+internal class SampleCommandCommonExceptionHandler
+    : IRequestExceptionHandler<SampleCommand, SampleCommandComplete, Exception>
+{
+    private readonly ILogger<SampleCommandCommonExceptionHandler> _logger;
+
+    public SampleCommandCommonExceptionHandler(ILogger<SampleCommandCommonExceptionHandler> logger)
+    {
+        _logger = logger;
+    }
+
+    public async Task Handle(
+        SampleCommand request,
+        Exception exception,
+        RequestExceptionHandlerState<SampleCommandComplete> state,
+        CancellationToken cancellationToken
+    )
+    {
+        _logger.LogError(
+            exception,
+            $"---- Exception Handler: '{nameof(SampleCommandCommonExceptionHandler)}'"
+        );
+
+        state.SetHandled(new SampleCommandComplete() { Id = Guid.Empty });
+    }
+}
+```
+
+And here's an example of handling a typed exception, InvalidOperationException:
+
+```csharp
+internal class SampleCommandInvalidOperationExceptionHandler
+    : IRequestExceptionHandler<SampleCommand, SampleCommandComplete, InvalidOperationException>
+{
+    private readonly ILogger<SampleCommandInvalidOperationExceptionHandler> _logger;
+
+    public SampleCommandInvalidOperationExceptionHandler(
+        ILogger<SampleCommandInvalidOperationExceptionHandler> logger
+    )
+    {
+        _logger = logger;
+    }
+
+    public async Task Handle(
+        SampleCommand request,
+        InvalidOperationException exception,
+        RequestExceptionHandlerState<SampleCommandComplete> state,
+        CancellationToken cancellationToken
+    )
+    {
+        _logger.LogError(
+            exception,
+            $"---- Exception Handler: '{nameof(SampleCommandInvalidOperationExceptionHandler)}'"
+        );
+
+        state.SetHandled(new SampleCommandComplete() { Id = Guid.Empty });
+    }
+}
+
+```
+
+
 ## Testing the Application
 
 Starting the application, the Swagger page will appear:
@@ -247,3 +317,4 @@ You can find 4 different endpoints:
 - **SampleRequest**: Use this endpoint to skip all the pipelines. This works because it uses the plain `IRequest` instead of the custom `ICommand`.
 - **SampleEntity**: This endpoint is useful to test the result of adding a Sample entity endpoint.
 - **AddSampleEntity**: This endpoint uses `ITransactionCommand` interface and is a sample of Unit of Work pipeline behavior. In this project, it also implements a sample of the IRepository pattern using EF with an InMemory Database.
+
