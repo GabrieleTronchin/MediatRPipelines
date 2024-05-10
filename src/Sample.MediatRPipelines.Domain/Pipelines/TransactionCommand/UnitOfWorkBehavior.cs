@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Sample.MediatRPipelines.Domain.Primitives;
 using Sample.MediatRPipelines.Persistence.UoW;
 
-namespace Sample.MediatRPipelines.Domain.Pipelines;
+namespace Sample.MediatRPipelines.Domain.Pipelines.TransactionCommand;
 
 public class UnitOfWorkBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ITransactionCommand<TResponse>

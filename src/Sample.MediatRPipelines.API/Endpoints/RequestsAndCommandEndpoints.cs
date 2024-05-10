@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Sample.MediatRPipelines.API.Endpoints.Primitives;
 using Sample.MediatRPipelines.API.Models;
-using Sample.MediatRPipelines.Domain.Commands.SampleCommand;
-using Sample.MediatRPipelines.Domain.Commands.SampleRequest;
+using Sample.MediatRPipelines.Domain.Commands;
+using Sample.MediatRPipelines.Domain.Request;
 
 namespace Sample.MediatRPipelines.API.Endpoints;
 

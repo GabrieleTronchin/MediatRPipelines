@@ -2,7 +2,7 @@
 using MediatR;
 using Sample.MediatRPipelines.Domain.Primitives;
 
-namespace Sample.MediatRPipelines.Domain.Pipelines;
+namespace Sample.MediatRPipelines.Domain.Pipelines.Command;
 
 public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ICommand<TResponse>

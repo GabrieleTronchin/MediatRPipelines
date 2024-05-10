@@ -20,16 +20,18 @@ public class StreamRequestEndpoint : IEndpoint
             .Produces<IAsyncEnumerable<SampleStreamEntityQueryResult>>()
             .WithOpenApi();
 
-
         app.MapGet(
-            "/SampleStreamEntityWithPipeFilter",
-            async (IMediator mediator, CancellationToken cancellationToken) =>
-            {
-                return mediator.CreateStream(new SampleStreamEntityWithPipeFilterQuery(), cancellationToken);
-            }
-        )
-        .WithName("SampleStreamEntityWithPipeFilter")
-        .Produces<IAsyncEnumerable<SampleStreamEntityWithPipeFilterQueryResult>>()
-        .WithOpenApi();
+                "/SampleStreamEntityWithPipeFilter",
+                async (IMediator mediator, CancellationToken cancellationToken) =>
+                {
+                    return mediator.CreateStream(
+                        new SampleStreamEntityWithPipeFilterQuery(),
+                        cancellationToken
+                    );
+                }
+            )
+            .WithName("SampleStreamEntityWithPipeFilter")
+            .Produces<IAsyncEnumerable<SampleStreamEntityWithPipeFilterQueryResult>>()
+            .WithOpenApi();
     }
 }

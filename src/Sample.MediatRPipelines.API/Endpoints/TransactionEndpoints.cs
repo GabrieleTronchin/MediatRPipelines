@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Sample.MediatRPipelines.API.Endpoints.Primitives;
 using Sample.MediatRPipelines.API.Models;
+using Sample.MediatRPipelines.Domain.Queries.Entity;
+using Sample.MediatRPipelines.Domain.TransactionCommand;
 
 namespace Sample.MediatRPipelines.API.Endpoints;
 

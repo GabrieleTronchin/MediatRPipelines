@@ -2,7 +2,8 @@
 
 namespace Sample.MediatRPipelines.Domain.Queries.StreamEntityWithFilter
 {
-    public class SampleStreamEntityWithPipeFilterQuery : IStreamRequest<SampleStreamEntityWithPipeFilterQueryResult> { }
+    public class SampleStreamEntityWithPipeFilterQuery
+        : IStreamRequest<SampleStreamEntityWithPipeFilterQueryResult> { }
 
     public record SampleStreamEntityWithPipeFilterQueryResult
     {

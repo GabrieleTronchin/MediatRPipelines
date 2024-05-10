@@ -5,7 +5,10 @@ using Sample.MediatRPipelines.Persistence.Repository;
 namespace Sample.MediatRPipelines.Domain.Queries.StreamEntityWithFilter;
 
 public class SampleStreamQueryWithPipeFilterHandler
-    : IStreamRequestHandler<SampleStreamEntityWithPipeFilterQuery, SampleStreamEntityWithPipeFilterQueryResult>
+    : IStreamRequestHandler<
+        SampleStreamEntityWithPipeFilterQuery,
+        SampleStreamEntityWithPipeFilterQueryResult
+    >
 {
     private readonly IRepository<SampleEntity> _repository;
 

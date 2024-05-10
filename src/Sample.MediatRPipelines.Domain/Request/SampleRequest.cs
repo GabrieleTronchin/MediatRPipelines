@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Sample.MediatRPipelines.Domain.Commands.SampleRequest;
+namespace Sample.MediatRPipelines.Domain.Request;
 
 public class SampleRequest : IRequest<SampleRequestComplete>
 {

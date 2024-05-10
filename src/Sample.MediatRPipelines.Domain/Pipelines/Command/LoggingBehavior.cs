@@ -1,9 +1,9 @@
-﻿using MediatR;
+﻿using System.Diagnostics;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using Sample.MediatRPipelines.Domain.Primitives;
-using System.Diagnostics;
 
-namespace Sample.MediatRPipelines.Domain.Pipelines;
+namespace Sample.MediatRPipelines.Domain.Pipelines.Command;
 
 public sealed class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ICommand<TResponse>
