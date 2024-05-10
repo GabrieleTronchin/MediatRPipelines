@@ -1,6 +1,6 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
 using Sample.MediatRPipelines.API.Endpoints.Primitives;
+using System.Reflection;
 
 namespace Sample.MediatRPipelines.API;
 

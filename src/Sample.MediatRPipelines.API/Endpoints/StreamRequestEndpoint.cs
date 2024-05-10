@@ -1,7 +1,5 @@
 ﻿using MediatR;
 using Sample.MediatRPipelines.API.Endpoints.Primitives;
-using Sample.MediatRPipelines.API.Models;
-using Sample.MediatRPipelines.Domain.Commands.SampleRequest;
 using Sample.MediatRPipelines.Domain.Queries;
 
 namespace Sample.MediatRPipelines.API.Endpoints;
