@@ -23,9 +23,14 @@ public static class ServicesExtensions
         );
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
 
-
-        services.AddTransient(typeof(IStreamPipelineBehavior<,>), typeof(GenericStreamLoggingBehavior<,>));
-        services.AddTransient(typeof(IStreamPipelineBehavior<,>), typeof(SampleFilterStreamBehavior<,>));
+        services.AddTransient(
+            typeof(IStreamPipelineBehavior<,>),
+            typeof(GenericStreamLoggingBehavior<,>)
+        );
+        services.AddTransient(
+            typeof(IStreamPipelineBehavior<,>),
+            typeof(SampleFilterStreamBehavior<,>)
+        );
 
         services.AddValidatorsFromAssembly(typeof(ServicesExtensions).Assembly);
 

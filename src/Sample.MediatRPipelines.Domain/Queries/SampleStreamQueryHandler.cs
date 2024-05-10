@@ -20,7 +20,6 @@ public class SampleStreamQueryHandler
         CancellationToken cancellationToken
     )
     {
-
         await foreach (var entity in _repository.GetStream(cancellationToken))
         {
             if (cancellationToken.IsCancellationRequested)

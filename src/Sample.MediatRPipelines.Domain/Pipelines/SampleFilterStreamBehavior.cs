@@ -1,32 +1,39 @@
 ﻿// Ignore Spelling: auth
 
+using System.Runtime.CompilerServices;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Sample.MediatRPipelines.Domain.FakeAuth;
 using Sample.MediatRPipelines.Domain.Queries;
-using System.Runtime.CompilerServices;
-
 
 namespace Sample.MediatRPipelines.Domain.Pipelines;
 
-public class SampleFilterStreamBehavior<TRequest, TResponse> :
-               IStreamPipelineBehavior<TRequest, TResponse>
-     where TRequest : SampleStreamEntityQuery
-     where TResponse : SampleStreamEntityQueryComplete
+public class SampleFilterStreamBehavior<TRequest, TResponse>
+    : IStreamPipelineBehavior<TRequest, TResponse>
+    where TRequest : SampleStreamEntityQuery
+    where TResponse : SampleStreamEntityQueryComplete
 {
     private readonly ILogger<SampleFilterStreamBehavior<TRequest, TResponse>> _logger;
     private readonly IAuthService _authService;
 
-    public SampleFilterStreamBehavior(IAuthService authService, ILogger<SampleFilterStreamBehavior<TRequest, TResponse>> logger)
+    public SampleFilterStreamBehavior(
+        IAuthService authService,
+        ILogger<SampleFilterStreamBehavior<TRequest, TResponse>> logger
+    )
     {
         _logger = logger;
         _authService = authService;
     }
 
-    public async IAsyncEnumerable<TResponse> Handle(TRequest request, StreamHandlerDelegate<TResponse> next, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public async IAsyncEnumerable<TResponse> Handle(
+        TRequest request,
+        StreamHandlerDelegate<TResponse> next,
+        [EnumeratorCancellation] CancellationToken cancellationToken
+    )
     {
-
-        await foreach (var response in next().WithCancellation(cancellationToken).ConfigureAwait(false))
+        await foreach (
+            var response in next().WithCancellation(cancellationToken).ConfigureAwait(false)
+        )
         {
             var isAllowed = _authService.OperationAlowed();
 
@@ -36,9 +43,10 @@ public class SampleFilterStreamBehavior<TRequest, TResponse> :
             }
             else
             {
-
-                _logger.LogWarning("User is not allowed to get this data, entity {json} has not be returned.", System.Text.Json.JsonSerializer.Serialize(response));
-
+                _logger.LogWarning(
+                    "User is not allowed to get this data, entity {json} has not be returned.",
+                    System.Text.Json.JsonSerializer.Serialize(response)
+                );
             }
         }
     }
