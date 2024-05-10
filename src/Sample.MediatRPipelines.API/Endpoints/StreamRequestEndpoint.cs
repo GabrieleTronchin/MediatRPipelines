@@ -9,13 +9,13 @@ public class StreamRequestEndpoint : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet(
-                "/SampleEntity",
-                (IMediator mediator) =>
+                "/SampleStreamEntity",
+                 async (IMediator mediator) =>
                 {
-                    return mediator.Send(new SampleStreamEntityQuery());
+                   return mediator.CreateStream(new SampleStreamEntityQuery());
                 }
             )
-            .WithName("SampleEntity")
+            .WithName("SampleStreamEntity")
             .WithOpenApi();
     }
 }

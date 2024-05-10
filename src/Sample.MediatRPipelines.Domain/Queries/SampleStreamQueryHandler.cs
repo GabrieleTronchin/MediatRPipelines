@@ -25,6 +25,8 @@ public class SampleStreamQueryHandler
             if (cancellationToken.IsCancellationRequested)
                 break;
 
+            await Task.Delay(1000);
+
             yield return new SampleStreamEntityQueryComplete()
             {
                 Id = entity.Id,
