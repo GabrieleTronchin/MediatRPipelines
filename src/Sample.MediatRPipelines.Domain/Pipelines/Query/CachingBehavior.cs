@@ -31,9 +31,9 @@ public sealed class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
         return await _cache.GetOrSetAsync(inputRequest.CacheKey,
           await next(),
          options => options
-         .SetDuration(TimeSpan.FromMinutes(2))
-         .SetFailSafe(true)
-         .SetFactoryTimeouts(TimeSpan.FromMilliseconds(100))
+             .SetDuration(TimeSpan.FromSeconds(5))
+             .SetFailSafe(true)
+             .SetFactoryTimeouts(TimeSpan.FromMilliseconds(200))
          );
 
     }

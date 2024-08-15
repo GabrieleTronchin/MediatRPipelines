@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Sample.MediatRPipelines.Domain.FakeAuth;
 using Sample.MediatRPipelines.Domain.Pipelines.Command;
+using Sample.MediatRPipelines.Domain.Pipelines.Query;
 using Sample.MediatRPipelines.Domain.Pipelines.Stream;
 using Sample.MediatRPipelines.Domain.Pipelines.TransactionCommand;
 
@@ -20,6 +21,8 @@ public static class ServicesExtensions
         );
 
         //Just register the behaviors in the order you would like them to be called.
+
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         services.AddTransient(
