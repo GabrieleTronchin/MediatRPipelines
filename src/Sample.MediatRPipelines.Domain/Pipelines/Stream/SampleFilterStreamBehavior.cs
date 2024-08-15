@@ -1,10 +1,10 @@
 ﻿// Ignore Spelling: auth
 
-using System.Runtime.CompilerServices;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Sample.MediatRPipelines.Domain.FakeAuth;
 using Sample.MediatRPipelines.Domain.Queries.StreamEntityWithFilter;
+using System.Runtime.CompilerServices;
 
 namespace Sample.MediatRPipelines.Domain.Pipelines.Stream;
 

@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using Sample.MediatRPipelines.Domain.Primitives;
+using System.Diagnostics;
 
 namespace Sample.MediatRPipelines.Domain.Pipelines.Command;
 

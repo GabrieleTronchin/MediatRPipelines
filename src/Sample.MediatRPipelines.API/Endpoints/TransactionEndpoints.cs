@@ -15,11 +15,22 @@ public class TransactionEndpoints : IEndpoint
                 "/SampleEntity",
                 (IMediator mediator) =>
                 {
-                    return mediator.Send(new SampleEntityQuery());
+                    return mediator.Send(new GetAllSampleEntitiesQuery());
                 }
             )
             .WithName("SampleEntity")
             .WithOpenApi();
+
+
+        app.MapGet(
+        "/SampleEntity/{id}",
+            (Guid id,IMediator mediator) =>
+            {
+                return mediator.Send(new GetSampleEntityQuery() { Id = id });
+            }
+        )
+        .WithName("SampleEntityById")
+        .WithOpenApi();
 
         app.MapPost(
                 "/AddSampleEntity",
