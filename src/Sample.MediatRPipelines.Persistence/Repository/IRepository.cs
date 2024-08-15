@@ -2,7 +2,7 @@
 
 public interface IRepository<T>
 {
-    Task<T> GetById(int id);
+    Task<T?> GetById(Guid id);
     Task<IEnumerable<T>> GetAll(CancellationToken cancellationToken = default);
     IAsyncEnumerable<T> GetStream(CancellationToken cancellationToken = default);
     Task Add(T entity, CancellationToken cancellationToken = default);

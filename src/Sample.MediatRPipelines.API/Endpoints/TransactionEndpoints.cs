@@ -15,7 +15,7 @@ public class TransactionEndpoints : IEndpoint
                 "/SampleEntity",
                 (IMediator mediator) =>
                 {
-                    return mediator.Send(new SampleEntityQuery());
+                    return mediator.Send(new GetAllSampleEntitiesQuery());
                 }
             )
             .WithName("SampleEntity")

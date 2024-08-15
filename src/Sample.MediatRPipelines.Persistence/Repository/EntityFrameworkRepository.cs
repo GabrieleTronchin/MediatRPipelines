@@ -14,9 +14,9 @@ public class EntityFrameworkRepository<T> : IRepository<T>
         _dbSet = _context.Set<T>();
     }
 
-    public async Task<T?> GetById(int id)
+    public async Task<T?> GetById(Guid id)
     {
-        return await _dbSet.FindAsync(id);
+        return await _dbSet.FindAsync(id) ?? default;
     }
 
     public async Task<IEnumerable<T>> GetAll(CancellationToken cancellationToken = default)

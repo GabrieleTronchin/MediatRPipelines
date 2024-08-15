@@ -2,9 +2,12 @@
 
 namespace Sample.MediatRPipelines.Domain.Queries.Entity;
 
-public class SampleEntityQuery : IQueryRequest<IEnumerable<SampleEntityQueryComplete>> { }
+public class GetAllSampleEntitiesQuery : IQueryRequest<IEnumerable<GetAllSampleEntitiesQueryResult>>
+{
+    public string CacheKey => $"{nameof(GetAllSampleEntitiesQuery)}-ALL";
+}
 
-public record SampleEntityQueryComplete
+public record GetAllSampleEntitiesQueryResult
 {
     public Guid Id { get; set; }
 
