@@ -17,12 +17,20 @@ public class SampleCommandHandler : IRequestHandler<SampleCommand, SampleCommand
         CancellationToken cancellationToken
     )
     {
+
+        if (request.RaiseException != null)
+            throw request.RaiseException;
+
+
         _logger.LogInformation(
             "Command Executed Id:{Id};Description:{Description};EventTime:{EventTime}",
             request.Id,
             request.Description,
             request.EventTime
         );
+
+
+
         return new SampleCommandComplete() { Id = request.Id };
     }
 }

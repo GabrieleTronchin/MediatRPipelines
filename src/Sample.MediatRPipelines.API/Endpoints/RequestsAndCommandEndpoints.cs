@@ -28,6 +28,7 @@ public class RequestsAndCommandEndpoints : IEndpoint
             .WithName("SampleCommand")
             .WithOpenApi();
 
+
         app.MapPost(
                 "/SampleRequest",
                 ([FromBody] SampleBody sampleBody, IMediator mediator) =>

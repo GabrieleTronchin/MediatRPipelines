@@ -24,7 +24,7 @@ public class TransactionEndpoints : IEndpoint
 
         app.MapGet(
         "/SampleEntity/{id}",
-            (Guid id,IMediator mediator) =>
+            (Guid id, IMediator mediator) =>
             {
                 return mediator.Send(new GetSampleEntityQuery() { Id = id });
             }

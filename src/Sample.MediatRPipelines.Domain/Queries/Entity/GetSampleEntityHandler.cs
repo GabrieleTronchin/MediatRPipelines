@@ -17,6 +17,10 @@ public class GetSampleEntityHandler
 
     public async Task<GetSampleEntityQueryResult> Handle(GetSampleEntityQuery request, CancellationToken cancellationToken)
     {
+
+        if (request.Id == Guid.Empty)
+            throw new ArgumentNullException(nameof(request.Id));
+
         var entity = await _repository.GetById(request.Id);
 
         if (entity == null)
