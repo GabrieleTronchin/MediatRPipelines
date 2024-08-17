@@ -51,7 +51,7 @@ public class ExceptionsEndpoints : IEndpoint
 
         app.MapGet(
                 "/NotFoundExceptionGlobalHandler",
-                (Guid id, IMediator mediator) =>
+                (IMediator mediator) =>
                 {
                     return mediator.Send(new GetSampleEntityQuery() { Id = Guid.Empty });
                 }
