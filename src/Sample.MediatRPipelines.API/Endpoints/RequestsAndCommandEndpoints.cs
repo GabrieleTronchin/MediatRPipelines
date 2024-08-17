@@ -20,14 +20,13 @@ public class RequestsAndCommandEndpoints : IEndpoint
                         {
                             Id = Guid.NewGuid(),
                             Description = sampleBody.Description,
-                            EventTime = DateTime.UtcNow
+                            EventTime = DateTime.UtcNow,
                         }
                     );
                 }
             )
             .WithName("SampleCommand")
             .WithOpenApi();
-
 
         app.MapPost(
                 "/SampleRequest",
@@ -38,7 +37,7 @@ public class RequestsAndCommandEndpoints : IEndpoint
                         {
                             Id = Guid.NewGuid(),
                             Description = sampleBody.Description,
-                            EventTime = DateTime.UtcNow
+                            EventTime = DateTime.UtcNow,
                         }
                     );
                 }

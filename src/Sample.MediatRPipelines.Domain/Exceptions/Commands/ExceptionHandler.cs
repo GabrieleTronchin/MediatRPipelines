@@ -21,12 +21,8 @@ internal class ExceptionHandler
         CancellationToken cancellationToken
     )
     {
-        _logger.LogError(
-            exception,
-            $"---- Exception Handler: '{nameof(ExceptionHandler)}'"
-        );
+        _logger.LogError(exception, $"---- Exception Handler: '{nameof(ExceptionHandler)}'");
 
         state.SetHandled(new SampleCommandComplete() { Id = Guid.Empty });
     }
 }
-

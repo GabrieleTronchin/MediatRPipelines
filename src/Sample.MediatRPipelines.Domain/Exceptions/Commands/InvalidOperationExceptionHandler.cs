@@ -9,9 +9,7 @@ internal class InvalidOperationExceptionHandler
 {
     private readonly ILogger<InvalidOperationExceptionHandler> _logger;
 
-    public InvalidOperationExceptionHandler(
-        ILogger<InvalidOperationExceptionHandler> logger
-    )
+    public InvalidOperationExceptionHandler(ILogger<InvalidOperationExceptionHandler> logger)
     {
         _logger = logger;
     }

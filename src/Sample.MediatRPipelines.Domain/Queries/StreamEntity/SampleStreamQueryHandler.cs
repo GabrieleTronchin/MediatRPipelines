@@ -28,7 +28,7 @@ public class SampleStreamQueryHandler
             {
                 Id = entity.Id,
                 Description = entity.Description,
-                EventTime = entity.RegistrationTime
+                EventTime = entity.RegistrationTime,
             };
         }
     }

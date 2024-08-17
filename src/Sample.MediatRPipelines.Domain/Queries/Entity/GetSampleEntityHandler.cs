@@ -14,10 +14,11 @@ public class GetSampleEntityHandler
         _repository = repository;
     }
 
-
-    public async Task<GetSampleEntityQueryResult> Handle(GetSampleEntityQuery request, CancellationToken cancellationToken)
+    public async Task<GetSampleEntityQueryResult> Handle(
+        GetSampleEntityQuery request,
+        CancellationToken cancellationToken
+    )
     {
-
         if (request.Id == Guid.Empty)
             throw new ArgumentNullException(nameof(request.Id));
 
@@ -26,6 +27,11 @@ public class GetSampleEntityHandler
         if (entity == null)
             return new GetSampleEntityQueryResult();
 
-        return new GetSampleEntityQueryResult() { Id = entity.Id, Description = entity.Description, EventTime = entity.RegistrationTime };
+        return new GetSampleEntityQueryResult()
+        {
+            Id = entity.Id,
+            Description = entity.Description,
+            EventTime = entity.RegistrationTime,
+        };
     }
 }

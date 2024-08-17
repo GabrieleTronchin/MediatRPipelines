@@ -31,7 +31,7 @@ public class SampleStreamQueryWithPipeFilterHandler
             {
                 Id = entity.Id,
                 Description = entity.Description,
-                EventTime = entity.RegistrationTime
+                EventTime = entity.RegistrationTime,
             };
         }
     }

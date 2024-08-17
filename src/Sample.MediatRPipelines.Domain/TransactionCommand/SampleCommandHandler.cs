@@ -30,7 +30,7 @@ public class AddSampleEntityCommandHandler
             {
                 Id = request.Id,
                 Description = request.Description,
-                RegistrationTime = request.EventTime
+                RegistrationTime = request.EventTime,
             }
         );
 

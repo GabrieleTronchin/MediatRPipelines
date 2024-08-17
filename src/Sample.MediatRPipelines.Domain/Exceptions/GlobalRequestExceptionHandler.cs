@@ -5,27 +5,34 @@ using Sample.MediatRPipelines.Domain.Primitives;
 
 namespace Sample.MediatRPipelines.Domain.Exceptions;
 
-
 internal class GlobalRequestExceptionHandler<IRequest, TResponse, TException>
-  : IRequestExceptionHandler<IRequest, TResponse, TException>
-      where IRequest : IQueryRequest<IQueryResult>
-      where TResponse: IQueryResult
-      where TException : Exception
+    : IRequestExceptionHandler<IRequest, TResponse, TException>
+    where IRequest : IQueryRequest<IQueryResult>
+    where TResponse : IQueryResult
+    where TException : Exception
 {
-    private readonly ILogger<GlobalRequestExceptionHandler<IRequest, TResponse, TException>> _logger;
+    private readonly ILogger<
+        GlobalRequestExceptionHandler<IRequest, TResponse, TException>
+    > _logger;
+
     public GlobalRequestExceptionHandler(
-       ILogger<GlobalRequestExceptionHandler<IRequest, TResponse, TException>> logger)
+        ILogger<GlobalRequestExceptionHandler<IRequest, TResponse, TException>> logger
+    )
     {
         _logger = logger;
     }
 
-
-    public Task Handle(IRequest request, TException exception, RequestExceptionHandlerState<TResponse> state, CancellationToken cancellationToken)
+    public Task Handle(
+        IRequest request,
+        TException exception,
+        RequestExceptionHandlerState<TResponse> state,
+        CancellationToken cancellationToken
+    )
     {
         _logger.LogError(
-        exception,
-                $"---- Exception Handler: '{nameof(GlobalRequestExceptionHandler<IRequest, TResponse, TException>)}'"
-            );
+            exception,
+            $"---- Exception Handler: '{nameof(GlobalRequestExceptionHandler<IRequest, TResponse, TException>)}'"
+        );
 
         state.SetHandled(default);
 

@@ -11,7 +11,6 @@ public class SampleCommand : ICommand<SampleCommandComplete>
     public required string Description { get; set; }
 
     public Exception? RaiseException { get; set; }
-
 }
 
 public record SampleCommandComplete

@@ -2,6 +2,4 @@
 
 namespace Sample.MediatRPipelines.Domain.Primitives;
 
-internal interface IQueryResult
-{
-}
+internal interface IQueryResult { }

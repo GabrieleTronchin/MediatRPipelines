@@ -12,52 +12,51 @@ public class ExceptionsEndpoints : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost(
-        "/SampleCommandWithIOException",
-        ([FromBody] SampleBody sampleBody, IMediator mediator) =>
-        {
-            return mediator.Send(
-                new SampleCommand()
+                "/SampleCommandWithIOException",
+                ([FromBody] SampleBody sampleBody, IMediator mediator) =>
                 {
-                    Id = Guid.NewGuid(),
-                    Description = sampleBody.Description,
-                    EventTime = DateTime.UtcNow,
-                    RaiseException = new InvalidOperationException("Sample Invalid Operation")
+                    return mediator.Send(
+                        new SampleCommand()
+                        {
+                            Id = Guid.NewGuid(),
+                            Description = sampleBody.Description,
+                            EventTime = DateTime.UtcNow,
+                            RaiseException = new InvalidOperationException(
+                                "Sample Invalid Operation"
+                            ),
+                        }
+                    );
                 }
-            );
-        }
-        )
-        .WithName("SampleCommandWithIOException")
-        .WithOpenApi();
+            )
+            .WithName("SampleCommandWithIOException")
+            .WithOpenApi();
 
         app.MapPost(
-            "/SampleCommandWithException",
-            ([FromBody] SampleBody sampleBody, IMediator mediator) =>
-            {
-                return mediator.Send(
-                    new SampleCommand()
-                    {
-                        Id = Guid.NewGuid(),
-                        Description = sampleBody.Description,
-                        EventTime = DateTime.UtcNow,
-                        RaiseException = new Exception("Sample Exception")
-
-                    }
-                );
-            }
+                "/SampleCommandWithException",
+                ([FromBody] SampleBody sampleBody, IMediator mediator) =>
+                {
+                    return mediator.Send(
+                        new SampleCommand()
+                        {
+                            Id = Guid.NewGuid(),
+                            Description = sampleBody.Description,
+                            EventTime = DateTime.UtcNow,
+                            RaiseException = new Exception("Sample Exception"),
+                        }
+                    );
+                }
             )
             .WithName("SampleCommandWithException")
             .WithOpenApi();
 
         app.MapGet(
-           "/NotFoundExceptionGlobalHandler",
-               (Guid id, IMediator mediator) =>
-               {
-                   return mediator.Send(new GetSampleEntityQuery() { Id = Guid.Empty });
-               }
-           )
-           .WithName("NotFoundExcptionGlobalHandler")
-           .WithOpenApi();
-
-
+                "/NotFoundExceptionGlobalHandler",
+                (Guid id, IMediator mediator) =>
+                {
+                    return mediator.Send(new GetSampleEntityQuery() { Id = Guid.Empty });
+                }
+            )
+            .WithName("NotFoundExcptionGlobalHandler")
+            .WithOpenApi();
     }
 }

@@ -13,7 +13,6 @@ public static class ServicesExtensions
 {
     public static IServiceCollection AddMediatorSample(this IServiceCollection services)
     {
-
         services.AddFusionCache();
 
         services.AddMediatR(cfg =>
