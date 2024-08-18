@@ -8,7 +8,7 @@ public class SampleRequest : IRequest<SampleRequestComplete>
 
     public DateTime EventTime { get; set; }
 
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 }
 
 public record SampleRequestComplete

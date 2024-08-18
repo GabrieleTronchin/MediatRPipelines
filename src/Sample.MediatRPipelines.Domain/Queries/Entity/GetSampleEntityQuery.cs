@@ -14,5 +14,5 @@ public record GetSampleEntityQueryResult : IQueryResult
 
     public DateTime EventTime { get; set; }
 
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 }

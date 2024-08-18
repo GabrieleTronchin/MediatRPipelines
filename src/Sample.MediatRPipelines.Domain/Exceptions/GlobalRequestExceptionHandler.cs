@@ -1,5 +1,4 @@
-﻿using MediatR;
-using MediatR.Pipeline;
+﻿using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 using Sample.MediatRPipelines.Domain.Primitives;
 

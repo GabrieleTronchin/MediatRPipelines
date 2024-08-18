@@ -3,7 +3,8 @@
 namespace Sample.MediatRPipelines.Domain.Queries.StreamEntityWithFilter
 {
     public class SampleStreamEntityWithPipeFilterQuery
-        : IStreamRequest<SampleStreamEntityWithPipeFilterQueryResult> { }
+        : IStreamRequest<SampleStreamEntityWithPipeFilterQueryResult>
+    { }
 
     public record SampleStreamEntityWithPipeFilterQueryResult
     {
@@ -11,6 +12,6 @@ namespace Sample.MediatRPipelines.Domain.Queries.StreamEntityWithFilter
 
         public DateTime EventTime { get; set; }
 
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
     }
 }

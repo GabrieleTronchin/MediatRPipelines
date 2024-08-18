@@ -10,6 +10,6 @@ namespace Sample.MediatRPipelines.Domain.Queries.StreamEntity
 
         public DateTime EventTime { get; set; }
 
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
     }
 }
