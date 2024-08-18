@@ -1,13 +1,13 @@
-﻿using FluentValidation;
+﻿using FakeAuth.Service;
+using FluentValidation;
 using MediatR;
+using MediatRPlayground.Pipelines.Command;
+using MediatRPlayground.Pipelines.Query;
+using MediatRPlayground.Pipelines.Stream;
+using MediatRPlayground.Pipelines.TransactionCommand;
 using Microsoft.Extensions.DependencyInjection;
-using Sample.MediatRPipelines.Domain.FakeAuth;
-using Sample.MediatRPipelines.Domain.Pipelines.Command;
-using Sample.MediatRPipelines.Domain.Pipelines.Query;
-using Sample.MediatRPipelines.Domain.Pipelines.Stream;
-using Sample.MediatRPipelines.Domain.Pipelines.TransactionCommand;
 
-namespace Sample.MediatRPipelines.Domain;
+namespace MediatR.Playground.Domain;
 
 public static class ServicesExtensions
 {
@@ -19,21 +19,24 @@ public static class ServicesExtensions
             cfg.RegisterServicesFromAssembly(typeof(ServicesExtensions).Assembly)
         );
 
-        //Just register the behaviors in the order you would like them to be called.
-
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
         services.AddTransient(
             typeof(IPipelineBehavior<,>),
             typeof(CommandAuthorizationBehavior<,>)
         );
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
+
+        services.AddTransient(
+            typeof(IPipelineBehavior<,>),
+            typeof(UnitOfWorkBehavior<,>));
 
         services.AddTransient(
             typeof(IStreamPipelineBehavior<,>),
             typeof(GenericStreamLoggingBehavior<,>)
         );
+
         services.AddTransient(
             typeof(IStreamPipelineBehavior<,>),
             typeof(SampleFilterStreamBehavior<,>)

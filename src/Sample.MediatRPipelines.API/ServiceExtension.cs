@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection.Extensions;
-using Sample.MediatRPipelines.API.Endpoints.Primitives;
+﻿using MediatR.Playground.API.Endpoints.Primitives;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Reflection;
 
-namespace Sample.MediatRPipelines.API;
+namespace MediatR.Playground.API;
 
 public static class ServiceExtension
 {

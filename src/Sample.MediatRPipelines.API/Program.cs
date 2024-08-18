@@ -1,6 +1,6 @@
-using Sample.MediatRPipelines.API;
-using Sample.MediatRPipelines.Domain;
-using Sample.MediatRPipelines.Persistence;
+using MediatR.Playground.API;
+using MediatR.Playground.Domain;
+using MediatR.Playground.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Sample.MediatRPipelines.Persistence;
+namespace MediatR.Playground.Persistence;
 
 public class SampleDbContext : DbContext
 {

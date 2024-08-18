@@ -1,4 +1,4 @@
-﻿namespace Sample.MediatRPipelines.Persistence;
+﻿namespace MediatR.Playground.Persistence;
 
 public class SampleEntity
 {

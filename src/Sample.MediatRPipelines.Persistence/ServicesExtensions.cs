@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR.Playground.Persistence.Repository;
+using MediatR.Playground.Persistence.UoW;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
-using Sample.MediatRPipelines.Persistence.Repository;
-using Sample.MediatRPipelines.Persistence.UoW;
 
-namespace Sample.MediatRPipelines.Persistence;
+namespace MediatR.Playground.Persistence;
 
 public static class ServicesExtensions
 {

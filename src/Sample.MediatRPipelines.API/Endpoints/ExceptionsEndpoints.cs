@@ -1,11 +1,11 @@
 ﻿using MediatR;
+using MediatR.Playground.API.Endpoints.Primitives;
+using MediatR.Playground.API.Models;
+using MediatR.Playground.Model.Command;
 using Microsoft.AspNetCore.Mvc;
-using Sample.MediatRPipelines.API.Endpoints.Primitives;
-using Sample.MediatRPipelines.API.Models;
-using Sample.MediatRPipelines.Domain.Commands;
 using Sample.MediatRPipelines.Domain.Queries.Entity;
 
-namespace Sample.MediatRPipelines.API.Endpoints;
+namespace MediatR.Playground.API.Endpoints;
 
 public class ExceptionsEndpoints : IEndpoint
 {

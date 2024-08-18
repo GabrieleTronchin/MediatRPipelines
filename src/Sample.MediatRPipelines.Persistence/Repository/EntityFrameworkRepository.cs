@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR.Playground.Persistence;
+using Microsoft.EntityFrameworkCore;
 
-namespace Sample.MediatRPipelines.Persistence.Repository;
+namespace MediatR.Playground.Persistence.Repository;
 
 public class EntityFrameworkRepository<T> : IRepository<T>
     where T : class

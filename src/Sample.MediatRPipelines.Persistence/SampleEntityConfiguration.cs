@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Sample.MediatRPipelines.Persistence;
+namespace MediatR.Playground.Persistence;
 
 internal class SampleEntityConfiguration : IEntityTypeConfiguration<SampleEntity>
 {

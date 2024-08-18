@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using Sample.MediatRPipelines.API.Endpoints.Primitives;
-using Sample.MediatRPipelines.Domain.Queries.StreamEntity;
-using Sample.MediatRPipelines.Domain.Queries.StreamEntityWithFilter;
+using MediatR.Playground.API.Endpoints.Primitives;
+using MediatR.Playground.Model.Queries.StreamEntity;
+using MediatR.Playground.Model.Queries.StreamEntityWithFilter;
 
-namespace Sample.MediatRPipelines.API.Endpoints;
+namespace MediatR.Playground.API.Endpoints;
 
 public class StreamRequestEndpoint : IEndpoint
 {

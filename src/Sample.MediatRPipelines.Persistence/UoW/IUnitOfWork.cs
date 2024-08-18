@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Sample.MediatRPipelines.Persistence.UoW;
+namespace MediatR.Playground.Persistence.UoW;
 
 public interface IUnitOfWork
 {

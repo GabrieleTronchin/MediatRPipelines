@@ -1,7 +1,6 @@
-﻿namespace Sample.MediatRPipelines.API.Models
+﻿namespace MediatR.Playground.API.Models;
+
+public class SampleBody
 {
-    public class SampleBody
-    {
-        public string Description { get; set; }
-    }
+    public string Description { get; set; } = string.Empty;
 }

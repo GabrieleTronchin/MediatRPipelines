@@ -1,11 +1,11 @@
 ﻿using MediatR;
+using MediatR.Playground.API.Endpoints.Primitives;
+using MediatR.Playground.API.Models;
+using MediatR.Playground.Model.NewFolder;
 using Microsoft.AspNetCore.Mvc;
-using Sample.MediatRPipelines.API.Endpoints.Primitives;
-using Sample.MediatRPipelines.API.Models;
 using Sample.MediatRPipelines.Domain.Queries.Entity;
-using Sample.MediatRPipelines.Domain.TransactionCommand;
 
-namespace Sample.MediatRPipelines.API.Endpoints;
+namespace MediatR.Playground.API.Endpoints;
 
 public class TransactionEndpoints : IEndpoint
 {

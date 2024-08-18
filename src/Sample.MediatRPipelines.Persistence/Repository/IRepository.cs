@@ -1,4 +1,4 @@
-﻿namespace Sample.MediatRPipelines.Persistence.Repository;
+﻿namespace MediatR.Playground.Persistence.Repository;
 
 public interface IRepository<T>
 {

@@ -1,4 +1,4 @@
-﻿namespace Sample.MediatRPipelines.API.Endpoints.Primitives;
+﻿namespace MediatR.Playground.API.Endpoints.Primitives;
 
 public interface IEndpoint
 {
