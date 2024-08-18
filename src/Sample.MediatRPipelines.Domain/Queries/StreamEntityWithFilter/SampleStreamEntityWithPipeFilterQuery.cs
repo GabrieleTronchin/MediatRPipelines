@@ -3,8 +3,7 @@
 namespace Sample.MediatRPipelines.Domain.Queries.StreamEntityWithFilter
 {
     public class SampleStreamEntityWithPipeFilterQuery
-        : IStreamRequest<SampleStreamEntityWithPipeFilterQueryResult>
-    { }
+        : IStreamRequest<SampleStreamEntityWithPipeFilterQueryResult> { }
 
     public record SampleStreamEntityWithPipeFilterQueryResult
     {

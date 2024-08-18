@@ -8,7 +8,7 @@ public class GetSampleEntityQuery : IQueryRequest<GetSampleEntityQueryResult>
     public string CacheKey => $"{nameof(GetAllSampleEntitiesQuery)}-{Id}";
 }
 
-public record GetSampleEntityQueryResult
+public record GetSampleEntityQueryResult : IQueryResult
 {
     public Guid Id { get; set; }
 

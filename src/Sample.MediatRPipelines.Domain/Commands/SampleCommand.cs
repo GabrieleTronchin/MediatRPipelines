@@ -8,7 +8,9 @@ public class SampleCommand : ICommand<SampleCommandComplete>
 
     public DateTime EventTime { get; set; }
 
-    public string Description { get; set; }
+    public required string Description { get; set; }
+
+    public Exception? RaiseException { get; set; }
 }
 
 public record SampleCommandComplete

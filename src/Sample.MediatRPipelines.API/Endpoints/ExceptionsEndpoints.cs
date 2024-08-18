@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using Sample.MediatRPipelines.API.Endpoints.Primitives;
 using Sample.MediatRPipelines.API.Models;
 using Sample.MediatRPipelines.Domain.Commands;
-using Sample.MediatRPipelines.Domain.Request;
+using Sample.MediatRPipelines.Domain.Queries.Entity;
 
 namespace Sample.MediatRPipelines.API.Endpoints;
 
-public class RequestsAndCommandEndpoints : IEndpoint
+public class ExceptionsEndpoints : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost(
-                "/SampleCommand",
+                "/SampleCommandWithIOException",
                 ([FromBody] SampleBody sampleBody, IMediator mediator) =>
                 {
                     return mediator.Send(
@@ -21,28 +21,42 @@ public class RequestsAndCommandEndpoints : IEndpoint
                             Id = Guid.NewGuid(),
                             Description = sampleBody.Description,
                             EventTime = DateTime.UtcNow,
+                            RaiseException = new InvalidOperationException(
+                                "Sample Invalid Operation"
+                            ),
                         }
                     );
                 }
             )
-            .WithName("SampleCommand")
+            .WithName("SampleCommandWithIOException")
             .WithOpenApi();
 
         app.MapPost(
-                "/SampleRequest",
+                "/SampleCommandWithException",
                 ([FromBody] SampleBody sampleBody, IMediator mediator) =>
                 {
                     return mediator.Send(
-                        new SampleRequest()
+                        new SampleCommand()
                         {
                             Id = Guid.NewGuid(),
                             Description = sampleBody.Description,
                             EventTime = DateTime.UtcNow,
+                            RaiseException = new Exception("Sample Exception"),
                         }
                     );
                 }
             )
-            .WithName("SampleRequest")
+            .WithName("SampleCommandWithException")
+            .WithOpenApi();
+
+        app.MapGet(
+                "/NotFoundExceptionGlobalHandler",
+                (IMediator mediator) =>
+                {
+                    return mediator.Send(new GetSampleEntityQuery() { Id = Guid.Empty });
+                }
+            )
+            .WithName("NotFoundExcptionGlobalHandler")
             .WithOpenApi();
     }
 }

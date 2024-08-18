@@ -7,7 +7,7 @@ public class GetAllSampleEntitiesQuery : IQueryRequest<IEnumerable<GetAllSampleE
     public string CacheKey => $"{nameof(GetAllSampleEntitiesQuery)}-ALL";
 }
 
-public record GetAllSampleEntitiesQueryResult
+public record GetAllSampleEntitiesQueryResult : IQueryResult
 {
     public Guid Id { get; set; }
 

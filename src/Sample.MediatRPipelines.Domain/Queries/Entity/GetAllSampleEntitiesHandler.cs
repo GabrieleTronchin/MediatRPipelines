@@ -23,7 +23,7 @@ public class GetAllSampleEntitiesHandler
         {
             Id = x.Id,
             Description = x.Description,
-            EventTime = x.RegistrationTime
+            EventTime = x.RegistrationTime,
         });
     }
 }
