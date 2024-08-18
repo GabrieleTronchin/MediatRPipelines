@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sample.MediatRPipelines.Domain\MediatR.Playground.Domain.csproj" />
+    <ProjectReference Include="..\MediatR.Playground.Domain\MediatR.Playground.Domain.csproj" />
   </ItemGroup>
 
 </Project>

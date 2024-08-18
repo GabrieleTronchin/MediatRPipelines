@@ -14,8 +14,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FakeAuth.Service\FakeAuth.Service.csproj" />
-    <ProjectReference Include="..\MediatR.Playgroud.Model\MediatR.Playground.Model.csproj" />
-    <ProjectReference Include="..\Sample.MediatRPipelines.Persistence\MediatR.Playground.Persistence.csproj" />
+    <ProjectReference Include="..\MediatR.Playground.Model\MediatR.Playground.Model.csproj" />
+    <ProjectReference Include="..\MediatR.Playground.Persistence\MediatR.Playground.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
