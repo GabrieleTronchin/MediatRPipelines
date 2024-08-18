@@ -2,8 +2,8 @@
 using MediatR.Playground.API.Endpoints.Primitives;
 using MediatR.Playground.API.Models;
 using MediatR.Playground.Model.Command;
+using MediatR.Playground.Model.Queries.Entity;
 using Microsoft.AspNetCore.Mvc;
-using Sample.MediatRPipelines.Domain.Queries.Entity;
 
 namespace MediatR.Playground.API.Endpoints;
 

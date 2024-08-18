@@ -2,7 +2,7 @@
 using MediatR.Playground.API.Endpoints.Primitives;
 using MediatR.Playground.API.Models;
 using MediatR.Playground.Model.Command;
-using MediatR.Playground.Model.SampleRequest;
+using MediatR.Playground.Model.Request;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediatR.Playground.API.Endpoints;
