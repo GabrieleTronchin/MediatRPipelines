@@ -10,12 +10,10 @@ public class TransactionEndpoints : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
+        var group = app.MapGroup("/TransactionRequests").WithTags("Transaction Requests Endpoints");
 
-        var group = app.MapGroup("/TransactionRequests")
-                    .WithTags("Transaction Requests Endpoints");
-
-
-        group.MapGet(
+        group
+            .MapGet(
                 "/SampleEntity",
                 (IMediator mediator) =>
                 {
@@ -25,7 +23,8 @@ public class TransactionEndpoints : IEndpoint
             .WithName("SampleEntity")
             .WithOpenApi();
 
-        group.MapGet(
+        group
+            .MapGet(
                 "/SampleEntity/{id}",
                 (Guid id, IMediator mediator) =>
                 {
@@ -35,7 +34,8 @@ public class TransactionEndpoints : IEndpoint
             .WithName("SampleEntityById")
             .WithOpenApi();
 
-        group.MapPost(
+        group
+            .MapPost(
                 "/AddSampleEntity",
                 ([FromBody] SampleBody sampleBody, IMediator mediator) =>
                 {

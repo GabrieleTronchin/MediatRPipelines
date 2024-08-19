@@ -1,6 +1,6 @@
-﻿using MediatR;
+﻿using System.Runtime.CompilerServices;
+using MediatR;
 using Microsoft.Extensions.Logging;
-using System.Runtime.CompilerServices;
 
 namespace MediatRPlayground.Pipelines.Stream;
 
