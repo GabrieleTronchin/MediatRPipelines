@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR.Playground.Domain.CommandHandler;
-using MediatR.Playground.Model.Notifications;
+﻿using MediatR.Playground.Model.Notifications;
 using Microsoft.Extensions.Logging;
 
 namespace MediatR.Playground.Domain.NotificationHandler;

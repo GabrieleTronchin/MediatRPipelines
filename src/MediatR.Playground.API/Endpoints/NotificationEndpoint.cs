@@ -1,7 +1,5 @@
 ﻿using MediatR.Playground.API.Endpoints.Primitives;
 using MediatR.Playground.Model.Notifications;
-using MediatR.Playground.Model.Queries.StreamEntity;
-using MediatR.Playground.Model.Queries.StreamEntityWithFilter;
 
 namespace MediatR.Playground.API.Endpoints;
 

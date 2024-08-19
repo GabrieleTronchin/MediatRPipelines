@@ -1,8 +1,8 @@
-﻿using System.Runtime.CompilerServices;
-using FakeAuth.Service;
+﻿using FakeAuth.Service;
 using MediatR;
 using MediatR.Playground.Model.Queries.StreamEntityWithFilter;
 using Microsoft.Extensions.Logging;
+using System.Runtime.CompilerServices;
 
 namespace MediatRPlayground.Pipelines.Stream;
 

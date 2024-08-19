@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using MediatR;
+﻿using MediatR;
 using MediatR.Playground.Model.Primitives;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace MediatRPlayground.Pipelines.Command;
 
