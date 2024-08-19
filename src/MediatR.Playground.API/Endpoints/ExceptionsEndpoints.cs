@@ -10,11 +10,10 @@ public class ExceptionsEndpoints : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
+        var group = app.MapGroup("/Exceptions").WithTags("Exceptions Endpoints");
 
-        var group = app.MapGroup("/Exceptions")
-              .WithTags("Exceptions Endpoints");
-
-        group.MapPost(
+        group
+            .MapPost(
                 "/SampleCommandWithIOException",
                 ([FromBody] SampleBody sampleBody, IMediator mediator) =>
                 {
@@ -34,7 +33,8 @@ public class ExceptionsEndpoints : IEndpoint
             .WithName("SampleCommandWithIOException")
             .WithOpenApi();
 
-        group.MapPost(
+        group
+            .MapPost(
                 "/SampleCommandWithException",
                 ([FromBody] SampleBody sampleBody, IMediator mediator) =>
                 {
@@ -52,7 +52,8 @@ public class ExceptionsEndpoints : IEndpoint
             .WithName("SampleCommandWithException")
             .WithOpenApi();
 
-        group.MapGet(
+        group
+            .MapGet(
                 "/NotFoundExceptionGlobalHandler",
                 (IMediator mediator) =>
                 {

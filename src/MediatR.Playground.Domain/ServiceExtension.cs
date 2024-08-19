@@ -27,9 +27,7 @@ public static class ServicesExtensions
             typeof(CommandAuthorizationBehavior<,>)
         );
 
-        services.AddTransient(
-            typeof(IPipelineBehavior<,>),
-            typeof(UnitOfWorkBehavior<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
 
         services.AddTransient(
             typeof(IStreamPipelineBehavior<,>),

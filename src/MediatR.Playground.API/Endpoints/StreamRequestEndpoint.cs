@@ -8,11 +8,10 @@ public class StreamRequestEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
+        var group = app.MapGroup("/StreamRequests").WithTags("Stream Requests Endpoints");
 
-        var group = app.MapGroup("/StreamRequests")
-       .WithTags("Stream Requests Endpoints");
-
-        group.MapGet(
+        group
+            .MapGet(
                 "/SampleStreamEntity",
                 (IMediator mediator, CancellationToken cancellationToken) =>
                 {
@@ -23,7 +22,8 @@ public class StreamRequestEndpoint : IEndpoint
             .Produces<IAsyncEnumerable<SampleStreamEntityQueryResult>>()
             .WithOpenApi();
 
-        group.MapGet(
+        group
+            .MapGet(
                 "/SampleStreamEntityWithPipeFilter",
                 (IMediator mediator, CancellationToken cancellationToken) =>
                 {

@@ -10,11 +10,10 @@ public class RequestsAndCommandEndpoints : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/Requests")
-           .WithTags("Requests Endpoints");
+        var group = app.MapGroup("/Requests").WithTags("Requests Endpoints");
 
-
-        group.MapPost(
+        group
+            .MapPost(
                 "/SampleCommand",
                 ([FromBody] SampleBody sampleBody, IMediator mediator) =>
                 {
@@ -31,7 +30,8 @@ public class RequestsAndCommandEndpoints : IEndpoint
             .WithName("SampleCommand")
             .WithOpenApi();
 
-        group.MapPost(
+        group
+            .MapPost(
                 "/SampleRequest",
                 ([FromBody] SampleBody sampleBody, IMediator mediator) =>
                 {
