@@ -1,9 +1,8 @@
-﻿using MediatR;
-using MediatR.Playground.Model.Primitives;
+﻿using System.Diagnostics;
+using MediatR.Playground.Model.Primitives.Request;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 
-namespace MediatRPlayground.Pipelines.Command;
+namespace MediatR.Playground.Pipelines.Command;
 
 public sealed class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ICommand<TResponse>

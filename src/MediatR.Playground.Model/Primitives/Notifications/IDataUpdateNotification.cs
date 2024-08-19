@@ -1,4 +1,4 @@
-﻿namespace MediatR.Playground.Model.Primitives;
+﻿namespace MediatR.Playground.Model.Primitives.Notifications;
 
 public interface IDataUpdateNotification : INotification
 {

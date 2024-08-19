@@ -6,7 +6,7 @@ namespace MediatR.Playground.Domain.NotificationHandler;
 internal class SampleNotificationSecondHandler(ILogger<SampleNotificationSecondHandler> logger)
     : INotificationHandler<SampleNotification>
 {
-    public Task Handle(SampleNotification notification, CancellationToken cancellationToken)
+    public async Task Handle(SampleNotification notification, CancellationToken cancellationToken)
     {
         logger.LogInformation(
             "A notification hit following handler: {handler} Notification Content: Id={Id};NotificationTime={EventTime}",
@@ -14,7 +14,5 @@ internal class SampleNotificationSecondHandler(ILogger<SampleNotificationSecondH
             notification.Id,
             notification.NotificationTime
         );
-
-        return Task.CompletedTask;
     }
 }

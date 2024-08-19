@@ -11,19 +11,53 @@ public class NotificationEndpoint : IEndpoint
 
         group
             .MapGet(
-                "/Notify",
+                "/DefaultNotification",
                 (IMediator mediator, CancellationToken cancellationToken) =>
                 {
                     return mediator.Publish(
                         new SampleNotification()
                         {
-                            Id = new Guid(),
+                            Id = Guid.NewGuid(),
                             NotificationTime = DateTime.Now,
                         }
                     );
                 }
             )
-            .WithName("Notify")
+            .WithName("DefaultNotification")
+            .WithOpenApi();
+
+        group
+            .MapGet(
+                "/ParallelNotification",
+                (IMediator mediator, CancellationToken cancellationToken) =>
+                {
+                    var publisher = mediator.Publish(
+                        new SampleParallelNotification()
+                        {
+                            Id = Guid.NewGuid(),
+                            NotificationTime = DateTime.Now,
+                        }
+                    );
+                }
+            )
+            .WithName("ParallelNotification")
+            .WithOpenApi();
+
+        group
+            .MapGet(
+                "/SamplePriorityNotification",
+                (IMediator mediator, CancellationToken cancellationToken) =>
+                {
+                    var publisher = mediator.Publish(
+                        new SamplePriorityNotification()
+                        {
+                            Id = Guid.NewGuid(),
+                            NotificationTime = DateTime.Now,
+                        }
+                    );
+                }
+            )
+            .WithName("SamplePriorityNotification")
             .WithOpenApi();
     }
 }

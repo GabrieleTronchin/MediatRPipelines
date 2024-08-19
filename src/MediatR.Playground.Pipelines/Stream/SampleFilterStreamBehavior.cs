@@ -1,10 +1,9 @@
-﻿using FakeAuth.Service;
-using MediatR;
+﻿using System.Runtime.CompilerServices;
+using FakeAuth.Service;
 using MediatR.Playground.Model.Queries.StreamEntityWithFilter;
 using Microsoft.Extensions.Logging;
-using System.Runtime.CompilerServices;
 
-namespace MediatRPlayground.Pipelines.Stream;
+namespace MediatR.Playground.Pipelines.Stream;
 
 public class SampleFilterStreamBehavior<TRequest, TResponse>
     : IStreamPipelineBehavior<TRequest, TResponse>

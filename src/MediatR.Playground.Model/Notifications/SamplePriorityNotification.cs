@@ -2,8 +2,9 @@
 
 namespace MediatR.Playground.Model.Notifications;
 
-public record DataUpdateNotification : IDataUpdateNotification
+public class SamplePriorityNotification : IPriorityNotification
 {
     public Guid Id { get; set; }
-    public required string CacheKey { get; set; }
+
+    public DateTime NotificationTime { get; set; }
 }

@@ -1,8 +1,7 @@
-﻿using MediatR;
+﻿using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
-using System.Runtime.CompilerServices;
 
-namespace MediatRPlayground.Pipelines.Stream;
+namespace MediatR.Playground.Pipelines.Stream;
 
 public class GenericStreamLoggingBehavior<TRequest, TResponse>
     : IStreamPipelineBehavior<TRequest, TResponse>

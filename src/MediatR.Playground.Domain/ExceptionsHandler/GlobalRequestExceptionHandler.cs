@@ -1,5 +1,5 @@
 ﻿using MediatR.Pipeline;
-using MediatR.Playground.Model.Primitives;
+using MediatR.Playground.Model.Primitives.Request;
 using Microsoft.Extensions.Logging;
 
 namespace MediatR.Playground.Domain.ExceptionsHandler;

@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
-using MediatR;
-using MediatR.Playground.Model.Primitives;
+using MediatR.Playground.Model.Primitives.Request;
 
-namespace MediatRPlayground.Pipelines.Command;
+namespace MediatR.Playground.Pipelines.Command;
 
 public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ICommand<TResponse>

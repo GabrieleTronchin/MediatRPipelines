@@ -1,9 +1,10 @@
 ﻿using FakeAuth.Service;
 using FluentValidation;
-using MediatRPlayground.Pipelines.Command;
-using MediatRPlayground.Pipelines.Query;
-using MediatRPlayground.Pipelines.Stream;
-using MediatRPlayground.Pipelines.TransactionCommand;
+using MediatR.Playground.Model.Primitives.Notifications;
+using MediatR.Playground.Pipelines.Command;
+using MediatR.Playground.Pipelines.Query;
+using MediatR.Playground.Pipelines.Stream;
+using MediatR.Playground.Pipelines.TransactionCommand;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MediatR.Playground.Domain;
@@ -15,8 +16,19 @@ public static class ServicesExtensions
         services.AddFusionCache();
 
         services.AddMediatR(cfg =>
-            cfg.RegisterServicesFromAssembly(typeof(ServicesExtensions).Assembly)
-        );
+        {
+            cfg.RegisterServicesFromAssembly(typeof(ServicesExtensions).Assembly);
+
+            //Default
+            //cfg.NotificationPublisher = new TaskWhenAllPublisher();
+            //cfg.NotificationPublisherType = typeof(CustomNotificationPublisher);
+
+            //cfg.NotificationPublisher = new ForeachAwaitPublisher();
+            //cfg.NotificationPublisherType = typeof(ForeachAwaitPublisher);
+
+            cfg.NotificationPublisher = new CustomNotificationPublisher();
+            cfg.NotificationPublisherType = typeof(CustomNotificationPublisher);
+        });
 
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
