@@ -1,5 +1,4 @@
-﻿using MediatR.Playground.Persistence;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace MediatR.Playground.Persistence.Repository;
 

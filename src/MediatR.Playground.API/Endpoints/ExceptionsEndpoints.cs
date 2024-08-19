@@ -1,5 +1,4 @@
-﻿using MediatR;
-using MediatR.Playground.API.Endpoints.Primitives;
+﻿using MediatR.Playground.API.Endpoints.Primitives;
 using MediatR.Playground.API.Models;
 using MediatR.Playground.Model.Command;
 using MediatR.Playground.Model.Queries.Entity;
@@ -11,7 +10,11 @@ public class ExceptionsEndpoints : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost(
+
+        var group = app.MapGroup("/Exceptions")
+              .WithTags("Exceptions Endpoints");
+
+        group.MapPost(
                 "/SampleCommandWithIOException",
                 ([FromBody] SampleBody sampleBody, IMediator mediator) =>
                 {
@@ -31,7 +34,7 @@ public class ExceptionsEndpoints : IEndpoint
             .WithName("SampleCommandWithIOException")
             .WithOpenApi();
 
-        app.MapPost(
+        group.MapPost(
                 "/SampleCommandWithException",
                 ([FromBody] SampleBody sampleBody, IMediator mediator) =>
                 {
@@ -49,7 +52,7 @@ public class ExceptionsEndpoints : IEndpoint
             .WithName("SampleCommandWithException")
             .WithOpenApi();
 
-        app.MapGet(
+        group.MapGet(
                 "/NotFoundExceptionGlobalHandler",
                 (IMediator mediator) =>
                 {

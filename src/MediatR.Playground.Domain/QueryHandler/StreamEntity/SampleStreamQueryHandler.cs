@@ -1,5 +1,4 @@
-﻿using MediatR;
-using MediatR.Playground.Model.Queries.StreamEntity;
+﻿using MediatR.Playground.Model.Queries.StreamEntity;
 using MediatR.Playground.Persistence;
 using MediatR.Playground.Persistence.Repository;
 

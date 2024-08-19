@@ -1,6 +1,5 @@
 ﻿using FakeAuth.Service;
 using FluentValidation;
-using MediatR;
 using MediatRPlayground.Pipelines.Command;
 using MediatRPlayground.Pipelines.Query;
 using MediatRPlayground.Pipelines.Stream;

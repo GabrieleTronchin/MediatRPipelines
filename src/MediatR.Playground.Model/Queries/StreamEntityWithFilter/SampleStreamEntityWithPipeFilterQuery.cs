@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace MediatR.Playground.Model.Queries.StreamEntityWithFilter
+﻿namespace MediatR.Playground.Model.Queries.StreamEntityWithFilter
 {
     public class SampleStreamEntityWithPipeFilterQuery
         : IStreamRequest<SampleStreamEntityWithPipeFilterQueryResult>

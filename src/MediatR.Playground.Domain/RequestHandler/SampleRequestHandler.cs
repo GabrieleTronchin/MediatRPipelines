@@ -1,5 +1,4 @@
-﻿using MediatR;
-using MediatR.Playground.Model.Request;
+﻿using MediatR.Playground.Model.Request;
 using Microsoft.Extensions.Logging;
 
 namespace MediatR.Playground.Domain.RequestHandler;

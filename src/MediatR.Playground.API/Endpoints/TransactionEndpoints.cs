@@ -1,5 +1,4 @@
-﻿using MediatR;
-using MediatR.Playground.API.Endpoints.Primitives;
+﻿using MediatR.Playground.API.Endpoints.Primitives;
 using MediatR.Playground.API.Models;
 using MediatR.Playground.Model.Queries.Entity;
 using MediatR.Playground.Model.TransactionCommand;
@@ -11,7 +10,12 @@ public class TransactionEndpoints : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet(
+
+        var group = app.MapGroup("/TransactionRequests")
+                    .WithTags("Transaction Requests Endpoints");
+
+
+        group.MapGet(
                 "/SampleEntity",
                 (IMediator mediator) =>
                 {
@@ -21,7 +25,7 @@ public class TransactionEndpoints : IEndpoint
             .WithName("SampleEntity")
             .WithOpenApi();
 
-        app.MapGet(
+        group.MapGet(
                 "/SampleEntity/{id}",
                 (Guid id, IMediator mediator) =>
                 {
@@ -31,7 +35,7 @@ public class TransactionEndpoints : IEndpoint
             .WithName("SampleEntityById")
             .WithOpenApi();
 
-        app.MapPost(
+        group.MapPost(
                 "/AddSampleEntity",
                 ([FromBody] SampleBody sampleBody, IMediator mediator) =>
                 {

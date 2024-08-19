@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace MediatR.Playground.Model.Queries.StreamEntity
+﻿namespace MediatR.Playground.Model.Queries.StreamEntity
 {
     public class SampleStreamEntityQuery : IStreamRequest<SampleStreamEntityQueryResult> { }
 

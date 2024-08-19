@@ -1,5 +1,4 @@
-﻿using MediatR;
-using MediatR.Playground.API.Endpoints.Primitives;
+﻿using MediatR.Playground.API.Endpoints.Primitives;
 using MediatR.Playground.Model.Queries.StreamEntity;
 using MediatR.Playground.Model.Queries.StreamEntityWithFilter;
 
@@ -9,7 +8,11 @@ public class StreamRequestEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet(
+
+        var group = app.MapGroup("/StreamRequests")
+       .WithTags("Stream Requests Endpoints");
+
+        group.MapGet(
                 "/SampleStreamEntity",
                 (IMediator mediator, CancellationToken cancellationToken) =>
                 {
@@ -20,7 +23,7 @@ public class StreamRequestEndpoint : IEndpoint
             .Produces<IAsyncEnumerable<SampleStreamEntityQueryResult>>()
             .WithOpenApi();
 
-        app.MapGet(
+        group.MapGet(
                 "/SampleStreamEntityWithPipeFilter",
                 (IMediator mediator, CancellationToken cancellationToken) =>
                 {
