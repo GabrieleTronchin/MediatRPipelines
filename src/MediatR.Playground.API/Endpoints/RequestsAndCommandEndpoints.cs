@@ -1,5 +1,4 @@
-﻿using MediatR;
-using MediatR.Playground.API.Endpoints.Primitives;
+﻿using MediatR.Playground.API.Endpoints.Primitives;
 using MediatR.Playground.API.Models;
 using MediatR.Playground.Model.Command;
 using MediatR.Playground.Model.Request;
@@ -11,7 +10,11 @@ public class RequestsAndCommandEndpoints : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost(
+        var group = app.MapGroup("/Requests")
+           .WithTags("Requests Endpoints");
+
+
+        group.MapPost(
                 "/SampleCommand",
                 ([FromBody] SampleBody sampleBody, IMediator mediator) =>
                 {
@@ -28,7 +31,7 @@ public class RequestsAndCommandEndpoints : IEndpoint
             .WithName("SampleCommand")
             .WithOpenApi();
 
-        app.MapPost(
+        group.MapPost(
                 "/SampleRequest",
                 ([FromBody] SampleBody sampleBody, IMediator mediator) =>
                 {

@@ -1,5 +1,4 @@
-﻿using MediatR;
-using MediatR.Playground.Model.Command;
+﻿using MediatR.Playground.Model.Command;
 using Microsoft.Extensions.Logging;
 
 namespace MediatR.Playground.Domain.CommandHandler;

@@ -1,5 +1,4 @@
-﻿using MediatR;
-using MediatR.Playground.Model.TransactionCommand;
+﻿using MediatR.Playground.Model.TransactionCommand;
 using MediatR.Playground.Persistence;
 using MediatR.Playground.Persistence.Repository;
 using Microsoft.Extensions.Logging;

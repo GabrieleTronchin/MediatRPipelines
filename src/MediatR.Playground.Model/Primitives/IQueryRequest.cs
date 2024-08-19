@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace MediatR.Playground.Model.Primitives;
+﻿namespace MediatR.Playground.Model.Primitives;
 
 public interface IQueryRequest<out IQueryResult> : IRequest<IQueryResult>
 {
