@@ -1,6 +1,6 @@
-﻿using MediatR.Playground.API.Endpoints.Primitives;
+﻿using System.Reflection;
+using MediatR.Playground.API.Endpoints.Primitives;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System.Reflection;
 
 namespace MediatR.Playground.API;
 

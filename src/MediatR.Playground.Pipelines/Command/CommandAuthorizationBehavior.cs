@@ -1,8 +1,7 @@
 ﻿using FakeAuth.Service;
-using MediatR;
-using MediatR.Playground.Model.Primitives;
+using MediatR.Playground.Model.Primitives.Request;
 
-namespace MediatRPlayground.Pipelines.Command;
+namespace MediatR.Playground.Pipelines.Command;
 
 public class CommandAuthorizationBehavior<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>

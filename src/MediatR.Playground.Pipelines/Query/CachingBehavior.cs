@@ -1,9 +1,8 @@
-﻿using MediatR;
-using MediatR.Playground.Model.Primitives;
+﻿using MediatR.Playground.Model.Primitives.Request;
 using Microsoft.Extensions.Logging;
 using ZiggyCreatures.Caching.Fusion;
 
-namespace MediatRPlayground.Pipelines.Query;
+namespace MediatR.Playground.Pipelines.Query;
 
 public sealed class CachingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IQueryRequest<TResponse>

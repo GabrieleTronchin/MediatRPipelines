@@ -1,4 +1,4 @@
-﻿using MediatR.Playground.Model.Primitives;
+﻿using MediatR.Playground.Model.Primitives.Request;
 
 namespace MediatR.Playground.Model.Queries.Entity;
 

@@ -1,9 +1,8 @@
-﻿using MediatR;
-using MediatR.Playground.Model.Primitives;
+﻿using MediatR.Playground.Model.Primitives.Request;
 using MediatR.Playground.Persistence.UoW;
 using Microsoft.Extensions.Logging;
 
-namespace MediatRPlayground.Pipelines.TransactionCommand;
+namespace MediatR.Playground.Pipelines.TransactionCommand;
 
 public class UnitOfWorkBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ITransactionCommand<TResponse>
