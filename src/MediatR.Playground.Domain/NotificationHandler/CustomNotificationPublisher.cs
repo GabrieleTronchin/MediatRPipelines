@@ -5,20 +5,15 @@ namespace MediatR.Playground.Domain.NotificationHandler;
 
 public class CustomNotificationPublisher : INotificationPublisher
 {
-
-
-
     private const int DEFAULT_PRIORITY = 99;
     private readonly TaskWhenAllPublisher taskWhenAllPublisher;
     private readonly ForeachAwaitPublisher foreachAwaitPublisher;
-
 
     public CustomNotificationPublisher()
     {
         taskWhenAllPublisher = new TaskWhenAllPublisher();
         foreachAwaitPublisher = new ForeachAwaitPublisher();
     }
-
 
     /// <summary>
     /// This is just a sample of custom publisher
@@ -36,44 +31,43 @@ public class CustomNotificationPublisher : INotificationPublisher
         if (notification is IPriorityNotification)
         {
             var lookUp = handlerExecutors
-                            .ToLookup(key => GetPriority(key.HandlerInstance), value => value)
-                            .OrderBy(k => k.Key);
+                .ToLookup(key => GetPriority(key.HandlerInstance), value => value)
+                .OrderBy(k => k.Key);
 
             foreach (var handler in lookUp)
             {
-                foreach (var notificationHandler in handler.ToList()) {
-
+                foreach (var notificationHandler in handler.ToList())
+                {
                     await notificationHandler
-                    .HandlerCallback(notification, cancellationToken)
-                    .ConfigureAwait(false);
-
+                        .HandlerCallback(notification, cancellationToken)
+                        .ConfigureAwait(false);
                 }
             }
         }
         else if (notification is IParallelNotification)
         {
-            await foreachAwaitPublisher.Publish(handlerExecutors, notification, cancellationToken).ConfigureAwait(false);
+            await foreachAwaitPublisher
+                .Publish(handlerExecutors, notification, cancellationToken)
+                .ConfigureAwait(false);
         }
         else
         {
-           await taskWhenAllPublisher.Publish(handlerExecutors, notification, cancellationToken);
+            await taskWhenAllPublisher.Publish(handlerExecutors, notification, cancellationToken);
         }
     }
 
-
-
     private int GetPriority(object handler)
     {
-
-        var priority = handler.GetType().GetProperties().FirstOrDefault(t => t.Name == nameof(IPriorityNotificationHandler<IPriorityNotification>.Priority));
+        var priority = handler
+            .GetType()
+            .GetProperties()
+            .FirstOrDefault(t =>
+                t.Name == nameof(IPriorityNotificationHandler<IPriorityNotification>.Priority)
+            );
 
         if (priority == null)
             return DEFAULT_PRIORITY;
 
-
         return int.Parse(priority.GetValue(handler)?.ToString() ?? DEFAULT_PRIORITY.ToString());
-
-
     }
-
 }

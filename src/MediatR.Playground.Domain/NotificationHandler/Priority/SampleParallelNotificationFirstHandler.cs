@@ -1,7 +1,6 @@
 ﻿using MediatR.Playground.Model.Notifications;
-using Microsoft.Extensions.Logging;
 using MediatR.Playground.Model.Primitives.Notifications;
-
+using Microsoft.Extensions.Logging;
 
 namespace MediatR.Playground.Domain.NotificationHandler;
 
