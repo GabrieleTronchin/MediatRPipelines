@@ -46,13 +46,13 @@ public class CustomNotificationPublisher : INotificationPublisher
         }
         else if (notification is IParallelNotification)
         {
-            await foreachAwaitPublisher
+            await taskWhenAllPublisher
                 .Publish(handlerExecutors, notification, cancellationToken)
                 .ConfigureAwait(false);
         }
         else
         {
-            await taskWhenAllPublisher.Publish(handlerExecutors, notification, cancellationToken);
+            await foreachAwaitPublisher.Publish(handlerExecutors, notification, cancellationToken);
         }
     }
 

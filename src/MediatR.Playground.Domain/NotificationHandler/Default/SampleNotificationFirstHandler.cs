@@ -8,6 +8,8 @@ internal class SampleNotificationFirstHandler(ILogger<SampleNotificationFirstHan
 {
     public async Task Handle(SampleNotification notification, CancellationToken cancellationToken)
     {
+
+        // the first message is delayed to show that second handler wait before to be triggered
         await Task.Delay(1000);
 
         logger.LogInformation(

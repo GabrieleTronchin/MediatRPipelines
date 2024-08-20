@@ -12,14 +12,22 @@ internal class SampleParallelNotificationFirstHandler(
         CancellationToken cancellationToken
     )
     {
-        // Add  delay before log just to prove that task are on parallel
-        await Task.Delay(1000);
-
         logger.LogInformation(
             "A notification hit following handler: {handler} Notification Content: Id={Id};NotificationTime={EventTime}",
             nameof(SampleParallelNotificationFirstHandler),
             notification.Id,
             notification.NotificationTime
         );
+
+        // Add  delay before log just to prove that task are on parallel
+        await Task.Delay(5000);
+
+        logger.LogInformation(
+            "Delay Exprire for {handler} Notification Content: Id={Id};NotificationTime={EventTime}",
+            nameof(SampleParallelNotificationFirstHandler),
+            notification.Id,
+            notification.NotificationTime
+        );
+
     }
 }
