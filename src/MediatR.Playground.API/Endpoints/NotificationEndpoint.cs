@@ -10,8 +10,8 @@ public class NotificationEndpoint : IEndpoint
         var group = app.MapGroup("/Notifications").WithTags("Notifications Endpoints");
 
         group
-            .MapGet(
-                "/DefaultNotification",
+            .MapPost(
+                "/SequentialNotification",
                 (IMediator mediator, CancellationToken cancellationToken) =>
                 {
                     return mediator.Publish(
@@ -19,15 +19,16 @@ public class NotificationEndpoint : IEndpoint
                         {
                             Id = Guid.NewGuid(),
                             NotificationTime = DateTime.Now,
-                        }
+                        },
+                        cancellationToken
                     );
                 }
             )
-            .WithName("DefaultNotification")
+            .WithName("SequentialNotification")
             .WithOpenApi();
 
         group
-            .MapGet(
+            .MapPost(
                 "/ParallelNotification",
                 (IMediator mediator, CancellationToken cancellationToken) =>
                 {
@@ -36,7 +37,8 @@ public class NotificationEndpoint : IEndpoint
                         {
                             Id = Guid.NewGuid(),
                             NotificationTime = DateTime.Now,
-                        }
+                        },
+                        cancellationToken
                     );
                 }
             )
@@ -44,7 +46,7 @@ public class NotificationEndpoint : IEndpoint
             .WithOpenApi();
 
         group
-            .MapGet(
+            .MapPost(
                 "/SamplePriorityNotification",
                 (IMediator mediator, CancellationToken cancellationToken) =>
                 {
@@ -53,7 +55,8 @@ public class NotificationEndpoint : IEndpoint
                         {
                             Id = Guid.NewGuid(),
                             NotificationTime = DateTime.Now,
-                        }
+                        },
+                        cancellationToken
                     );
                 }
             )

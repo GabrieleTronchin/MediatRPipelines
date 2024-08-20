@@ -19,14 +19,6 @@ public static class ServicesExtensions
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(typeof(ServicesExtensions).Assembly);
-
-            //Default
-            //cfg.NotificationPublisher = new TaskWhenAllPublisher();
-            //cfg.NotificationPublisherType = typeof(CustomNotificationPublisher);
-
-            //cfg.NotificationPublisher = new ForeachAwaitPublisher();
-            //cfg.NotificationPublisherType = typeof(ForeachAwaitPublisher);
-
             cfg.NotificationPublisher = new CustomNotificationPublisher();
             cfg.NotificationPublisherType = typeof(CustomNotificationPublisher);
         });
