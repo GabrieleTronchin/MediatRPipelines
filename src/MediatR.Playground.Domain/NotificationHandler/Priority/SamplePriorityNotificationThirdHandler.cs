@@ -1,23 +1,23 @@
 ﻿using MediatR.Playground.Model.Notifications;
+using MediatR.Playground.Model.Primitives.Notifications;
 using Microsoft.Extensions.Logging;
 
 namespace MediatR.Playground.Domain.NotificationHandler;
 
-internal class SampleParallelNotificationFirstHandler(
-    ILogger<SampleParallelNotificationFirstHandler> logger
-) : INotificationHandler<SampleParallelNotification>
+internal class SamplePriorityNotificationThirdHandler(
+    ILogger<SamplePriorityNotificationThirdHandler> logger
+) : IPriorityNotificationHandler<SamplePriorityNotification>
 {
+    public int Priority => 1;
+
     public async Task Handle(
-        SampleParallelNotification notification,
+        SamplePriorityNotification notification,
         CancellationToken cancellationToken
     )
     {
-        // Add  delay before log just to prove that task are on parallel
-        await Task.Delay(1000);
-
         logger.LogInformation(
             "A notification hit following handler: {handler} Notification Content: Id={Id};NotificationTime={EventTime}",
-            nameof(SampleParallelNotificationFirstHandler),
+            nameof(SamplePriorityNotificationThirdHandler),
             notification.Id,
             notification.NotificationTime
         );

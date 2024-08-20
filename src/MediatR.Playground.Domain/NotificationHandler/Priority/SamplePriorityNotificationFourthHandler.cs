@@ -3,16 +3,18 @@ using Microsoft.Extensions.Logging;
 
 namespace MediatR.Playground.Domain.NotificationHandler;
 
-internal class SampleNotificationFirstHandler(ILogger<SampleNotificationFirstHandler> logger)
-    : INotificationHandler<SampleNotification>
+internal class SamplePriorityNotificationFourthHandler(
+    ILogger<SamplePriorityNotificationFourthHandler> logger
+) : INotificationHandler<SamplePriorityNotification>
 {
-    public async Task Handle(SampleNotification notification, CancellationToken cancellationToken)
+    public async Task Handle(
+        SamplePriorityNotification notification,
+        CancellationToken cancellationToken
+    )
     {
-        await Task.Delay(1000);
-
         logger.LogInformation(
             "A notification hit following handler: {handler} Notification Content: Id={Id};NotificationTime={EventTime}",
-            nameof(SampleNotificationFirstHandler),
+            nameof(SamplePriorityNotificationFourthHandler),
             notification.Id,
             notification.NotificationTime
         );

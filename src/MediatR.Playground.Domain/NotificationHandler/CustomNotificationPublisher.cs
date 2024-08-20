@@ -4,6 +4,8 @@ namespace MediatR.Playground.Domain.NotificationHandler;
 
 public class CustomNotificationPublisher : INotificationPublisher
 {
+    private const int DEFAULT_PRIORITY = 99;
+
     /// <summary>
     /// This is just a sample of custom publisher
     /// </summary>
@@ -19,7 +21,37 @@ public class CustomNotificationPublisher : INotificationPublisher
     {
         if (notification is IPriorityNotification)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+
+                var lookUp = handlerExecutors
+                             .ToLookup(x => GetPriority(x.HandlerInstance), k => k)
+                             .OrderBy(x => x.Key);
+
+                foreach (var handler in lookUp)
+                {
+
+                    foreach (var notificationHandler in handler.ToList()) {
+
+                        await notificationHandler
+                       .HandlerCallback(notification, cancellationToken)
+                       .ConfigureAwait(false);
+
+                    }
+
+  
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+          
+
         }
         else if (notification is IParallelNotification)
         {
@@ -39,4 +71,21 @@ public class CustomNotificationPublisher : INotificationPublisher
             }
         }
     }
+
+
+
+    private int GetPriority(object handler)
+    {
+
+        var priority = handler.GetType().GetProperties().FirstOrDefault(t => t.Name == nameof(IPriorityNotificationHandler<IPriorityNotification>.Priority));
+
+        if (priority == null)
+            return DEFAULT_PRIORITY;
+
+
+        return int.Parse(priority.GetValue(handler)?.ToString() ?? "0");
+
+
+    }
+
 }
