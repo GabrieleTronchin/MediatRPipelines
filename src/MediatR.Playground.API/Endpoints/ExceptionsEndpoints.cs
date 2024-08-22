@@ -62,5 +62,18 @@ public class ExceptionsEndpoints : IEndpoint
             )
             .WithName("NotFoundExcptionGlobalHandler")
             .WithOpenApi();
+
+
+        group
+            .MapGet(
+                "/OperationExceptionGlobalHandler",
+                (IMediator mediator) =>
+                {
+                    return mediator.Send(new GetAllSampleEntitiesQuery() { RaiseException = true});
+                }
+            )
+            .WithName("OperationExceptionGlobalHandler")
+            .WithOpenApi();
+
     }
 }

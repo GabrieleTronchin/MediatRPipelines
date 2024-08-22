@@ -7,7 +7,7 @@ namespace MediatR.Playground.Domain.ExceptionsHandler;
 internal class GlobalRequestExceptionHandler<IRequest, TResponse, TException>
     : IRequestExceptionHandler<IRequest, TResponse, TException>
     where IRequest : IQueryRequest<IQueryResult>
-    where TResponse : IQueryResult
+    where TResponse : IQueryResult, IEnumerable<IQueryResult>
     where TException : Exception
 {
     private readonly ILogger<
@@ -33,7 +33,18 @@ internal class GlobalRequestExceptionHandler<IRequest, TResponse, TException>
             $"---- Exception Handler: '{nameof(GlobalRequestExceptionHandler<IRequest, TResponse, TException>)}'"
         );
 
-        state.SetHandled(default);
+
+        Type? responseType = state.GetType().GetProperty(nameof(RequestExceptionHandlerState<TResponse>.Response))?.PropertyType;
+
+        if (responseType is null)
+        {
+            state.SetHandled(default);
+        }
+        else {
+            TResponse? defaultIstance = (TResponse?)Activator.CreateInstance(responseType);
+            state.SetHandled(defaultIstance);
+        }
+
 
         return Task.CompletedTask;
     }

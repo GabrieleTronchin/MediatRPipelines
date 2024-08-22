@@ -4,6 +4,8 @@ namespace MediatR.Playground.Model.Queries.Entity;
 
 public class GetAllSampleEntitiesQuery : IQueryRequest<IEnumerable<GetAllSampleEntitiesQueryResult>>
 {
+    public bool RaiseException { get; set; }
+
     public string CacheKey => $"{nameof(GetAllSampleEntitiesQuery)}-ALL";
 }
 

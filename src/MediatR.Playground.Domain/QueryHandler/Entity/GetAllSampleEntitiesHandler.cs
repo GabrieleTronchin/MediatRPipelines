@@ -19,6 +19,10 @@ public class GetAllSampleEntitiesHandler
         CancellationToken cancellationToken
     )
     {
+        if (request.RaiseException)
+            throw new InvalidOperationException("A sample Exception");
+
+
         return (await _repository.GetAll()).Select(x => new GetAllSampleEntitiesQueryResult()
         {
             Id = x.Id,
