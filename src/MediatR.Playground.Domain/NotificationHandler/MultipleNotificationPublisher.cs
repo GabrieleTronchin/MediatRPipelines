@@ -5,7 +5,6 @@ namespace MediatR.Playground.Domain.NotificationHandler;
 
 public class MultipleNotificationPublisher : INotificationPublisher
 {
-    private const int DEFAULT_PRIORITY = 99;
     private readonly TaskWhenAllPublisher taskWhenAllPublisher;
     private readonly ForeachAwaitPublisher foreachAwaitPublisher;
     private readonly PriorityNotificationPublisher priorityNotificationPublisher;
