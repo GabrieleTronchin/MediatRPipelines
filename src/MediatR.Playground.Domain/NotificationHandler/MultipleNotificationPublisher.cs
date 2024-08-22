@@ -3,31 +3,30 @@ using MediatR.Playground.Model.Primitives.Notifications;
 
 namespace MediatR.Playground.Domain.NotificationHandler;
 
-public class CustomNotificationPublisher : INotificationPublisher
+public class MultipleNotificationPublisher : INotificationPublisher
 {
     private readonly TaskWhenAllPublisher taskWhenAllPublisher;
     private readonly ForeachAwaitPublisher foreachAwaitPublisher;
+    private readonly PriorityNotificationPublisher priorityNotificationPublisher;
 
-    public CustomNotificationPublisher()
+    public MultipleNotificationPublisher()
     {
         taskWhenAllPublisher = new TaskWhenAllPublisher();
         foreachAwaitPublisher = new ForeachAwaitPublisher();
+        priorityNotificationPublisher = new PriorityNotificationPublisher();
     }
 
-    /// <summary>
-    /// This is just a sample of custom publisher
-    /// </summary>
-    /// <param name="handlerExecutors"></param>
-    /// <param name="notification"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
     public async Task Publish(
         IEnumerable<NotificationHandlerExecutor> handlerExecutors,
         INotification notification,
         CancellationToken cancellationToken
     )
     {
-        if (notification is IParallelNotification)
+        if (notification is IPriorityNotification)
+        {
+            await priorityNotificationPublisher.Publish(handlerExecutors, notification, cancellationToken);
+        }
+        else if (notification is IParallelNotification)
         {
             await taskWhenAllPublisher
                 .Publish(handlerExecutors, notification, cancellationToken)
@@ -38,5 +37,4 @@ public class CustomNotificationPublisher : INotificationPublisher
             await foreachAwaitPublisher.Publish(handlerExecutors, notification, cancellationToken);
         }
     }
-
 }

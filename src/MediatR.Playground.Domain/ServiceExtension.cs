@@ -1,7 +1,6 @@
 ﻿using FakeAuth.Service;
 using FluentValidation;
 using MediatR.Playground.Domain.NotificationHandler;
-using MediatR.Playground.Model.Primitives.Notifications;
 using MediatR.Playground.Pipelines.Command;
 using MediatR.Playground.Pipelines.Query;
 using MediatR.Playground.Pipelines.Stream;
@@ -19,8 +18,8 @@ public static class ServicesExtensions
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(typeof(ServicesExtensions).Assembly);
-            cfg.NotificationPublisher = new CustomNotificationPublisher();
-            cfg.NotificationPublisherType = typeof(CustomNotificationPublisher);
+            cfg.NotificationPublisher = new MultipleNotificationPublisher();
+            cfg.NotificationPublisherType = typeof(MultipleNotificationPublisher);
         });
 
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));

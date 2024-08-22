@@ -1,7 +1,8 @@
 ﻿namespace MediatR.Playground.Model.Queries.StreamEntityWithFilter
 {
     public class SampleStreamEntityWithPipeFilterQuery
-        : IStreamRequest<SampleStreamEntityWithPipeFilterQueryResult> { }
+        : IStreamRequest<SampleStreamEntityWithPipeFilterQueryResult>
+    { }
 
     public record SampleStreamEntityWithPipeFilterQueryResult
     {

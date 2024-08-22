@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MediatR.Playground.Domain.NotificationHandler;
 
-public class SamplePriorityNotificationFirstHandler(
+internal class SamplePriorityNotificationFirstHandler(
     ILogger<SamplePriorityNotificationFirstHandler> logger
 ) : IPriorityNotificationHandler<SamplePriorityNotification>
 {

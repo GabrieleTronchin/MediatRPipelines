@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
-using MediatR.Playground.Model.Primitives.Request;
+﻿using MediatR.Playground.Model.Primitives.Request;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace MediatR.Playground.Pipelines.Command;
 
