@@ -1,7 +1,6 @@
 ﻿using FakeAuth.Service;
 using FluentValidation;
 using MediatR.Playground.Domain.NotificationHandler;
-using MediatR.Playground.Model.Primitives.Notifications;
 using MediatR.Playground.Pipelines.Command;
 using MediatR.Playground.Pipelines.Query;
 using MediatR.Playground.Pipelines.Stream;
