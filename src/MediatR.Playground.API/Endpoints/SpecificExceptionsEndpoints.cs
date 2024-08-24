@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MediatR.Playground.API.Endpoints;
 
-public class ExceptionsEndpoints : IEndpoint
+public class SpecificExceptionsEndpoints : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/Exceptions").WithTags("Exceptions Endpoints");
+        var group = app.MapGroup("SpecificExceptions").WithTags("Specific Exceptions Endpoints");
 
         group
             .MapPost(
-                "/SampleCommandWithIOException",
+                "/InvalidOperationException",
                 ([FromBody] SampleBody sampleBody, IMediator mediator) =>
                 {
                     return mediator.Send(
@@ -35,7 +35,7 @@ public class ExceptionsEndpoints : IEndpoint
 
         group
             .MapPost(
-                "/SampleCommandWithException",
+                "/Exception",
                 ([FromBody] SampleBody sampleBody, IMediator mediator) =>
                 {
                     return mediator.Send(
@@ -50,29 +50,6 @@ public class ExceptionsEndpoints : IEndpoint
                 }
             )
             .WithName("SampleCommandWithException")
-            .WithOpenApi();
-
-        group
-            .MapGet(
-                "/NotFoundExceptionGlobalHandler",
-                (IMediator mediator) =>
-                {
-                    return mediator.Send(new GetSampleEntityQuery() { Id = Guid.Empty });
-                }
-            )
-            .WithName("NotFoundExcptionGlobalHandler")
-            .WithOpenApi();
-
-
-        group
-            .MapGet(
-                "/OperationExceptionGlobalHandler",
-                (IMediator mediator) =>
-                {
-                    return mediator.Send(new GetAllSampleEntitiesQuery() { RaiseException = true});
-                }
-            )
-            .WithName("OperationExceptionGlobalHandler")
             .WithOpenApi();
 
     }

@@ -14,7 +14,7 @@ internal class InvalidOperationExceptionHandler
         _logger = logger;
     }
 
-    public async Task Handle(
+    public Task Handle(
         SampleCommand request,
         InvalidOperationException exception,
         RequestExceptionHandlerState<SampleCommandComplete> state,
@@ -27,5 +27,7 @@ internal class InvalidOperationExceptionHandler
         );
 
         state.SetHandled(new SampleCommandComplete() { Id = Guid.Empty });
+
+        return Task.CompletedTask;
     }
 }
