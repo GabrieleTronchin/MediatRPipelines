@@ -1,5 +1,6 @@
 ﻿using FakeAuth.Service;
 using FluentValidation;
+using MediatR.Playground.Domain.ExceptionsHandler;
 using MediatR.Playground.Domain.NotificationHandler;
 using MediatR.Playground.Pipelines.Command;
 using MediatR.Playground.Pipelines.Query;
@@ -25,6 +26,7 @@ public static class ServicesExtensions
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(GlobalExceptionHandlingBehavior<,>));
 
         services.AddTransient(
             typeof(IPipelineBehavior<,>),
