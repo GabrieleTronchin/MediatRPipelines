@@ -4,17 +4,25 @@ This repository is a playground project used to experiment with MediatR features
 
 It also serves as the code base for the following articles:
 
-- **C# .NET 8 — MediatR Pipelines:**  
+- **C# .NET — MediatR Pipelines:**  
   [Read on Medium](https://medium.com/@gabrieletronchin/c-net-8-mediatr-pipelines-edcc9ae8224b)
 
-- **C# .NET 8 — Unit Of Work Pattern with MediatR Pipeline:**  
+- **C# .NET — Unit Of Work Pattern with MediatR Pipeline:**  
   [Read on Medium](https://medium.com/@gabrieletronchin/c-net-8-unit-of-work-pattern-with-mediatr-pipeline-d7a374df3dcb)
 
-- **C# .NET 8 — Handle Exceptions with MediatR:**  
+- **C# .NET — Handle Exceptions with MediatR:**  
   [Read on Medium](https://medium.com/@gabrieletronchin/c-net-8-handle-exceptions-with-mediatr-48cbf80bae4e)
 
-- **C# .NET 8 — Stream Request and Pipeline With MediatR:**  
+- **C# .NET — Stream Request and Pipeline With MediatR:**  
   [Read on Medium](https://medium.com/@gabrieletronchin/c-net-8-stream-request-and-pipeline-with-mediatr-a26ddb911b39)
+
+- **C# .NET — Stream Request and Pipeline With MediatR:**
+  [Read on Medium](https://blog.devgenius.io/c-net-caching-requests-with-mediatr-pipeline-44a7b92f9978)
+
+- **C# .NET — Caching Requests With MediatR Pipeline**
+  [Read on Medium](https://medium.com/@gabrieletronchin/c-net-8-mediatr-notifications-and-notification-publisher-b72a36f0e9ee)
+
+
 
 ## Introduction to MediatR
 
@@ -52,29 +60,3 @@ The use cases of MediatR pipelines are numerous, and they could include:
 When starting the application, the Swagger page will appear:
 
 ![Swagger Page](assets/SwaggerHome.png)
-
-You can find 4 different endpoints:
-
-- **SampleCommand:** Use this endpoint to test the command. This command passes through all the MediatR pipelines: Logging -> Validation -> Authorization.
-- **SampleRequest:** Use this endpoint to skip all the pipelines. This works because it uses the plain `IRequest` instead of the custom `ICommand`.
-- **SampleEntity:** This endpoint is useful to test the result of adding a Sample entity.
-- **AddSampleEntity:** This endpoint uses the `ITransactionCommand` interface and is a sample of Unit of Work pipeline behavior. In this project, it also implements a sample of the `IRepository` pattern using EF with an InMemory Database.
-- **SampleStreamEntity:** Utilizing the plain `IStreamRequest`, this endpoint retrieves data from the database.
-- **SampleStreamEntityWithPipeFilter:** Similar to the previous endpoint, this one also employs the plain `IStreamRequest` to fetch data from the database. However, it incorporates a Pipeline Behavior applied to the request.
-
-## Exception Handling
-
-### RequestExceptionHandler
-
-With this feature, we can intercept exceptions raised from the request handler. Such a handler proves particularly useful when we need to intercept specific types of errors from the handler to manage fallback responses, logging, or other related operations.
-
-The implementation of `RequestExceptionHandler` is facilitated through the following interface:
-
-```csharp
-IRequestExceptionHandler<TRequest, TResponse, TException>
-```
-Here’s a breakdown of the generic parameters:
-
-- **`TRequest`:** Represents the type of request handled by the request handler.
-- **`TResponse`:** Represents the type of response returned when handling the request.
-- **`TException`:** Represents the type of exception that our middleware will handle. We can also specify more concrete types of exceptions to catch for more accurate handling.
