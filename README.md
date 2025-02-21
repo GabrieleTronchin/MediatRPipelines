@@ -4,25 +4,12 @@ This repository is a playground project used to experiment with MediatR features
 
 It also serves as the code base for the following articles:
 
-- **C# .NET — MediatR Pipelines:**  
-  [Read on Medium](https://medium.com/@gabrieletronchin/c-net-8-mediatr-pipelines-edcc9ae8224b)
-
-- **C# .NET — Unit Of Work Pattern with MediatR Pipeline:**  
-  [Read on Medium](https://medium.com/@gabrieletronchin/c-net-8-unit-of-work-pattern-with-mediatr-pipeline-d7a374df3dcb)
-
-- **C# .NET — Handle Exceptions with MediatR:**  
-  [Read on Medium](https://medium.com/@gabrieletronchin/c-net-8-handle-exceptions-with-mediatr-48cbf80bae4e)
-
-- **C# .NET — Stream Request and Pipeline With MediatR:**  
-  [Read on Medium](https://medium.com/@gabrieletronchin/c-net-8-stream-request-and-pipeline-with-mediatr-a26ddb911b39)
-
-- **C# .NET — Stream Request and Pipeline With MediatR:**
-  [Read on Medium](https://blog.devgenius.io/c-net-caching-requests-with-mediatr-pipeline-44a7b92f9978)
-
-- **C# .NET — Caching Requests With MediatR Pipeline**
-  [Read on Medium](https://medium.com/@gabrieletronchin/c-net-8-mediatr-notifications-and-notification-publisher-b72a36f0e9ee)
-
-
+- **C# .NET — MediatR Pipelines:**[Read on Medium](https://medium.com/@gabrieletronchin/c-net-8-mediatr-pipelines-edcc9ae8224b)
+- **C# .NET — Unit Of Work Pattern with MediatR Pipeline:**[Read on Medium](https://medium.com/@gabrieletronchin/c-net-8-unit-of-work-pattern-with-mediatr-pipeline-d7a374df3dcb)
+- **C# .NET — Handle Exceptions with MediatR:**[Read on Medium](https://medium.com/@gabrieletronchin/c-net-8-handle-exceptions-with-mediatr-48cbf80bae4e)
+- **C# .NET — Stream Request and Pipeline With MediatR:**[Read on Medium](https://medium.com/@gabrieletronchin/c-net-8-stream-request-and-pipeline-with-mediatr-a26ddb911b39)
+- **C# .NET — Stream Request and Pipeline With MediatR:**[Read on Medium](https://blog.devgenius.io/c-net-caching-requests-with-mediatr-pipeline-44a7b92f9978)
+- **C# .NET — Caching Requests With MediatR Pipeline:**[Read on Medium](https://medium.com/@gabrieletronchin/c-net-8-mediatr-notifications-and-notification-publisher-b72a36f0e9ee)
 
 ## Introduction to MediatR
 
