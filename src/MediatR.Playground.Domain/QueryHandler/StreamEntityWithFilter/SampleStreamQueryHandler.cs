@@ -1,4 +1,5 @@
-﻿using MediatR.Playground.Model.Queries.StreamEntityWithFilter;
+﻿using System.Runtime.CompilerServices;
+using MediatR.Playground.Model.Queries.StreamEntityWithFilter;
 using MediatR.Playground.Persistence;
 using MediatR.Playground.Persistence.Repository;
 
@@ -19,7 +20,7 @@ public class SampleStreamQueryWithPipeFilterHandler
 
     public async IAsyncEnumerable<SampleStreamEntityWithPipeFilterQueryResult> Handle(
         SampleStreamEntityWithPipeFilterQuery request,
-        CancellationToken cancellationToken
+        [EnumeratorCancellation] CancellationToken cancellationToken
     )
     {
         await foreach (var entity in _repository.GetStream(cancellationToken))

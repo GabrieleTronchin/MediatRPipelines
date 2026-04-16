@@ -8,7 +8,7 @@ public class AddSampleEntityCommand : ITransactionCommand<AddSampleEntityCommand
 
     public DateTime EventTime { get; set; }
 
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 }
 
 public record AddSampleEntityCommandComplete

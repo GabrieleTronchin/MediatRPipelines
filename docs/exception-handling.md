@@ -1,5 +1,9 @@
 # Exception Handling with MediatR
 
+> **Note:** This documentation was AI-generated based on the original article:
+> [C# .NET 8 — Handle Exceptions with MediatR](https://medium.com/@gabrieletronchin/c-net-8-handle-exceptions-with-mediatr-48cbf80bae4e).
+> It is intended as a companion reference for the code in this repository.
+
 ## Overview
 
 MediatR provides a built-in mechanism for handling exceptions thrown during request processing through the `IRequestExceptionHandler<TRequest, TResponse, TException>` interface (from the `MediatR.Pipeline` namespace). Unlike pipeline behaviors that wrap the entire request flow, exception handlers are invoked **after** the handler throws an exception, giving you a chance to log the error and optionally provide a fallback response.

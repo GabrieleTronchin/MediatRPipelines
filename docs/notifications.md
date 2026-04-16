@@ -1,5 +1,9 @@
 # MediatR Notifications and Notification Publishers
 
+> **Note:** This documentation was AI-generated based on the original article:
+> [C# .NET 8 — MediatR Notifications and Notification Publisher](https://medium.com/@gabrieletronchin/c-net-8-mediatr-notifications-and-notification-publisher-b72a36f0e9ee).
+> It is intended as a companion reference for the code in this repository.
+
 ## Overview
 
 MediatR supports a publish-subscribe pattern through `INotification` and `INotificationHandler<TNotification>`. Unlike requests (which have a single handler and return a response), notifications are dispatched to **all** registered handlers and do not return a value. This makes them well-suited for broadcasting events across multiple subscribers — logging, cache invalidation, side effects, and similar cross-cutting concerns.

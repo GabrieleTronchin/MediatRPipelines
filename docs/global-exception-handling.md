@@ -1,5 +1,9 @@
 # Global Exception Handling with MediatR
 
+> **Note:** This documentation was AI-generated based on the original article:
+> [C# .NET 8 — Handle Exceptions with MediatR](https://medium.com/@gabrieletronchin/c-net-8-handle-exceptions-with-mediatr-48cbf80bae4e).
+> It is intended as a companion reference for the code in this repository.
+
 ## Overview
 
 `GlobalExceptionHandlingBehavior` is a pipeline behavior (`IPipelineBehavior<TRequest, TResponse>`) that wraps every MediatR request in a try/catch block. When any exception is thrown during request processing, the behavior logs the error and re-throws it. This provides a single, centralized place for exception logging across all requests — without swallowing the exception or altering the response.

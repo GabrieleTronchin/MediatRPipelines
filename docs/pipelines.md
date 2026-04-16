@@ -1,5 +1,9 @@
 # MediatR Pipelines
 
+> **Note:** This documentation was AI-generated based on the original article:
+> [C# .NET 8 — MediatR Pipelines](https://medium.com/@gabrieletronchin/c-net-8-mediatr-pipelines-edcc9ae8224b).
+> It is intended as a companion reference for the code in this repository.
+
 ## Overview
 
 MediatR pipelines allow you to intercept the request/response flow by implementing `IPipelineBehavior<TRequest, TResponse>`. Each pipeline behavior wraps around the handler execution, giving you a hook to run logic **before** and **after** the handler processes the request.

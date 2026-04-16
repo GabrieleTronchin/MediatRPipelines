@@ -5,6 +5,7 @@ namespace MediatR.Playground.Pipelines.Stream;
 
 public class GenericStreamLoggingBehavior<TRequest, TResponse>
     : IStreamPipelineBehavior<TRequest, TResponse>
+    where TRequest : notnull
 {
     private readonly ILogger<GenericStreamLoggingBehavior<TRequest, TResponse>> _logger;
 

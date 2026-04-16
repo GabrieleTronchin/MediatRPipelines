@@ -1,5 +1,9 @@
 # Caching Pipeline with FusionCache
 
+> **Note:** This documentation was AI-generated based on the original article:
+> [C# .NET — Caching Requests with MediatR Pipeline](https://blog.devgenius.io/c-net-caching-requests-with-mediatr-pipeline-44a7b92f9978).
+> It is intended as a companion reference for the code in this repository.
+
 ## Overview
 
 The caching pipeline intercepts query requests and stores their results using [FusionCache](https://github.com/ZiggyCreatures/FusionCache). Instead of adding caching logic inside each query handler, a single `CachingBehavior` pipeline behavior handles it for all queries that implement `IQueryRequest<TResult>`. This keeps handlers focused on data retrieval while caching is managed transparently at the pipeline level.

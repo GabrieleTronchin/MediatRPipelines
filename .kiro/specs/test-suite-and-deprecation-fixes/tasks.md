@@ -113,41 +113,41 @@ This plan implements four independent areas: adding an isolated unit test suite 
     - Remove the 3 `.WithOpenApi()` calls from `src/MediatR.Playground.API/Endpoints/ExceptionsEndpoints.cs`
     - _Requirements: 10.5_
 
-- [ ] 7. Fix CS8618 warnings — Initialize non-nullable string properties
-  - [ ] 7.1 Fix `SampleEntity.cs`
+- [x] 7. Fix CS8618 warnings — Initialize non-nullable string properties
+  - [x] 7.1 Fix `SampleEntity.cs`
     - Add `= string.Empty` to the `Description` property in `SampleEntity.cs`
     - _Requirements: 11.1_
 
-  - [ ] 7.2 Fix `AddSampleEntityCommand.cs`
+  - [x] 7.2 Fix `AddSampleEntityCommand.cs`
     - Add `= string.Empty` to the `Description` property in `AddSampleEntityCommand.cs`
     - _Requirements: 11.2_
 
-- [ ] 8. Fix CS8425 warnings — Add `[EnumeratorCancellation]` attributes
-  - [ ] 8.1 Fix `EntityFrameworkRepository.cs`
+- [x] 8. Fix CS8425 warnings — Add `[EnumeratorCancellation]` attributes
+  - [x] 8.1 Fix `EntityFrameworkRepository.cs`
     - Add `[EnumeratorCancellation]` attribute to the `CancellationToken` parameter of the `GetStream` method
     - Add `using System.Runtime.CompilerServices;` if not already present
     - _Requirements: 12.1_
 
-  - [ ] 8.2 Fix `StreamEntity/SampleStreamQueryHandler.cs`
+  - [x] 8.2 Fix `StreamEntity/SampleStreamQueryHandler.cs`
     - Add `[EnumeratorCancellation]` attribute to the `CancellationToken` parameter of the `Handle` method
     - Add `using System.Runtime.CompilerServices;` if not already present
     - _Requirements: 12.2_
 
-  - [ ] 8.3 Fix `StreamEntityWithFilter/SampleStreamQueryHandler.cs`
+  - [x] 8.3 Fix `StreamEntityWithFilter/SampleStreamQueryHandler.cs`
     - Add `[EnumeratorCancellation]` attribute to the `CancellationToken` parameter of the `Handle` method
     - Add `using System.Runtime.CompilerServices;` if not already present
     - _Requirements: 12.3_
 
-- [ ] 9. Fix CS8714 warning — Add `notnull` constraint to `GenericStreamLoggingBehavior`
+- [x] 9. Fix CS8714 warning — Add `notnull` constraint to `GenericStreamLoggingBehavior`
   - Add `where TRequest : notnull` constraint to the `GenericStreamLoggingBehavior<TRequest, TResponse>` class declaration
   - _Requirements: 13.1_
 
-- [ ] 10. Checkpoint — Verify clean build with 0 warnings
+- [x] 10. Checkpoint — Verify clean build with 0 warnings
   - Run `dotnet build src/MediatR.Playground.sln` and verify 0 warnings
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 10.6, 11.3, 12.4, 13.2, 14.1, 14.2_
 
-- [ ] 11. Restructure README.md
+- [x] 11. Restructure README.md
   - Rewrite `README.md` with new title "MediatR Pipelines Playground"
   - Add version note about .NET 10 and MediatR 12.5.0 (last free Apache-2.0 version) near the top
   - Reorder sections: Project Structure → Swagger Endpoints → Getting Started → MediatR Fundamentals → Topics → Articles → Package Versions
@@ -157,7 +157,7 @@ This plan implements four independent areas: adding an isolated unit test suite 
   - Move "Package Versions" table to the bottom (last section)
   - _Requirements: 15.1, 15.2, 15.3, 16.1, 16.2, 16.3, 16.4_
 
-- [ ] 12. Create `docs/testing.md`
+- [x] 12. Create `docs/testing.md`
   - Create `docs/testing.md` with complete testing documentation
   - Include instructions for running tests (`dotnet test src/MediatR.Playground.sln`)
   - Include description of the `.http` file and how to use it
@@ -165,40 +165,40 @@ This plan implements four independent areas: adding an isolated unit test suite 
   - Do NOT include `-BaseUrl` or other optional parameters
   - _Requirements: 17.1, 17.2, 17.3, 19.1, 19.2_
 
-- [ ] 13. Add AI-generated disclaimers to existing `docs/` files
-  - [ ] 13.1 Add disclaimer to `docs/pipelines.md`
+- [x] 13. Add AI-generated disclaimers to existing `docs/` files
+  - [x] 13.1 Add disclaimer to `docs/pipelines.md`
     - Insert blockquote disclaimer after the title with link to the pipelines article
     - _Requirements: 18.1, 18.2, 18.3_
 
-  - [ ] 13.2 Add disclaimer to `docs/unit-of-work.md`
+  - [x] 13.2 Add disclaimer to `docs/unit-of-work.md`
     - Insert blockquote disclaimer after the title with link to the Unit of Work article
     - _Requirements: 18.1, 18.2, 18.3_
 
-  - [ ] 13.3 Add disclaimer to `docs/exception-handling.md`
+  - [x] 13.3 Add disclaimer to `docs/exception-handling.md`
     - Insert blockquote disclaimer after the title with link to the exception handling article
     - _Requirements: 18.1, 18.2, 18.3_
 
-  - [ ] 13.4 Add disclaimer to `docs/global-exception-handling.md`
+  - [x] 13.4 Add disclaimer to `docs/global-exception-handling.md`
     - Insert blockquote disclaimer after the title with link to the exception handling article (same article as exception-handling.md)
     - _Requirements: 18.1, 18.2, 18.3_
 
-  - [ ] 13.5 Add disclaimer to `docs/notifications.md`
+  - [x] 13.5 Add disclaimer to `docs/notifications.md`
     - Insert blockquote disclaimer after the title with link to the notifications article
     - _Requirements: 18.1, 18.2, 18.3_
 
-  - [ ] 13.6 Add disclaimer to `docs/priority-notification-publisher.md`
+  - [x] 13.6 Add disclaimer to `docs/priority-notification-publisher.md`
     - Insert blockquote disclaimer after the title with link to the notifications article (same article as notifications.md)
     - _Requirements: 18.1, 18.2, 18.3_
 
-  - [ ] 13.7 Add disclaimer to `docs/stream-requests.md`
+  - [x] 13.7 Add disclaimer to `docs/stream-requests.md`
     - Insert blockquote disclaimer after the title with link to the stream requests article
     - _Requirements: 18.1, 18.2, 18.3_
 
-  - [ ] 13.8 Add disclaimer to `docs/caching.md`
+  - [x] 13.8 Add disclaimer to `docs/caching.md`
     - Insert blockquote disclaimer after the title with link to the caching article
     - _Requirements: 18.1, 18.2, 18.3_
 
-- [ ] 14. Final checkpoint — Clean build and all tests pass
+- [x] 14. Final checkpoint — Clean build and all tests pass
   - Run `dotnet build src/MediatR.Playground.sln` and verify 0 warnings
   - Run `dotnet test src/MediatR.Playground.sln` and verify all tests pass (existing baseline smoke tests + all new unit tests)
   - Ensure all tests pass, ask the user if questions arise.

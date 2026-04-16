@@ -1,5 +1,9 @@
 # Unit of Work Pattern with MediatR Pipeline
 
+> **Note:** This documentation was AI-generated based on the original article:
+> [C# .NET 8 — Unit of Work Pattern with MediatR Pipeline](https://medium.com/@gabrieletronchin/c-net-8-unit-of-work-pattern-with-mediatr-pipeline-d7a374df3dcb).
+> It is intended as a companion reference for the code in this repository.
+
 ## Overview
 
 The Unit of Work pattern centralizes transaction management by wrapping handler execution in a database transaction. In this project, it is implemented as a MediatR pipeline behavior (`UnitOfWorkBehavior`) that automatically begins a transaction before the handler runs, commits on success, and rolls back on error. This keeps transaction logic out of individual handlers and ensures consistent behavior across all transactional commands.

@@ -1,5 +1,9 @@
 # Priority Notification Publisher
 
+> **Note:** This documentation was AI-generated based on the original article:
+> [C# .NET 8 — MediatR Notifications and Notification Publisher](https://medium.com/@gabrieletronchin/c-net-8-mediatr-notifications-and-notification-publisher-b72a36f0e9ee).
+> It is intended as a companion reference for the code in this repository.
+
 ## Overview
 
 The `PriorityNotificationPublisher` is a custom `INotificationPublisher` that executes notification handlers **sequentially**, ordered by a priority value. Handlers with lower priority numbers run first. This gives you explicit control over handler execution order — something the built-in MediatR publishers do not support.

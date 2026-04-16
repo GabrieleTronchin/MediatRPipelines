@@ -1,5 +1,9 @@
 # Stream Requests and Stream Pipelines
 
+> **Note:** This documentation was AI-generated based on the original article:
+> [C# .NET 8 — Stream Request and Pipeline with MediatR](https://medium.com/@gabrieletronchin/c-net-8-stream-request-and-pipeline-with-mediatr-a26ddb911b39).
+> It is intended as a companion reference for the code in this repository.
+
 ## Overview
 
 MediatR supports streaming data retrieval through `IStreamRequest<TResponse>` and `IAsyncEnumerable<TResponse>`. Instead of returning a complete collection in a single response, a stream request yields results one element at a time. This is useful when working with large datasets or real-time data where you want to start processing items as they become available rather than waiting for the entire result set.
