@@ -24,8 +24,7 @@ public class NotificationEndpoint : IEndpoint
                     );
                 }
             )
-            .WithName("SequentialNotification")
-            .WithOpenApi();
+            .WithName("SequentialNotification");
 
         group
             .MapPost(
@@ -42,8 +41,7 @@ public class NotificationEndpoint : IEndpoint
                     );
                 }
             )
-            .WithName("ParallelNotification")
-            .WithOpenApi();
+            .WithName("ParallelNotification");
 
         group
             .MapPost(
@@ -60,7 +58,6 @@ public class NotificationEndpoint : IEndpoint
                     );
                 }
             )
-            .WithName("SamplePriorityNotification")
-            .WithOpenApi();
+            .WithName("SamplePriorityNotification");
     }
 }

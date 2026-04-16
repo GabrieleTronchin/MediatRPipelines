@@ -27,8 +27,7 @@ public class RequestsAndCommandEndpoints : IEndpoint
                     );
                 }
             )
-            .WithName("SampleCommand")
-            .WithOpenApi();
+            .WithName("SampleCommand");
 
         group
             .MapPost(
@@ -45,7 +44,6 @@ public class RequestsAndCommandEndpoints : IEndpoint
                     );
                 }
             )
-            .WithName("SampleRequest")
-            .WithOpenApi();
+            .WithName("SampleRequest");
     }
 }

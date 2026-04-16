@@ -92,24 +92,24 @@ This plan implements four independent areas: adding an isolated unit test suite 
 - [x] 5. Checkpoint — Verify all unit tests compile and pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 6. Fix ASPDEPR002 warnings — Remove deprecated `.WithOpenApi()` calls
-  - [ ] 6.1 Remove `.WithOpenApi()` from `StreamRequestEndpoint.cs`
+- [x] 6. Fix ASPDEPR002 warnings — Remove deprecated `.WithOpenApi()` calls
+  - [x] 6.1 Remove `.WithOpenApi()` from `StreamRequestEndpoint.cs`
     - Remove the 2 `.WithOpenApi()` calls from `src/MediatR.Playground.API/Endpoints/StreamRequestEndpoint.cs`
     - _Requirements: 10.1_
 
-  - [ ] 6.2 Remove `.WithOpenApi()` from `RequestsAndCommandEndpoints.cs`
+  - [x] 6.2 Remove `.WithOpenApi()` from `RequestsAndCommandEndpoints.cs`
     - Remove the 2 `.WithOpenApi()` calls from `src/MediatR.Playground.API/Endpoints/RequestsAndCommandEndpoints.cs`
     - _Requirements: 10.2_
 
-  - [ ] 6.3 Remove `.WithOpenApi()` from `NotificationEndpoint.cs`
+  - [x] 6.3 Remove `.WithOpenApi()` from `NotificationEndpoint.cs`
     - Remove the 3 `.WithOpenApi()` calls from `src/MediatR.Playground.API/Endpoints/NotificationEndpoint.cs`
     - _Requirements: 10.3_
 
-  - [ ] 6.4 Remove `.WithOpenApi()` from `TransactionEndpoints.cs`
+  - [x] 6.4 Remove `.WithOpenApi()` from `TransactionEndpoints.cs`
     - Remove the 3 `.WithOpenApi()` calls from `src/MediatR.Playground.API/Endpoints/TransactionEndpoints.cs`
     - _Requirements: 10.4_
 
-  - [ ] 6.5 Remove `.WithOpenApi()` from `ExceptionsEndpoints.cs`
+  - [x] 6.5 Remove `.WithOpenApi()` from `ExceptionsEndpoints.cs`
     - Remove the 3 `.WithOpenApi()` calls from `src/MediatR.Playground.API/Endpoints/ExceptionsEndpoints.cs`
     - _Requirements: 10.5_
 

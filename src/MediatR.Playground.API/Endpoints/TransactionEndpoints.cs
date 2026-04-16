@@ -20,8 +20,7 @@ public class TransactionEndpoints : IEndpoint
                     return mediator.Send(new GetAllSampleEntitiesQuery());
                 }
             )
-            .WithName("SampleEntity")
-            .WithOpenApi();
+            .WithName("SampleEntity");
 
         group
             .MapGet(
@@ -31,8 +30,7 @@ public class TransactionEndpoints : IEndpoint
                     return mediator.Send(new GetSampleEntityQuery() { Id = id });
                 }
             )
-            .WithName("SampleEntityById")
-            .WithOpenApi();
+            .WithName("SampleEntityById");
 
         group
             .MapPost(
@@ -49,7 +47,6 @@ public class TransactionEndpoints : IEndpoint
                     );
                 }
             )
-            .WithName("AddSampleRequest")
-            .WithOpenApi();
+            .WithName("AddSampleRequest");
     }
 }

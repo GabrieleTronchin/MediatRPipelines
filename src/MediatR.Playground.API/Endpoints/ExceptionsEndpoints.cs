@@ -30,8 +30,7 @@ public class ExceptionsEndpoints : IEndpoint
                     );
                 }
             )
-            .WithName("SampleCommandWithIOException")
-            .WithOpenApi();
+            .WithName("SampleCommandWithIOException");
 
         group
             .MapPost(
@@ -49,8 +48,7 @@ public class ExceptionsEndpoints : IEndpoint
                     );
                 }
             )
-            .WithName("SampleCommandWithException")
-            .WithOpenApi();
+            .WithName("SampleCommandWithException");
 
         group
             .MapGet(
@@ -60,7 +58,6 @@ public class ExceptionsEndpoints : IEndpoint
                     return mediator.Send(new GetSampleEntityQuery() { Id = Guid.Empty });
                 }
             )
-            .WithName("NotFoundExcptionGlobalHandler")
-            .WithOpenApi();
+            .WithName("NotFoundExcptionGlobalHandler");
     }
 }

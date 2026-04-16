@@ -19,8 +19,7 @@ public class StreamRequestEndpoint : IEndpoint
                 }
             )
             .WithName("SampleStreamEntity")
-            .Produces<IAsyncEnumerable<SampleStreamEntityQueryResult>>()
-            .WithOpenApi();
+            .Produces<IAsyncEnumerable<SampleStreamEntityQueryResult>>();
 
         group
             .MapGet(
@@ -34,7 +33,6 @@ public class StreamRequestEndpoint : IEndpoint
                 }
             )
             .WithName("SampleStreamEntityWithPipeFilter")
-            .Produces<IAsyncEnumerable<SampleStreamEntityWithPipeFilterQueryResult>>()
-            .WithOpenApi();
+            .Produces<IAsyncEnumerable<SampleStreamEntityWithPipeFilterQueryResult>>();
     }
 }
