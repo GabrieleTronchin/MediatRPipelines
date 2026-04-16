@@ -6,14 +6,14 @@ This plan implements four independent areas: adding an isolated unit test suite 
 
 ## Tasks
 
-- [ ] 1. Add NSubstitute and FsCheck.Xunit packages to the test project
+- [x] 1. Add NSubstitute and FsCheck.Xunit packages to the test project
   - Add `NSubstitute` NuGet package to `test/MediatR.Playground.Tests/MediatR.Playground.Tests.csproj`
   - Add `FsCheck.Xunit` NuGet package to `test/MediatR.Playground.Tests/MediatR.Playground.Tests.csproj`
   - Verify the project restores and compiles with the new packages
   - _Requirements: 9.1, 9.2_
 
-- [ ] 2. Create unit tests for pipeline behaviors
-  - [ ] 2.1 Create `ValidationBehaviorTests.cs`
+- [x] 2. Create unit tests for pipeline behaviors
+  - [x] 2.1 Create `ValidationBehaviorTests.cs`
     - Create `test/MediatR.Playground.Tests/ValidationBehaviorTests.cs`
     - Test that `ValidationBehavior` throws `FluentValidation.ValidationException` when validators return errors
     - Test that `ValidationBehavior` calls `next()` and returns the response when validation passes
@@ -21,7 +21,7 @@ This plan implements four independent areas: adding an isolated unit test suite 
     - Mock `IValidator<SampleCommand>` and `RequestHandlerDelegate<SampleCommandComplete>` with NSubstitute
     - _Requirements: 1.1, 1.2, 1.3_
 
-  - [ ] 2.2 Create `CommandAuthorizationBehaviorTests.cs`
+  - [x] 2.2 Create `CommandAuthorizationBehaviorTests.cs`
     - Create `test/MediatR.Playground.Tests/CommandAuthorizationBehaviorTests.cs`
     - Test that the behavior throws the specific exception from `AuthResponse.Exception` when `IsSuccess = false`
     - Test that the behavior throws a generic `Exception` when `IsSuccess = false` and `Exception` is null
@@ -29,14 +29,14 @@ This plan implements four independent areas: adding an isolated unit test suite 
     - Mock `IAuthService` and `RequestHandlerDelegate<SampleCommandComplete>` with NSubstitute
     - _Requirements: 2.1, 2.2, 2.3_
 
-  - [ ] 2.3 Create `LoggingBehaviorTests.cs`
+  - [x] 2.3 Create `LoggingBehaviorTests.cs`
     - Create `test/MediatR.Playground.Tests/LoggingBehaviorTests.cs`
     - Test that `LoggingBehavior` calls `next()` and returns the delegate's response
     - Test that `LoggingBehavior` logs messages before and after calling `next()` (verify via `ILogger` mock)
     - Mock `ILogger<LoggingBehavior>` and `RequestHandlerDelegate<SampleCommandComplete>` with NSubstitute
     - _Requirements: 3.1, 3.2_
 
-  - [ ] 2.4 Create `CachingBehaviorTests.cs`
+  - [x] 2.4 Create `CachingBehaviorTests.cs`
     - Create `test/MediatR.Playground.Tests/CachingBehaviorTests.cs`
     - Test that `CachingBehavior` invokes `next()` and returns the response on cache miss
     - Test that `CachingBehavior` uses the request's `CacheKey` when interacting with `IFusionCache`
@@ -44,7 +44,7 @@ This plan implements four independent areas: adding an isolated unit test suite 
     - Use existing `GetAllSampleEntitiesQuery` / `GetAllSampleEntitiesQueryResult` types that implement `IQueryRequest`
     - _Requirements: 4.1, 4.2_
 
-  - [ ] 2.5 Create `UnitOfWorkBehaviorTests.cs`
+  - [x] 2.5 Create `UnitOfWorkBehaviorTests.cs`
     - Create `test/MediatR.Playground.Tests/UnitOfWorkBehaviorTests.cs`
     - Test that on success, `UnitOfWorkBehavior` calls `BeginTransaction()`, then `Commit()`, then `Dispose()` on the transaction
     - Test that on `next()` throwing, `UnitOfWorkBehavior` calls `RollbackAsync()` on the transaction and `Dispose()`
@@ -53,7 +53,7 @@ This plan implements four independent areas: adding an isolated unit test suite 
     - Use existing `AddSampleEntityCommand` / `AddSampleEntityCommandComplete` types that implement `ITransactionCommand`
     - _Requirements: 5.1, 5.2, 5.3_
 
-- [ ] 3. Checkpoint — Verify pipeline behavior tests compile and pass
+- [x] 3. Checkpoint — Verify pipeline behavior tests compile and pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 4. Create unit tests for notification publishers and validator
