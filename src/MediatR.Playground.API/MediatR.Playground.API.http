@@ -42,7 +42,7 @@ Content-Type: application/json
 }
 
 ### Get a sample entity by ID (replace with a real ID from the add response)
-GET {{baseUrl}}/TransactionRequests/SampleEntity/00000000-0000-0000-0000-000000000001
+GET {{baseUrl}}/TransactionRequests/SampleEntity/c16d1c0d-b435-4bae-9a87-c357b9ffd97a
 
 ###############################################################################
 # NOTIFICATIONS ENDPOINTS

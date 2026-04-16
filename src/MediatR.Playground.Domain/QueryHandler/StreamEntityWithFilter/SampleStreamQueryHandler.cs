@@ -1,7 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-using MediatR.Playground.Model.Queries.StreamEntityWithFilter;
+﻿using MediatR.Playground.Model.Queries.StreamEntityWithFilter;
 using MediatR.Playground.Persistence;
 using MediatR.Playground.Persistence.Repository;
+using System.Runtime.CompilerServices;
 
 namespace MediatR.Playground.Domain.QueryHandler.StreamEntityWithFilter;
 

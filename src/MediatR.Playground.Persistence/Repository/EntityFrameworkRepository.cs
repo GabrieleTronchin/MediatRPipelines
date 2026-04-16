@@ -1,5 +1,5 @@
-﻿using System.Runtime.CompilerServices;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace MediatR.Playground.Persistence.Repository;
 

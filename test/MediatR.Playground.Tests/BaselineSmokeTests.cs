@@ -1,12 +1,8 @@
-using FakeAuth.Service;
 using MediatR.Playground.Domain.NotificationHandler;
 using MediatR.Playground.Model.Command;
 using MediatR.Playground.Model.Notifications;
 using MediatR.Playground.Model.Request;
-using MediatR.Playground.Pipelines.Command;
-using MediatR.Playground.Pipelines.Query;
 using MediatR.Playground.Pipelines.Stream;
-using MediatR.Playground.Pipelines.TransactionCommand;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
