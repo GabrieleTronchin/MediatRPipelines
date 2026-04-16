@@ -20,6 +20,7 @@ Detailed documentation for each topic is available in the [`docs/`](docs/) folde
   - [Caching Pipeline](docs/caching.md)
 - [Medium Articles](#medium-articles)
 - [Swagger Endpoints](#swagger-endpoints)
+- [Testing the API](#testing-the-api)
 - [Getting Started](#getting-started)
 
 ## Package Versions
@@ -166,6 +167,50 @@ The API exposes the following endpoint groups through Swagger:
 |--------|----------|-------------|
 | GET | `/StreamRequests/SampleStreamEntity` | Streams sample entities with generic logging pipeline |
 | GET | `/StreamRequests/SampleStreamEntityWithPipeFilter` | Streams sample entities with authorization-based filtering pipeline |
+
+## Testing the API
+
+Beyond Swagger UI, the repository includes two developer tools for testing endpoints directly from your editor or terminal.
+
+### .http File
+
+The file [`src/MediatR.Playground.API/MediatR.Playground.API.http`](src/MediatR.Playground.API/MediatR.Playground.API.http) contains pre-built requests for every endpoint in the API, organized by group:
+
+- **Requests** — `SampleCommand`, `SampleRequest`
+- **Transaction Requests** — `GetAll`, `GetById`, `AddSampleEntity`
+- **Notifications** — Sequential, Parallel, Priority
+- **Exceptions** — `InvalidOperationException`, generic `Exception`, not-found global handler
+- **Stream Requests** — `SampleStreamEntity`, `SampleStreamEntityWithPipeFilter`
+
+You can run each request directly from Visual Studio, VS Code (with the REST Client extension), or Rider. The base URL defaults to `http://localhost:5005`.
+
+### Stream Client (PowerShell)
+
+Standard HTTP clients (browsers, Swagger, .http files) wait for the full response before displaying anything. Stream endpoints return `IAsyncEnumerable`, so elements are produced one at a time on the server side — but you won't see that behavior with a regular client.
+
+The script [`scripts/stream-client.ps1`](scripts/stream-client.ps1) connects to the stream endpoints using `HttpCompletionOption.ResponseHeadersRead` and prints each JSON element as it arrives, with timestamps:
+
+```powershell
+# Stream with default logging pipeline
+.\scripts\stream-client.ps1
+
+# Stream with authorization filter pipeline
+.\scripts\stream-client.ps1 -Endpoint streamfilter
+
+# Custom base URL
+.\scripts\stream-client.ps1 -BaseUrl http://localhost:5050
+```
+
+Example output:
+
+```
+[14:32:01.123] Element #1 {"id":"...","name":"...","isAuthorized":true}
+[14:32:01.456] Element #2 {"id":"...","name":"...","isAuthorized":false}
+[14:32:01.789] Element #3 {"id":"...","name":"...","isAuthorized":true}
+Stream completed. Total elements received: 3
+```
+
+This is especially useful when experimenting with the stream pipeline behaviors (`GenericStreamLoggingBehavior`, `SampleFilterStreamBehavior`) to observe how elements are logged and filtered in real time.
 
 ## Getting Started
 

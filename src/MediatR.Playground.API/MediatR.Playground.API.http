@@ -1,0 +1,95 @@
+###############################################################################
+# MediatR Playground API — Full HTTP Test Suite
+# Base URL: http://localhost:5005
+# Run the API first: dotnet run --project src/MediatR.Playground.API
+###############################################################################
+
+@baseUrl = http://localhost:5005
+
+###############################################################################
+# REQUESTS ENDPOINTS
+###############################################################################
+
+### Send a SampleCommand (logging, validation, authorization pipeline)
+POST {{baseUrl}}/Requests/SampleCommand
+Content-Type: application/json
+
+{
+  "description": "Test command from .http file"
+}
+
+### Send a SampleRequest (basic request pipeline)
+POST {{baseUrl}}/Requests/SampleRequest
+Content-Type: application/json
+
+{
+  "description": "Test request from .http file"
+}
+
+###############################################################################
+# TRANSACTION REQUESTS ENDPOINTS
+###############################################################################
+
+### Get all sample entities
+GET {{baseUrl}}/TransactionRequests/SampleEntity
+
+### Add a new sample entity (Unit of Work pipeline)
+POST {{baseUrl}}/TransactionRequests/AddSampleEntity
+Content-Type: application/json
+
+{
+  "description": "Entity created via .http file"
+}
+
+### Get a sample entity by ID (replace with a real ID from the add response)
+GET {{baseUrl}}/TransactionRequests/SampleEntity/00000000-0000-0000-0000-000000000001
+
+###############################################################################
+# NOTIFICATIONS ENDPOINTS
+###############################################################################
+
+### Publish a sequential notification (handlers run one after another)
+POST {{baseUrl}}/Notifications/SequentialNotification
+
+### Publish a parallel notification (handlers run concurrently)
+POST {{baseUrl}}/Notifications/ParallelNotification
+
+### Publish a priority notification (handlers run in priority order)
+POST {{baseUrl}}/Notifications/SamplePriorityNotification
+
+###############################################################################
+# EXCEPTIONS ENDPOINTS
+###############################################################################
+
+### Trigger InvalidOperationException (handled by specific exception handler)
+POST {{baseUrl}}/Exceptions/SampleCommandWithIOException
+Content-Type: application/json
+
+{
+  "description": "Trigger InvalidOperationException"
+}
+
+### Trigger generic Exception (handled by catch-all exception handler)
+POST {{baseUrl}}/Exceptions/SampleCommandWithException
+Content-Type: application/json
+
+{
+  "description": "Trigger generic Exception"
+}
+
+### Trigger not-found scenario (handled by global exception handler)
+GET {{baseUrl}}/Exceptions/NotFoundExceptionGlobalHandler
+
+###############################################################################
+# STREAM REQUESTS ENDPOINTS
+# Note: These return IAsyncEnumerable (streamed JSON arrays).
+#       The .http client will show the full collected response.
+#       Use the PowerShell script (scripts/stream-client.ps1) to see
+#       elements arriving in real time.
+###############################################################################
+
+### Stream sample entities (generic logging pipeline)
+GET {{baseUrl}}/StreamRequests/SampleStreamEntity
+
+### Stream sample entities with authorization filter pipeline
+GET {{baseUrl}}/StreamRequests/SampleStreamEntityWithPipeFilter
