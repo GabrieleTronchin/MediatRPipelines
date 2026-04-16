@@ -56,8 +56,8 @@ This plan implements four independent areas: adding an isolated unit test suite 
 - [x] 3. Checkpoint — Verify pipeline behavior tests compile and pass
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 4. Create unit tests for notification publishers and validator
-  - [ ] 4.1 Create `MultipleNotificationPublisherTests.cs`
+- [x] 4. Create unit tests for notification publishers and validator
+  - [x] 4.1 Create `MultipleNotificationPublisherTests.cs`
     - Create `test/MediatR.Playground.Tests/MultipleNotificationPublisherTests.cs`
     - Test that `MultipleNotificationPublisher` delegates to `PriorityNotificationPublisher` for `IPriorityNotification` notifications
     - Test that `MultipleNotificationPublisher` executes all handlers for `IParallelNotification` notifications (parallel via `TaskWhenAllPublisher`)
@@ -66,7 +66,7 @@ This plan implements four independent areas: adding an isolated unit test suite 
     - Use `NotificationHandlerExecutor` instances with controlled `HandlerCallback` delegates
     - _Requirements: 6.1, 6.2, 6.3_
 
-  - [ ] 4.2 Create `PriorityNotificationPublisherTests.cs`
+  - [x] 4.2 Create `PriorityNotificationPublisherTests.cs`
     - Create `test/MediatR.Playground.Tests/PriorityNotificationPublisherTests.cs`
     - Test that handlers are executed in ascending priority order (lower numeric value first) using a fixed example with known priorities
     - Test that handlers without `IPriorityNotificationHandler` / `Priority` property receive default priority 99
@@ -81,7 +81,7 @@ This plan implements four independent areas: adding an isolated unit test suite 
     - Assert that `PriorityNotificationPublisher.Publish` always executes handlers in ascending priority order
     - Tag: `Feature: test-suite-and-deprecation-fixes, Property 1: Priority-ordered execution`
 
-  - [ ] 4.4 Create `SampleCommandValidatorTests.cs`
+  - [x] 4.4 Create `SampleCommandValidatorTests.cs`
     - Create `test/MediatR.Playground.Tests/SampleCommandValidatorTests.cs`
     - Test that `SampleCommandValidator` produces a validation error when `Id` is `Guid.Empty`
     - Test that `SampleCommandValidator` produces a validation error when `Description` is empty or null
@@ -89,7 +89,7 @@ This plan implements four independent areas: adding an isolated unit test suite 
     - Directly instantiate `SampleCommandValidator` and call `Validate()` (no mocks needed)
     - _Requirements: 8.1, 8.2, 8.3_
 
-- [ ] 5. Checkpoint — Verify all unit tests compile and pass
+- [x] 5. Checkpoint — Verify all unit tests compile and pass
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 6. Fix ASPDEPR002 warnings — Remove deprecated `.WithOpenApi()` calls
