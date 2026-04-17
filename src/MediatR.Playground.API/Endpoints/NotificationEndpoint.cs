@@ -65,5 +65,24 @@ public class NotificationEndpoint : IEndpoint
             .WithSummary("Publish a priority notification")
             .WithDescription("Publishes a notification that is handled by notification handlers in priority order, using the custom PriorityNotificationPublisher.")
             .Produces(StatusCodes.Status200OK, typeof(object));
+
+        group
+            .MapPost(
+                "/DeduplicationNotification",
+                async (IMediator mediator, CancellationToken cancellationToken) =>
+                {
+                    var notification = new DeduplicationNotification()
+                    {
+                        Id = Guid.NewGuid(),
+                        NotificationTime = DateTime.Now,
+                    };
+                    await mediator.Publish(notification, cancellationToken);
+                    return new { notification.Id, notification.NotificationTime, Type = "Deduplication" };
+                }
+            )
+            .WithName("DeduplicationNotification")
+            .WithSummary("Publish a deduplication notification")
+            .WithDescription("Publishes a notification that demonstrates MediatR 14's handler de-duplication feature. The handler is registered twice but executes only once per publish call.")
+            .Produces(StatusCodes.Status200OK, typeof(object));
     }
 }
