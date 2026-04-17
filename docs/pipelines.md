@@ -155,20 +155,45 @@ Source: [`../src/MediatR.Playground.Model/Primitives/Request/`](../src/MediatR.P
 
 ## Registration Order
 
-Pipeline behaviors are registered in the DI container as open generics. The order of registration determines the execution order — the first registered behavior is the outermost in the pipeline chain.
+Pipeline behaviors are registered as open generics inside the `AddMediatR` configuration block. The order of registration determines the execution order — the first registered behavior is the outermost in the pipeline chain.
 
-The current registration order in this project is:
+The current registration in this project uses `cfg.AddOpenBehavior` for request pipeline behaviors and `cfg.AddOpenStreamBehavior` for stream pipeline behaviors:
+
+```csharp
+services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(ServicesExtensions).Assembly);
+
+    // Request pipeline behaviors (order matters)
+    cfg.AddOpenBehavior(typeof(CachingBehavior<,>));
+    cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
+    cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    cfg.AddOpenBehavior(typeof(GlobalExceptionHandlingBehavior<,>));
+    cfg.AddOpenBehavior(typeof(CommandAuthorizationBehavior<,>));
+    cfg.AddOpenBehavior(typeof(UnitOfWorkBehavior<,>));
+
+    // Stream pipeline behaviors
+    cfg.AddOpenStreamBehavior(typeof(GenericStreamLoggingBehavior<,>));
+    cfg.AddOpenStreamBehavior(typeof(SampleFilterStreamBehavior<,>));
+});
+```
+
+For a command request, the execution flows through the behaviors in registration order. Only behaviors whose generic constraints match the request type will actually execute. For example, a request implementing `ICommand<TResponse>` will pass through CachingBehavior (skipped — constraint doesn't match), LoggingBehavior, ValidationBehavior, GlobalExceptionHandlingBehavior, CommandAuthorizationBehavior, and then the handler.
+
+### Previous Approach (pre-MediatR 14)
+
+Before MediatR 14, pipeline behaviors were registered as open generics directly on the `IServiceCollection` outside the `AddMediatR` block:
 
 ```csharp
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-services.AddTransient(typeof(IPipelineBehavior<,>), typeof(GlobalExceptionHandlingBehavior<,>));
-services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CommandAuthorizationBehavior<,>));
-services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
+// ... etc.
+
+services.AddTransient(typeof(IStreamPipelineBehavior<,>), typeof(GenericStreamLoggingBehavior<,>));
+services.AddTransient(typeof(IStreamPipelineBehavior<,>), typeof(SampleFilterStreamBehavior<,>));
 ```
 
-For a command request, the execution flows through the behaviors in registration order. Only behaviors whose generic constraints match the request type will actually execute. For example, a request implementing `ICommand<TResponse>` will pass through CachingBehavior (skipped — constraint doesn't match), LoggingBehavior, ValidationBehavior, GlobalExceptionHandlingBehavior, CommandAuthorizationBehavior, and then the handler.
+MediatR 14 introduced `AddOpenBehavior` and `AddOpenStreamBehavior` as the recommended replacement. These methods register behaviors inside the `AddMediatR` configuration lambda, keeping all MediatR-related registration centralized in one place.
 
 Source: [`../src/MediatR.Playground.Domain/ServiceExtension.cs`](../src/MediatR.Playground.Domain/ServiceExtension.cs)
 
