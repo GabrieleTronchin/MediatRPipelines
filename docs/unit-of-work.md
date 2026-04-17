@@ -42,12 +42,13 @@ The behavior follows this sequence:
 1. **Begin transaction** — calls `_uow.BeginTransaction()` to open a new database transaction
 2. **Execute handler** — calls `await next()` to invoke the next behavior in the chain or the handler itself
 3. **Commit on success** — if the handler completes without throwing, calls `_uow.Commit()` to save changes and commit the transaction
-4. **Rollback on error** — if an exception is thrown, logs the error and calls `connection.RollbackAsync()` to undo all changes made during the transaction
-5. **Dispose** — the transaction connection is disposed in the `finally` block regardless of outcome
+4. **Rollback on error** — if an exception is thrown, logs the error, calls `_uow.Rollback()` to undo all changes, and re-throws the exception so the caller receives a proper error response
 
 ```
 Request → UnitOfWorkBehavior (begin transaction) → Handler → Commit / Rollback → Response
 ```
+
+The behavior only depends on `IUnitOfWork` — it has no knowledge of the underlying transaction object (e.g. `IDbContextTransaction`). Transaction lifecycle details are fully encapsulated inside the `UnitOfWork` implementation.
 
 The key implementation:
 
@@ -57,24 +58,19 @@ public async Task<TResponse> Handle(
     RequestHandlerDelegate<TResponse> next,
     CancellationToken cancellationToken)
 {
-    using var connection = await _uow.BeginTransaction();
-    TResponse? response = default;
+    await _uow.BeginTransaction();
     try
     {
-        response = await next();
+        var response = await next();
         await _uow.Commit();
+        return response;
     }
     catch (Exception ex)
     {
-        _logger.LogError(ex, "An error occured on transaction.");
-        await connection.RollbackAsync();
+        _logger.LogError(ex, "An error occurred on transaction.");
+        await _uow.Rollback();
+        throw;
     }
-    finally
-    {
-        connection.Dispose();
-    }
-
-    return response!;
 }
 ```
 
@@ -82,24 +78,26 @@ Source: [`../src/MediatR.Playground.Pipelines/TransactionCommand/UnitOfWorkBehav
 
 ## IUnitOfWork and UnitOfWork
 
-`IUnitOfWork` defines the contract for transaction management:
+`IUnitOfWork` defines the contract for transaction management. The interface deliberately hides the underlying transaction object (e.g. `IDbContextTransaction`) so that consumers only depend on the abstraction, not on EF Core internals:
 
 ```csharp
 public interface IUnitOfWork
 {
-    Task<IDbContextTransaction> BeginTransaction();
+    Task BeginTransaction();
     Task Commit();
+    Task Rollback();
     void Dispose();
 }
 ```
 
 | Method | Description |
 |--------|-------------|
-| `BeginTransaction()` | Opens a new database transaction via `DbContext.Database.BeginTransactionAsync()` |
-| `Commit()` | Persists all tracked changes by calling `DbContext.SaveChangesAsync()` |
-| `Dispose()` | Disposes the underlying `DbContext` |
+| `BeginTransaction()` | Opens a new database transaction |
+| `Commit()` | Persists all tracked changes (`SaveChangesAsync`) and commits the transaction (`CommitAsync`) as a single atomic operation |
+| `Rollback()` | Rolls back the current transaction, discarding all uncommitted changes |
+| `Dispose()` | Disposes the transaction and the underlying `DbContext` |
 
-The concrete `UnitOfWork` class wraps a `SampleDbContext` (Entity Framework Core with an in-memory database) and delegates each operation to the context.
+The concrete `UnitOfWork` class wraps a `SampleDbContext` (Entity Framework Core with an in-memory database) and stores the `IDbContextTransaction` as a private field. All transaction lifecycle details are internal to this class — callers never interact with the transaction directly.
 
 Source: [`../src/MediatR.Playground.Persistence/UoW/IUnitOfWork.cs`](../src/MediatR.Playground.Persistence/UoW/IUnitOfWork.cs) · [`../src/MediatR.Playground.Persistence/UoW/UnitOfWork.cs`](../src/MediatR.Playground.Persistence/UoW/UnitOfWork.cs)
 

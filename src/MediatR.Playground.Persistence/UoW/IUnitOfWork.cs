@@ -1,10 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
-
-namespace MediatR.Playground.Persistence.UoW;
+﻿namespace MediatR.Playground.Persistence.UoW;
 
 public interface IUnitOfWork
 {
-    Task<IDbContextTransaction> BeginTransaction();
+    Task BeginTransaction();
     Task Commit();
+    Task Rollback();
     void Dispose();
 }
