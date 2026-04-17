@@ -148,7 +148,7 @@
     - **IMPORTANT**: Re-run the SAME preservation tests from task 2 — do NOT write new tests
     - **EXPECTED OUTCOME**: Tests PASS (confirms no regressions)
 
-- [~] 8. Checkpoint — Ensure all tests pass
+- [x] 8. Checkpoint — Ensure all tests pass
   - Run the full test suite: `dotnet test tests/MediatR.Playground.Tests/MediatR.Playground.Tests.csproj`
   - Verify ALL bug condition exploration tests now PASS (bugs are fixed)
   - Verify ALL preservation tests still PASS (no regressions)
