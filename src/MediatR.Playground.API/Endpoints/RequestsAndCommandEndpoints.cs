@@ -27,7 +27,11 @@ public class RequestsAndCommandEndpoints : IEndpoint
                     );
                 }
             )
-            .WithName("SampleCommand");
+            .WithName("SampleCommand")
+            .WithSummary("Execute a sample command")
+            .WithDescription("Sends a SampleCommand through the MediatR pipeline, including logging, validation, and authorization behaviors. Returns the command completion result.")
+            .Produces<SampleCommandComplete>(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status400BadRequest);
 
         group
             .MapPost(
@@ -44,6 +48,10 @@ public class RequestsAndCommandEndpoints : IEndpoint
                     );
                 }
             )
-            .WithName("SampleRequest");
+            .WithName("SampleRequest")
+            .WithSummary("Execute a sample request")
+            .WithDescription("Sends a SampleRequest through the MediatR pipeline with logging behavior. Unlike commands, requests do not go through authorization.")
+            .Produces<SampleRequestComplete>(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status400BadRequest);
     }
 }

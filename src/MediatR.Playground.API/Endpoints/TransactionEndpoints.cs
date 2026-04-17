@@ -20,7 +20,10 @@ public class TransactionEndpoints : IEndpoint
                     return mediator.Send(new GetAllSampleEntitiesQuery());
                 }
             )
-            .WithName("SampleEntity");
+            .WithName("SampleEntity")
+            .WithSummary("Get all sample entities")
+            .WithDescription("Retrieves all sample entities from the in-memory database. Returns an empty list if no entities have been created.")
+            .Produces<IEnumerable<GetAllSampleEntitiesQueryResult>>(StatusCodes.Status200OK);
 
         group
             .MapGet(
@@ -30,7 +33,11 @@ public class TransactionEndpoints : IEndpoint
                     return mediator.Send(new GetSampleEntityQuery() { Id = id });
                 }
             )
-            .WithName("SampleEntityById");
+            .WithName("SampleEntityById")
+            .WithSummary("Get a sample entity by ID")
+            .WithDescription("Retrieves a specific sample entity by its unique identifier. Returns a default result if the entity is not found.")
+            .Produces<GetSampleEntityQueryResult>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound);
 
         group
             .MapPost(
@@ -47,6 +54,10 @@ public class TransactionEndpoints : IEndpoint
                     );
                 }
             )
-            .WithName("AddSampleRequest");
+            .WithName("AddSampleRequest")
+            .WithSummary("Create a new sample entity")
+            .WithDescription("Creates a new sample entity within a Unit of Work transaction. Returns the created entity details including id, description, and event time.")
+            .Produces<AddSampleEntityCommandComplete>(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status500InternalServerError);
     }
 }

@@ -19,6 +19,8 @@ public class StreamRequestEndpoint : IEndpoint
                 }
             )
             .WithName("SampleStreamEntity")
+            .WithSummary("Stream sample entities")
+            .WithDescription("Creates an async stream of sample entities using MediatR's CreateStream, demonstrating stream request handling with logging behavior.")
             .Produces<IAsyncEnumerable<SampleStreamEntityQueryResult>>();
 
         group
@@ -33,6 +35,8 @@ public class StreamRequestEndpoint : IEndpoint
                 }
             )
             .WithName("SampleStreamEntityWithPipeFilter")
+            .WithSummary("Stream sample entities with pipe filter")
+            .WithDescription("Creates an async stream of sample entities that passes through a filtering pipeline behavior, demonstrating stream-level pipeline processing.")
             .Produces<IAsyncEnumerable<SampleStreamEntityWithPipeFilterQueryResult>>();
     }
 }
