@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="12.1.1" />
-    <PackageReference Include="MediatR" Version="12.5.0" />
+    <PackageReference Include="MediatR" Version="14.1.0" />
 	<PackageReference Include="ZiggyCreatures.FusionCache" Version="2.6.0" />
   </ItemGroup>
 

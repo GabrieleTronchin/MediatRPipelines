@@ -122,12 +122,17 @@ public class PreservationPropertyTests
     /// Preservation B: GET /TransactionRequests/SampleEntity with no entities
     /// returns HTTP 200 with an empty JSON array [].
     ///
+    /// Uses a fresh, isolated WebApplicationFactory with a unique in-memory database
+    /// to ensure no entities from other tests pollute the results.
+    ///
     /// **Validates: Requirements 3.2**
     /// </summary>
     [Fact]
     public async Task PreservationB_GetAllEntities_Returns_Empty_Array_When_No_Entities()
     {
-        var client = _unfixedFactory.CreateClient();
+        // Create an isolated factory with a unique DB name so no other test data leaks in
+        await using var isolatedFactory = new IsolatedDbWebApplicationFactory();
+        var client = isolatedFactory.CreateClient();
 
         var response = await client.GetAsync("/TransactionRequests/SampleEntity");
 

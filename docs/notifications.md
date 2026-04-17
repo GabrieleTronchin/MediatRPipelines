@@ -52,6 +52,7 @@ Source: [`../src/MediatR.Playground.Model/Primitives/Notifications/`](../src/Med
 | `SampleNotification` | `INotification` | Sequential |
 | `SampleParallelNotification` | `IParallelNotification` | Parallel |
 | `SamplePriorityNotification` | `IPriorityNotification` | Priority-ordered |
+| `DeduplicationNotification` | `INotification` | Sequential |
 
 Source: [`../src/MediatR.Playground.Model/Notifications/`](../src/MediatR.Playground.Model/Notifications/)
 
@@ -77,8 +78,30 @@ Source: [`../src/MediatR.Playground.Domain/ServiceExtension.cs`](../src/MediatR.
 | `POST /Notifications/SequentialNotification` | `SampleNotification` | Sequential |
 | `POST /Notifications/ParallelNotification` | `SampleParallelNotification` | Parallel |
 | `POST /Notifications/SamplePriorityNotification` | `SamplePriorityNotification` | Priority-ordered |
+| `POST /Notifications/DeduplicationNotification` | `DeduplicationNotification` | Sequential |
 
 Source: [`../src/MediatR.Playground.API/Endpoints/NotificationEndpoint.cs`](../src/MediatR.Playground.API/Endpoints/NotificationEndpoint.cs)
+
+## Notification Handler De-duplication
+
+MediatR 14 includes built-in notification handler de-duplication. When the same handler type is registered multiple times in the DI container (a common mistake with assembly scanning or explicit registration), MediatR ensures each handler type executes only once per `Publish` call.
+
+### How It Works
+
+The `DeduplicationNotificationHandler` is intentionally registered twice in `ServiceExtension` to simulate a duplicate registration scenario:
+
+```csharp
+services.AddTransient<INotificationHandler<DeduplicationNotification>, DeduplicationNotificationHandler>();
+services.AddTransient<INotificationHandler<DeduplicationNotification>, DeduplicationNotificationHandler>();
+```
+
+Despite the double registration, MediatR 14's de-duplication logic detects that both registrations resolve to the same handler type and invokes it only once.
+
+### Observing De-duplication
+
+The `DeduplicationNotificationHandler` tracks invocations using a static `ConcurrentDictionary<Guid, int>` counter keyed by notification ID. When you call `POST /Notifications/DeduplicationNotification`, the handler logs an `InvocationCount` of 1 for each unique notification ID — confirming that the handler ran exactly once, not twice.
+
+Source: [`../src/MediatR.Playground.Domain/NotificationHandler/Deduplication/DeduplicationNotificationHandler.cs`](../src/MediatR.Playground.Domain/NotificationHandler/Deduplication/DeduplicationNotificationHandler.cs)
 
 ## See Also
 

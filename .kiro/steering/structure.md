@@ -45,7 +45,7 @@ Behaviors in `Pipelines/` are organized by the request type they target:
 - `TransactionCommand/` — UnitOfWorkBehavior
 
 ### Service Registration
-Each project exposes a `ServiceExtension` (or `ServicesExtensions`) class with extension methods on `IServiceCollection` for DI registration. These are composed in `Program.cs`.
+Each project exposes a `ServiceExtension` (or `ServicesExtensions`) class with extension methods on `IServiceCollection` for DI registration. These are composed in `Program.cs`. The `AddMediatorSample` method accepts `IConfiguration` to wire the MediatR license key. Pipeline behaviors are registered via `cfg.AddOpenBehavior()` / `cfg.AddOpenStreamBehavior()` inside the `AddMediatR` lambda.
 
 ### Notification Publishers
 Custom notification publishers live in `Domain/NotificationHandler/`. The `MultipleNotificationPublisher` selects delivery strategy (sequential, parallel, priority) based on notification marker interfaces (`IParallelNotification`, `IPriorityNotification`).
@@ -55,6 +55,6 @@ Models in `Model/` are organized by MediatR concept:
 - `Command/` — command request types
 - `Request/` — generic request types
 - `Queries/` — query request types (with sub-folders per query)
-- `Notifications/` — notification types
+- `Notifications/` — notification types (including `DeduplicationNotification` for MediatR 14 de-duplication demo)
 - `TransactionCommand/` — transactional command types
 - `Primitives/` — marker interfaces for requests and notifications

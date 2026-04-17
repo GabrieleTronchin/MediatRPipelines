@@ -14,13 +14,19 @@ namespace MediatR.Playground.Tests;
 ///
 /// DO NOT modify these tests to make them pass on unfixed code.
 /// </summary>
-public class BugConditionExplorationTests : IClassFixture<UnfixedWebApplicationFactory>
+public class BugConditionExplorationTests
+    : IClassFixture<UnfixedWebApplicationFactory>,
+      IClassFixture<PlaygroundWebApplicationFactory>
 {
-    private readonly HttpClient _client;
+    private readonly HttpClient _unfixedClient;
+    private readonly HttpClient _fixedClient;
 
-    public BugConditionExplorationTests(UnfixedWebApplicationFactory factory)
+    public BugConditionExplorationTests(
+        UnfixedWebApplicationFactory unfixedFactory,
+        PlaygroundWebApplicationFactory fixedFactory)
     {
-        _client = factory.CreateClient();
+        _unfixedClient = unfixedFactory.CreateClient();
+        _fixedClient = fixedFactory.CreateClient();
     }
 
     #region Bug 1 — Auth Randomness
@@ -46,7 +52,7 @@ public class BugConditionExplorationTests : IClassFixture<UnfixedWebApplicationF
 
         for (int i = 0; i < requestCount; i++)
         {
-            var response = await _client.PostAsJsonAsync(
+            var response = await _fixedClient.PostAsJsonAsync(
                 "/Requests/SampleCommand",
                 new { Description = $"Auth test request {i}" });
 
@@ -93,7 +99,7 @@ public class BugConditionExplorationTests : IClassFixture<UnfixedWebApplicationF
         var description = $"Persistence test {Guid.NewGuid():N}";
 
         // Create entity
-        var createResponse = await _client.PostAsJsonAsync(
+        var createResponse = await _unfixedClient.PostAsJsonAsync(
             "/TransactionRequests/AddSampleEntity",
             new { Description = description });
 
@@ -112,7 +118,7 @@ public class BugConditionExplorationTests : IClassFixture<UnfixedWebApplicationF
         else
         {
             // If id is not in the response (Bug 4), retrieve all entities and find ours
-            var allResponse = await _client.GetAsync("/TransactionRequests/SampleEntity");
+            var allResponse = await _unfixedClient.GetAsync("/TransactionRequests/SampleEntity");
             allResponse.EnsureSuccessStatusCode();
             var allJson = await allResponse.Content.ReadFromJsonAsync<JsonElement>();
 
@@ -133,7 +139,7 @@ public class BugConditionExplorationTests : IClassFixture<UnfixedWebApplicationF
         Assert.NotEqual(Guid.Empty, entityId);
 
         // Retrieve entity by id
-        var getResponse = await _client.GetAsync($"/TransactionRequests/SampleEntity/{entityId}");
+        var getResponse = await _unfixedClient.GetAsync($"/TransactionRequests/SampleEntity/{entityId}");
         getResponse.EnsureSuccessStatusCode();
 
         var getJson = await getResponse.Content.ReadFromJsonAsync<JsonElement>();
@@ -171,7 +177,7 @@ public class BugConditionExplorationTests : IClassFixture<UnfixedWebApplicationF
     [Fact]
     public async Task Bug3a_SequentialNotification_Should_Return_Confirmation_Body()
     {
-        var response = await _client.PostAsync("/Notifications/SequentialNotification", null);
+        var response = await _unfixedClient.PostAsync("/Notifications/SequentialNotification", null);
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadAsStringAsync();
@@ -202,7 +208,7 @@ public class BugConditionExplorationTests : IClassFixture<UnfixedWebApplicationF
     [Fact]
     public async Task Bug3b_ParallelNotification_Should_Return_Confirmation_Body()
     {
-        var response = await _client.PostAsync("/Notifications/ParallelNotification", null);
+        var response = await _unfixedClient.PostAsync("/Notifications/ParallelNotification", null);
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadAsStringAsync();
@@ -233,7 +239,7 @@ public class BugConditionExplorationTests : IClassFixture<UnfixedWebApplicationF
     [Fact]
     public async Task Bug3c_PriorityNotification_Should_Return_Confirmation_Body()
     {
-        var response = await _client.PostAsync("/Notifications/SamplePriorityNotification", null);
+        var response = await _unfixedClient.PostAsync("/Notifications/SamplePriorityNotification", null);
         response.EnsureSuccessStatusCode();
 
         var content = await response.Content.ReadAsStringAsync();
@@ -271,7 +277,7 @@ public class BugConditionExplorationTests : IClassFixture<UnfixedWebApplicationF
     {
         var description = "Entity response test";
 
-        var response = await _client.PostAsJsonAsync(
+        var response = await _unfixedClient.PostAsJsonAsync(
             "/TransactionRequests/AddSampleEntity",
             new { Description = description });
 
@@ -318,12 +324,12 @@ public class BugConditionExplorationTests : IClassFixture<UnfixedWebApplicationF
     public async Task Bug5_OpenApi_Spec_Should_Have_Complete_Metadata()
     {
         // Try the OpenAPI endpoint — ASP.NET Core 10 uses /openapi/v1.json by default
-        var response = await _client.GetAsync("/openapi/v1.json");
+        var response = await _unfixedClient.GetAsync("/openapi/v1.json");
 
         if (!response.IsSuccessStatusCode)
         {
             // Fall back to Swashbuckle endpoint
-            response = await _client.GetAsync("/swagger/v1/swagger.json");
+            response = await _unfixedClient.GetAsync("/swagger/v1/swagger.json");
         }
 
         response.EnsureSuccessStatusCode();
