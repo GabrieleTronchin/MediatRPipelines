@@ -35,12 +35,32 @@ The API exposes the following endpoint groups through Swagger:
 
 ### Requests Endpoints
 
+Pipeline: `LoggingBehavior → ValidationBehavior → GlobalExceptionHandling → AuthorizationBehavior → Handler`
+
+```mermaid
+flowchart LR
+    R[📨 Request] --> L[📝 Logging] --> V[✅ Validation] --> G[🌐 GlobalException] --> A[🔐 Auth] --> H[⚙️ Handler] --> RES[📤 Response]
+```
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | `/Requests/SampleCommand` | Sends a sample command through the pipeline (logging, validation, authorization) |
 | POST | `/Requests/SampleRequest` | Sends a sample request through the pipeline |
 
 ### Transaction Requests Endpoints
+
+Queries go through `CachingBehavior → GlobalExceptionHandling → Handler`.
+Commands go through `GlobalExceptionHandling → UnitOfWorkBehavior (begin tx → handler → commit/rollback)`.
+
+```mermaid
+flowchart LR
+    subgraph Queries
+        Q[📨 Query] --> CB[🗄️ Cache] --> GQ[🌐 GlobalException] --> QH[⚙️ Handler]
+    end
+    subgraph Commands
+        C[📨 Command] --> GC[🌐 GlobalException] --> UOW[💾 UnitOfWork] --> CH[⚙️ Handler] --> COM[✅ Commit]
+    end
+```
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -50,6 +70,16 @@ The API exposes the following endpoint groups through Swagger:
 
 ### Notifications Endpoints
 
+Notifications use `INotification` with custom publishers that select the delivery strategy based on the notification type.
+
+```mermaid
+flowchart LR
+    P[📨 Publish] --> S{Strategy?}
+    S -->|Sequential| H1[Handler 1] --> H2[Handler 2]
+    S -->|Parallel| PA[Handler 1 + Handler 2\nTask.WhenAll]
+    S -->|Priority| PR[Handler 3 → 2 → 1 → 4\nby priority order]
+```
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | `/Notifications/SequentialNotification` | Publishes a notification with sequential delivery |
@@ -58,13 +88,30 @@ The API exposes the following endpoint groups through Swagger:
 
 ### Exceptions Endpoints
 
+Two mechanisms work together: `GlobalExceptionHandlingBehavior` (logs + rethrows for all requests) and per-request `IRequestExceptionHandler` (provides fallback responses for specific request+exception types).
+
+```mermaid
+flowchart TD
+    H[⚙️ Handler throws] --> G[🌐 GlobalException\nlogs + rethrows]
+    G --> REP{IRequestExceptionHandler?}
+    REP -->|registered| FB[📤 Fallback Response]
+    REP -->|not registered| ERR[💥 500 Error]
+```
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | `/Exceptions/SampleCommandWithIOException` | Triggers an `InvalidOperationException` handled by the specific exception handler |
 | POST | `/Exceptions/SampleCommandWithException` | Triggers a generic `Exception` handled by the catch-all exception handler |
-| GET | `/Exceptions/NotFoundExceptionGlobalHandler` | Triggers a not-found scenario handled by the global exception handler |
+| GET | `/Exceptions/NotFoundExceptionGlobalHandler` | Triggers a not-found scenario — no per-request handler registered, returns 500 (demonstrates that GlobalExceptionHandling only logs, it does not handle) |
 
 ### Stream Requests Endpoints
+
+Stream pipelines use `IStreamPipelineBehavior` and process elements one at a time via `IAsyncEnumerable`.
+
+```mermaid
+flowchart LR
+    R[📨 Request] --> SL[📝 StreamLogging] --> SF[🔐 StreamFilter] --> H[⚙️ Handler] --> E[📦 yield entities] --> RES[📤 IAsyncEnumerable]
+```
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|

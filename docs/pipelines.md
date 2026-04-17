@@ -14,6 +14,97 @@ The `Handle` method in a pipeline behavior receives the request and a `RequestHa
 Request → Behavior 1 (pre) → Behavior 2 (pre) → Handler → Behavior 2 (post) → Behavior 1 (post) → Response
 ```
 
+## Pipeline Flows by Request Type
+
+Not every behavior runs for every request. The generic constraint on each behavior determines which request types it applies to. Below are the actual pipeline flows for each request type in this project.
+
+### Command Pipeline (`ICommand<TResponse>`)
+
+Used by: `POST /Requests/SampleCommand`
+
+```mermaid
+flowchart LR
+    R[📨 Request] --> C[🗄️ CachingBehavior\n⏭️ skipped]
+    C --> L[📝 LoggingBehavior\n⏱️ start stopwatch]
+    L --> V[✅ ValidationBehavior\nFluentValidation]
+    V --> G[🌐 GlobalExceptionHandling\n🪵 log + rethrow]
+    G --> A[🔐 AuthorizationBehavior\nIAuthService check]
+    A --> U[💾 UnitOfWorkBehavior\n⏭️ skipped]
+    U --> H[⚙️ Handler]
+    H --> RES[📤 Response]
+
+    style C opacity:0.4
+    style U opacity:0.4
+```
+
+CachingBehavior is skipped (constraint: `IQueryRequest`). UnitOfWorkBehavior is skipped (constraint: `ITransactionCommand`).
+
+### Query Pipeline (`IQueryRequest<TResult>`)
+
+Used by: `GET /TransactionRequests/SampleEntity`, `GET /TransactionRequests/SampleEntity/{id}`
+
+```mermaid
+flowchart LR
+    R[📨 Request] --> C[🗄️ CachingBehavior\n🔑 check cache key]
+    C -->|miss| G[🌐 GlobalExceptionHandling\n🪵 log + rethrow]
+    G --> H[⚙️ Handler]
+    H --> CACHE[🗄️ CachingBehavior\n💾 store in cache]
+    CACHE --> RES[📤 Response]
+    C -->|hit| RES
+```
+
+LoggingBehavior, ValidationBehavior, AuthorizationBehavior are all skipped (constraint: `ICommand`). UnitOfWorkBehavior is skipped (constraint: `ITransactionCommand`).
+
+### Transaction Command Pipeline (`ITransactionCommand<TResponse>`)
+
+Used by: `POST /TransactionRequests/AddSampleEntity`
+
+```mermaid
+flowchart LR
+    R[📨 Request] --> G[🌐 GlobalExceptionHandling\n🪵 log + rethrow]
+    G --> U[💾 UnitOfWorkBehavior\n🔓 begin transaction]
+    U --> H[⚙️ Handler\n📝 repository.Add]
+    H -->|success| COM[💾 UnitOfWorkBehavior\n✅ SaveChanges + Commit]
+    H -->|error| RB[💾 UnitOfWorkBehavior\n❌ Rollback + rethrow]
+    COM --> RES[📤 Response]
+```
+
+LoggingBehavior, ValidationBehavior, AuthorizationBehavior are skipped (constraint: `ICommand`). CachingBehavior is skipped (constraint: `IQueryRequest`).
+
+### Stream Pipeline (`IStreamRequest<TResponse>`)
+
+Used by: `GET /StreamRequests/SampleStreamEntity`, `GET /StreamRequests/SampleStreamEntityWithPipeFilter`
+
+```mermaid
+flowchart LR
+    R[📨 Request] --> SL[📝 StreamLoggingBehavior\n🪵 log start]
+    SL --> SF[🔐 SampleFilterStreamBehavior\n🔍 auth filter per element]
+    SF --> H[⚙️ Handler\nyield return entities]
+    H --> E1[📦 Entity 1]
+    H --> E2[📦 Entity 2]
+    H --> EN[📦 Entity N]
+    E1 --> SL2[📝 StreamLoggingBehavior\n🪵 log end]
+    EN --> SL2
+    SL2 --> RES[📤 IAsyncEnumerable]
+```
+
+Stream pipelines use `IStreamPipelineBehavior` instead of `IPipelineBehavior`. Elements are processed one at a time as they flow through the stream.
+
+### Exception Handling Flow
+
+Used by: `POST /Exceptions/*`, `GET /Exceptions/NotFoundExceptionGlobalHandler`
+
+```mermaid
+flowchart TD
+    H[⚙️ Handler throws] --> G[🌐 GlobalExceptionHandling\n🪵 logs + rethrows]
+    G --> REP[🔄 RequestExceptionProcessorBehavior]
+    REP -->|handler found| IEH[🛡️ IRequestExceptionHandler\nstate.SetHandled]
+    REP -->|no handler| PROP[💥 Exception propagates\nto ASP.NET middleware]
+    IEH --> FB[📤 Fallback Response\nid = Guid.Empty]
+```
+
+The GlobalExceptionHandlingBehavior is a pure logging concern — it always rethrows. Per-request `IRequestExceptionHandler` implementations provide fallback responses for specific request+exception combinations. If no handler is registered, the exception reaches ASP.NET Core's error middleware.
+
 ## Pipeline Behaviors
 
 ### LoggingBehavior
