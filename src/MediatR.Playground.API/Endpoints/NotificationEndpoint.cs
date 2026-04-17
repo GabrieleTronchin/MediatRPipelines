@@ -12,52 +12,58 @@ public class NotificationEndpoint : IEndpoint
         group
             .MapPost(
                 "/SequentialNotification",
-                (IMediator mediator, CancellationToken cancellationToken) =>
+                async (IMediator mediator, CancellationToken cancellationToken) =>
                 {
-                    return mediator.Publish(
-                        new SampleNotification()
-                        {
-                            Id = Guid.NewGuid(),
-                            NotificationTime = DateTime.Now,
-                        },
-                        cancellationToken
-                    );
+                    var notification = new SampleNotification()
+                    {
+                        Id = Guid.NewGuid(),
+                        NotificationTime = DateTime.Now,
+                    };
+                    await mediator.Publish(notification, cancellationToken);
+                    return new { notification.Id, notification.NotificationTime, Type = "Sequential" };
                 }
             )
-            .WithName("SequentialNotification");
+            .WithName("SequentialNotification")
+            .WithSummary("Publish a sequential notification")
+            .WithDescription("Publishes a notification that is handled sequentially by all registered notification handlers, one at a time in order.")
+            .Produces(StatusCodes.Status200OK, typeof(object));
 
         group
             .MapPost(
                 "/ParallelNotification",
-                (IMediator mediator, CancellationToken cancellationToken) =>
+                async (IMediator mediator, CancellationToken cancellationToken) =>
                 {
-                    var publisher = mediator.Publish(
-                        new SampleParallelNotification()
-                        {
-                            Id = Guid.NewGuid(),
-                            NotificationTime = DateTime.Now,
-                        },
-                        cancellationToken
-                    );
+                    var notification = new SampleParallelNotification()
+                    {
+                        Id = Guid.NewGuid(),
+                        NotificationTime = DateTime.Now,
+                    };
+                    await mediator.Publish(notification, cancellationToken);
+                    return new { notification.Id, notification.NotificationTime, Type = "Parallel" };
                 }
             )
-            .WithName("ParallelNotification");
+            .WithName("ParallelNotification")
+            .WithSummary("Publish a parallel notification")
+            .WithDescription("Publishes a notification that is handled in parallel by all registered notification handlers using Task.WhenAll.")
+            .Produces(StatusCodes.Status200OK, typeof(object));
 
         group
             .MapPost(
                 "/SamplePriorityNotification",
-                (IMediator mediator, CancellationToken cancellationToken) =>
+                async (IMediator mediator, CancellationToken cancellationToken) =>
                 {
-                    var publisher = mediator.Publish(
-                        new SamplePriorityNotification()
-                        {
-                            Id = Guid.NewGuid(),
-                            NotificationTime = DateTime.Now,
-                        },
-                        cancellationToken
-                    );
+                    var notification = new SamplePriorityNotification()
+                    {
+                        Id = Guid.NewGuid(),
+                        NotificationTime = DateTime.Now,
+                    };
+                    await mediator.Publish(notification, cancellationToken);
+                    return new { notification.Id, notification.NotificationTime, Type = "Priority" };
                 }
             )
-            .WithName("SamplePriorityNotification");
+            .WithName("SamplePriorityNotification")
+            .WithSummary("Publish a priority notification")
+            .WithDescription("Publishes a notification that is handled by notification handlers in priority order, using the custom PriorityNotificationPublisher.")
+            .Produces(StatusCodes.Status200OK, typeof(object));
     }
 }
