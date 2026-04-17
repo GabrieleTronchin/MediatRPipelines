@@ -6,7 +6,7 @@ namespace MediatR.Playground.Domain.NotificationHandler.Priority;
 
 internal class SamplePriorityNotificationThirdHandler(
     ILogger<SamplePriorityNotificationThirdHandler> logger
-) : IPriorityNotificationHandler<SamplePriorityNotification>
+) : INotificationHandler<SamplePriorityNotification>, IPriorityNotificationHandler<SamplePriorityNotification>
 {
     public int Priority => 1;
 
