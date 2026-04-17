@@ -2,9 +2,9 @@
 
 This repository is a playground project used to experiment with MediatR features, particularly pipelines. It covers request/response handling, notifications, stream requests, exception handling, caching, and the Unit of Work pattern — all implemented through MediatR pipeline behaviors.
 
-> **Note:** This project targets **.NET 10** and uses **MediatR 14.1.0**, which requires a commercial license (RPL-1.5). A license key must be configured in `appsettings.json` — see the [migration guide](docs/upgrade-mediatr-14.md) for details.
+> **Note:** This project targets **.NET 10** and uses **MediatR 14.1.0**, which requires a commercial license (RPL-1.5). A license key must be configured in `appsettings.json`. See the [breaking changes from the free version](docs/upgrade-mediatr-14.md) for details.
 >
-> Looking for the **free version**? The last Apache-2.0 release (MediatR 12.5.0) is available on the [`net10-mediatr12.5.0`](https://github.com/GabrieleTronchin/MediatRPipelines/commits/net10-mediatr12.5.0) branch.
+> A .NET 10 version of this project using the last free MediatR release (12.5.0, Apache-2.0) is available [here](https://github.com/GabrieleTronchin/MediatRPipelines/commits/net10-mediatr12.5.0).
 
 Detailed documentation for each topic is available in the [`docs/`](docs/) folder. The sections below provide a brief overview with links to the full documentation.
 
