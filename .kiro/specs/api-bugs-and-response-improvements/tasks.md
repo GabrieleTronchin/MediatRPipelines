@@ -1,6 +1,6 @@
 # Implementation Plan
 
-- [ ] 1. Write bug condition exploration tests
+- [x] 1. Write bug condition exploration tests
   - **Property 1: Bug Condition** - API Bugs: Auth Randomness, Missing Persistence, Empty Notification Responses, Minimal Entity Response, and Missing Swagger Metadata
   - **CRITICAL**: These tests MUST FAIL on unfixed code — failure confirms the bugs exist
   - **DO NOT attempt to fix the tests or the code when they fail**
@@ -19,7 +19,7 @@
   - Mark task complete when tests are written, run, and failures are documented
   - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7_
 
-- [ ] 2. Write preservation property tests (BEFORE implementing fixes)
+- [x] 2. Write preservation property tests (BEFORE implementing fixes)
   - **Property 2: Preservation** - Existing Endpoint Behavior Unchanged for Non-Bug-Condition Inputs
   - **IMPORTANT**: Follow observation-first methodology — run UNFIXED code, observe actual outputs, then write tests asserting those outputs
   - **Preservation A — Random Auth When Toggle Absent**: Observe that `AuthService.OperationAlowed()` produces both `true` and `false` results over many calls when no `FakeAuth:AlwaysAuthorize` config exists. Write a property-based test: for N calls (N >= 50), assert that NOT all results are `true` AND NOT all results are `false` (statistical property confirming randomness). Verify passes on unfixed code
@@ -34,9 +34,9 @@
   - Mark task complete when tests are written, run, and passing on unfixed code
   - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7_
 
-- [ ] 3. Fix Bug 1 — Auth Configuration Toggle
+- [-] 3. Fix Bug 1 — Auth Configuration Toggle
 
-  - [ ] 3.1 Add `FakeAuth:AlwaysAuthorize` configuration and update `AuthService`
+  - [x] 3.1 Add `FakeAuth:AlwaysAuthorize` configuration and update `AuthService`
     - Add `"FakeAuth": { "AlwaysAuthorize": true }` section to `src/MediatR.Playground.API/appsettings.json` and `appsettings.Development.json`
     - Inject `IConfiguration` into `AuthService` constructor in `src/FakeAuth.Service/AuthService.cs`
     - In `OperationAlowed()`, check `configuration.GetValue<bool>("FakeAuth:AlwaysAuthorize")` — if `true`, return `new AuthResponse { IsSuccess = true }` immediately; otherwise fall through to existing Bogus random logic
@@ -46,20 +46,20 @@
     - _Preservation: With AlwaysAuthorize=false or absent, random auth behavior is preserved_
     - _Requirements: 2.1, 3.1_
 
-  - [ ] 3.2 Verify bug condition exploration test for auth now passes
+  - [x] 3.2 Verify bug condition exploration test for auth now passes
     - **Property 1: Expected Behavior** - Auth Toggle Bypasses Random Authorization
     - **IMPORTANT**: Re-run the SAME auth test from task 1 with `FakeAuth:AlwaysAuthorize=true` in test configuration — do NOT write a new test
     - **EXPECTED OUTCOME**: Test PASSES (confirms auth toggle fix works)
     - _Requirements: 2.1_
 
-  - [ ] 3.3 Verify preservation tests for auth still pass
+  - [x] 3.3 Verify preservation tests for auth still pass
     - **Property 2: Preservation** - Random Auth Preserved When Toggle Disabled
     - **IMPORTANT**: Re-run the SAME preservation tests from task 2 — do NOT write new tests
     - **EXPECTED OUTCOME**: Tests PASS (confirms no regressions to random auth behavior)
 
-- [ ] 4. Fix Bug 2 — Entity Persistence Round-Trip
+- [x] 4. Fix Bug 2 — Entity Persistence Round-Trip
 
-  - [ ] 4.1 Fix the `UnitOfWorkBehavior` transaction flow
+  - [x] 4.1 Fix the `UnitOfWorkBehavior` transaction flow
     - In `src/MediatR.Playground.Pipelines/TransactionCommand/UnitOfWorkBehavior.cs`, after `await _uow.Commit()` (which calls `SaveChangesAsync`), add `await connection.CommitAsync()` to commit the `IDbContextTransaction`
     - The current code calls `_uow.Commit()` but never commits the actual `IDbContextTransaction` — without `connection.CommitAsync()`, the transaction is implicitly rolled back on disposal in the `finally` block
     - Verify the `using var connection` pattern and `finally { connection.Dispose() }` do not interfere with the committed transaction
@@ -68,20 +68,20 @@
     - _Preservation: Empty list for no entities, default result for missing entities unchanged_
     - _Requirements: 2.2, 3.2, 3.3_
 
-  - [ ] 4.2 Verify bug condition exploration test for persistence now passes
+  - [x] 4.2 Verify bug condition exploration test for persistence now passes
     - **Property 1: Expected Behavior** - Entity Persistence Round-Trip
     - **IMPORTANT**: Re-run the SAME persistence test from task 1 — do NOT write a new test
     - **EXPECTED OUTCOME**: Test PASSES (confirms entities are persisted and retrievable)
     - _Requirements: 2.2_
 
-  - [ ] 4.3 Verify preservation tests for entity queries still pass
+  - [x] 4.3 Verify preservation tests for entity queries still pass
     - **Property 2: Preservation** - Empty/Default Results for Missing Entities
     - **IMPORTANT**: Re-run the SAME preservation tests from task 2 — do NOT write new tests
     - **EXPECTED OUTCOME**: Tests PASS (confirms no regressions to empty list and default entity behavior)
 
-- [ ] 5. Fix Bug 3 — Notification Endpoint Responses
+- [x] 5. Fix Bug 3 — Notification Endpoint Responses
 
-  - [ ] 5.1 Fix notification endpoints to await and return confirmation objects
+  - [x] 5.1 Fix notification endpoints to await and return confirmation objects
     - In `src/MediatR.Playground.API/Endpoints/NotificationEndpoint.cs`:
     - **SequentialNotification**: Change lambda to `async`, `await mediator.Publish(...)`, and return a confirmation object `new { notification.Id, notification.NotificationTime, Type = "Sequential" }`
     - **ParallelNotification**: Change lambda to `async`, `await mediator.Publish(...)`, and return a confirmation object `new { notification.Id, notification.NotificationTime, Type = "Parallel" }`
@@ -92,20 +92,20 @@
     - _Preservation: No other endpoints affected_
     - _Requirements: 2.3, 2.4, 2.5_
 
-  - [ ] 5.2 Verify bug condition exploration test for notifications now passes
+  - [x] 5.2 Verify bug condition exploration test for notifications now passes
     - **Property 1: Expected Behavior** - Notification Endpoints Return Confirmation
     - **IMPORTANT**: Re-run the SAME notification tests from task 1 — do NOT write new tests
     - **EXPECTED OUTCOME**: Tests PASS (confirms all three notification endpoints return JSON bodies)
     - _Requirements: 2.3, 2.4, 2.5_
 
-  - [ ] 5.3 Verify preservation tests still pass
+  - [x] 5.3 Verify preservation tests still pass
     - **Property 2: Preservation** - Existing Endpoint Behavior Unchanged
     - **IMPORTANT**: Re-run the SAME preservation tests from task 2 — do NOT write new tests
     - **EXPECTED OUTCOME**: Tests PASS (confirms no regressions)
 
-- [ ] 6. Fix Bug 4 — Enrich AddSampleEntity Response
+- [x] 6. Fix Bug 4 — Enrich AddSampleEntity Response
 
-  - [ ] 6.1 Enrich `AddSampleEntityCommandComplete` and update handler
+  - [x] 6.1 Enrich `AddSampleEntityCommandComplete` and update handler
     - In `src/MediatR.Playground.Model/TransactionCommand/AddSampleEntityCommand.cs`, add `Id` (Guid), `Description` (string), and `EventTime` (DateTime) properties to the `AddSampleEntityCommandComplete` record
     - In `src/MediatR.Playground.Domain/TransactionCommandHandler/SampleCommandHandler.cs`, update the `Handle` method to populate `Id = request.Id`, `Description = request.Description`, `EventTime = request.EventTime` in the returned `AddSampleEntityCommandComplete`
     - _Bug_Condition: isBugCondition(input) where POST AddSampleEntity response ONLY CONTAINS { isSuccess }_
@@ -113,20 +113,20 @@
     - _Preservation: Existing isSuccess field unchanged_
     - _Requirements: 2.6_
 
-  - [ ] 6.2 Verify bug condition exploration test for entity response now passes
+  - [x] 6.2 Verify bug condition exploration test for entity response now passes
     - **Property 1: Expected Behavior** - AddSampleEntity Returns Full Entity Details
     - **IMPORTANT**: Re-run the SAME entity response test from task 1 — do NOT write a new test
     - **EXPECTED OUTCOME**: Test PASSES (confirms response includes id, description, eventTime)
     - _Requirements: 2.6_
 
-  - [ ] 6.3 Verify preservation tests still pass
+  - [x] 6.3 Verify preservation tests still pass
     - **Property 2: Preservation** - Existing Endpoint Behavior Unchanged
     - **IMPORTANT**: Re-run the SAME preservation tests from task 2 — do NOT write new tests
     - **EXPECTED OUTCOME**: Tests PASS (confirms no regressions)
 
-- [ ] 7. Fix Bug 5 — Swagger/OpenAPI Documentation
+- [x] 7. Fix Bug 5 — Swagger/OpenAPI Documentation
 
-  - [ ] 7.1 Add OpenAPI metadata to all endpoint registrations
+  - [x] 7.1 Add OpenAPI metadata to all endpoint registrations
     - In `src/MediatR.Playground.API/Endpoints/RequestsAndCommandEndpoints.cs`: Add `.WithSummary()`, `.WithDescription()`, `.Produces<T>(StatusCodes.Status200OK)`, `.ProducesProblem(StatusCodes.Status400BadRequest)` to SampleCommand and SampleRequest endpoints
     - In `src/MediatR.Playground.API/Endpoints/TransactionEndpoints.cs`: Add `.WithSummary()`, `.WithDescription()`, `.Produces<T>(StatusCodes.Status200OK)`, `.Produces(StatusCodes.Status404NotFound)` to GET endpoints, and `.ProducesProblem(StatusCodes.Status500InternalServerError)` where appropriate
     - In `src/MediatR.Playground.API/Endpoints/NotificationEndpoint.cs`: Add `.WithSummary()`, `.WithDescription()`, `.Produces<T>(StatusCodes.Status200OK)` to all three notification endpoints
@@ -137,18 +137,18 @@
     - _Preservation: Existing endpoint behavior and routing unchanged_
     - _Requirements: 2.7_
 
-  - [ ] 7.2 Verify bug condition exploration test for Swagger now passes
+  - [x] 7.2 Verify bug condition exploration test for Swagger now passes
     - **Property 1: Expected Behavior** - Swagger Documentation Complete
     - **IMPORTANT**: Re-run the SAME Swagger test from task 1 — do NOT write a new test
     - **EXPECTED OUTCOME**: Test PASSES (confirms all endpoints have summary, description, and response metadata)
     - _Requirements: 2.7_
 
-  - [ ] 7.3 Verify preservation tests still pass
+  - [x] 7.3 Verify preservation tests still pass
     - **Property 2: Preservation** - Existing Endpoint Behavior Unchanged
     - **IMPORTANT**: Re-run the SAME preservation tests from task 2 — do NOT write new tests
     - **EXPECTED OUTCOME**: Tests PASS (confirms no regressions)
 
-- [ ] 8. Checkpoint — Ensure all tests pass
+- [~] 8. Checkpoint — Ensure all tests pass
   - Run the full test suite: `dotnet test tests/MediatR.Playground.Tests/MediatR.Playground.Tests.csproj`
   - Verify ALL bug condition exploration tests now PASS (bugs are fixed)
   - Verify ALL preservation tests still PASS (no regressions)
