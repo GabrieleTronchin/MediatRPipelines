@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddPersistenceLayer();
 
-builder.Services.AddMediatorSample();
+builder.Services.AddMediatorSample(builder.Configuration);
 
 builder.Services.AddEndpoints(typeof(Program).Assembly);
 
