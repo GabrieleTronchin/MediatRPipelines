@@ -14,4 +14,7 @@ public class AddSampleEntityCommand : ITransactionCommand<AddSampleEntityCommand
 public record AddSampleEntityCommandComplete
 {
     public bool IsSuccess { get; set; }
+    public Guid Id { get; set; }
+    public string Description { get; set; } = string.Empty;
+    public DateTime EventTime { get; set; }
 }

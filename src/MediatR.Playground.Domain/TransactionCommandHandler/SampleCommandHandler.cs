@@ -41,6 +41,12 @@ public class AddSampleEntityCommandHandler
             request.EventTime
         );
 
-        return new AddSampleEntityCommandComplete() { IsSuccess = true };
+        return new AddSampleEntityCommandComplete()
+        {
+            IsSuccess = true,
+            Id = request.Id,
+            Description = request.Description,
+            EventTime = request.EventTime
+        };
     }
 }
