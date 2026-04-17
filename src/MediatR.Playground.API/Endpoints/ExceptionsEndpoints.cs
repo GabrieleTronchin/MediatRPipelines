@@ -31,7 +31,10 @@ public class ExceptionsEndpoints : IEndpoint
                 }
             )
             .WithName("SampleCommandWithIOException")
-            .WithOpenApi();
+            .WithSummary("Trigger an InvalidOperationException")
+            .WithDescription("Sends a SampleCommand configured to raise an InvalidOperationException, demonstrating per-request exception handling via the pipeline.")
+            .Produces<SampleCommandComplete>(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status500InternalServerError);
 
         group
             .MapPost(
@@ -50,7 +53,10 @@ public class ExceptionsEndpoints : IEndpoint
                 }
             )
             .WithName("SampleCommandWithException")
-            .WithOpenApi();
+            .WithSummary("Trigger a generic Exception")
+            .WithDescription("Sends a SampleCommand configured to raise a generic Exception, demonstrating per-request exception handling via the pipeline.")
+            .Produces<SampleCommandComplete>(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status500InternalServerError);
 
         group
             .MapGet(
@@ -61,6 +67,9 @@ public class ExceptionsEndpoints : IEndpoint
                 }
             )
             .WithName("NotFoundExcptionGlobalHandler")
-            .WithOpenApi();
+            .WithSummary("Trigger a not-found exception via global handler")
+            .WithDescription("Sends a query with an empty GUID to trigger a not-found exception, demonstrating the global exception handling middleware.")
+            .Produces<GetSampleEntityQueryResult>(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status500InternalServerError);
     }
 }

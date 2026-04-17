@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace MediatR.Playground.Persistence.Repository;
 
@@ -24,7 +25,7 @@ public class EntityFrameworkRepository<T> : IRepository<T>
         return await _dbSet.ToListAsync(cancellationToken);
     }
 
-    public async IAsyncEnumerable<T> GetStream(CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<T> GetStream([EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         var datas = _dbSet.AsAsyncEnumerable<T>();
         await foreach (var data in datas)

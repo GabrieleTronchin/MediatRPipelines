@@ -25,23 +25,18 @@ public class UnitOfWorkBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
         CancellationToken cancellationToken
     )
     {
-        using var connection = await _uow.BeginTransaction();
-        TResponse? response = default;
+        await _uow.BeginTransaction();
         try
         {
-            response = await next();
+            var response = await next();
             await _uow.Commit();
+            return response;
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occured on transaction.");
-            await connection.RollbackAsync();
+            _logger.LogError(ex, "An error occurred on transaction.");
+            await _uow.Rollback();
+            throw;
         }
-        finally
-        {
-            connection.Dispose();
-        }
-
-        return response!;
     }
 }

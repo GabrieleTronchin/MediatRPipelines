@@ -27,3 +27,6 @@ if (app.Environment.IsDevelopment())
 app.MapEndpoints();
 
 app.Run();
+
+// Make the implicit Program class accessible for integration tests (WebApplicationFactory)
+public partial class Program { }

@@ -1,6 +1,4 @@
-﻿using MediatR.Playground.Domain.ExceptionsHandler.Commands;
-using System;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 
 namespace MediatR.Playground.Domain.ExceptionsHandler;
 
@@ -24,7 +22,7 @@ internal class GlobalExceptionHandlingBehavior<TRequest, TResponse> : IPipelineB
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"---- Exception Handler: '{nameof(GlobalExceptionHandlingBehavior<TRequest, TResponse>)}'"); 
+            _logger.LogError(ex, $"---- Exception Handler: '{nameof(GlobalExceptionHandlingBehavior<TRequest, TResponse>)}'");
             throw;
         }
     }

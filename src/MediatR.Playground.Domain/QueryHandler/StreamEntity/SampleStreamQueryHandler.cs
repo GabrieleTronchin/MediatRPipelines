@@ -1,6 +1,7 @@
 ﻿using MediatR.Playground.Model.Queries.StreamEntity;
 using MediatR.Playground.Persistence;
 using MediatR.Playground.Persistence.Repository;
+using System.Runtime.CompilerServices;
 
 namespace MediatR.Playground.Domain.QueryHandler.StreamEntity;
 
@@ -16,7 +17,7 @@ public class SampleStreamQueryHandler
 
     public async IAsyncEnumerable<SampleStreamEntityQueryResult> Handle(
         SampleStreamEntityQuery request,
-        CancellationToken cancellationToken
+        [EnumeratorCancellation] CancellationToken cancellationToken
     )
     {
         await foreach (var entity in _repository.GetStream(cancellationToken))

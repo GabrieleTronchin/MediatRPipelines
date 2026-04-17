@@ -2,7 +2,7 @@
 using MediatR.Playground.Model.Primitives.Notifications;
 using Microsoft.Extensions.Logging;
 
-namespace MediatR.Playground.Domain.NotificationHandler;
+namespace MediatR.Playground.Domain.NotificationHandler.Priority;
 
 internal class SamplePriorityNotificationThirdHandler(
     ILogger<SamplePriorityNotificationThirdHandler> logger
