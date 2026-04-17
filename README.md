@@ -2,7 +2,9 @@
 
 This repository is a playground project used to experiment with MediatR features, particularly pipelines. It covers request/response handling, notifications, stream requests, exception handling, caching, and the Unit of Work pattern — all implemented through MediatR pipeline behaviors.
 
-> **Note:** This project targets **.NET 10** and uses **MediatR 12.5.0**, the last version released under the free **Apache-2.0** license. Versions 13+ use a commercial license (RPL-1.5) and are intentionally not used here.
+> **Note:** This project targets **.NET 10** and uses **MediatR 14.1.0**, which requires a commercial license (RPL-1.5). A license key must be configured in `appsettings.json` — see the [migration guide](docs/upgrade-mediatr-14.md) for details.
+>
+> Looking for the **free version**? The last Apache-2.0 release (MediatR 12.5.0) is available on the [`net10-mediatr12.5.0`](https://github.com/GabrieleTronchin/MediatRPipelines/commits/net10-mediatr12.5.0) branch.
 
 Detailed documentation for each topic is available in the [`docs/`](docs/) folder. The sections below provide a brief overview with links to the full documentation.
 
@@ -87,6 +89,7 @@ flowchart LR
 | POST | `/Notifications/SequentialNotification` | Publishes a notification with sequential delivery |
 | POST | `/Notifications/ParallelNotification` | Publishes a notification with parallel delivery |
 | POST | `/Notifications/SamplePriorityNotification` | Publishes a notification with priority-ordered delivery |
+| POST | `/Notifications/DeduplicationNotification` | Publishes a notification demonstrating MediatR 14's handler de-duplication |
 
 ### Exceptions Endpoints
 
@@ -225,7 +228,8 @@ This repository serves as the code base for the following articles:
 | Package | Version | Notes |
 |---------|---------|-------|
 | .NET | 10.0 | Long-Term Support (LTS) |
-| MediatR | 12.5.0 | Last free Apache-2.0 version |
+| MediatR | 14.1.0 | Commercial license (RPL-1.5) — requires license key |
+| MediatR.Contracts | 2.0.1 | Lightweight contract interfaces (Model project only) |
 | FluentValidation | 12.1.1 | Request validation in pipeline behaviors |
 | ZiggyCreatures.FusionCache | 2.6.0 | Caching layer for query requests |
 | Swashbuckle.AspNetCore | 10.1.7 | Swagger UI and OpenAPI support |
