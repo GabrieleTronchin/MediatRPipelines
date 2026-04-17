@@ -55,9 +55,11 @@ Commands go through `GlobalExceptionHandling → UnitOfWorkBehavior (begin tx �
 ```mermaid
 flowchart LR
     subgraph Queries
+    direction LR
         Q[📨 Query] --> CB[🗄️ Cache] --> GQ[🌐 GlobalException] --> QH[⚙️ Handler]
     end
     subgraph Commands
+    direction LR
         C[📨 Command] --> GC[🌐 GlobalException] --> UOW[💾 UnitOfWork] --> CH[⚙️ Handler] --> COM[✅ Commit]
     end
 ```
@@ -91,9 +93,8 @@ flowchart LR
 Two mechanisms work together: `GlobalExceptionHandlingBehavior` (logs + rethrows for all requests) and per-request `IRequestExceptionHandler` (provides fallback responses for specific request+exception types).
 
 ```mermaid
-flowchart TD
-    H[⚙️ Handler throws] --> G[🌐 GlobalException\nlogs + rethrows]
-    G --> REP{IRequestExceptionHandler?}
+flowchart LR
+    H[⚙️ Handler throws] --> G[🌐 GlobalException\nlogs + rethrows] --> REP{IRequestExceptionHandler?}
     REP -->|registered| FB[📤 Fallback Response]
     REP -->|not registered| ERR[💥 500 Error]
 ```

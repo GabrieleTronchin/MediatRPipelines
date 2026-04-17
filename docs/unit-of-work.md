@@ -1,5 +1,7 @@
 # Unit of Work Pattern with MediatR Pipeline
 
+[← Back to README](../README.md)
+
 > **Note:** This documentation was AI-generated based on the original article:
 > [C# .NET 8 — Unit of Work Pattern with MediatR Pipeline](https://medium.com/@gabrieletronchin/c-net-8-unit-of-work-pattern-with-mediatr-pipeline-d7a374df3dcb).
 > It is intended as a companion reference for the code in this repository.
@@ -146,3 +148,8 @@ Source: [`../src/MediatR.Playground.Persistence/ServicesExtensions.cs`](../src/M
 ## Further Reading
 
 - [C# .NET — Unit Of Work Pattern with MediatR Pipeline](https://medium.com/@gabrieletronchin/c-net-8-unit-of-work-pattern-with-mediatr-pipeline-d7a374df3dcb) — Medium article covering the Unit of Work pattern in depth
+
+## See Also
+
+- [Pipelines](./pipelines.md) — pipeline behavior overview and registration order
+- [Caching Pipeline](./caching.md) — query-level caching via FusionCache

@@ -1,5 +1,7 @@
 # Stream Requests and Stream Pipelines
 
+[← Back to README](../README.md)
+
 > **Note:** This documentation was AI-generated based on the original article:
 > [C# .NET 8 — Stream Request and Pipeline with MediatR](https://medium.com/@gabrieletronchin/c-net-8-stream-request-and-pipeline-with-mediatr-a26ddb911b39).
 > It is intended as a companion reference for the code in this repository.
@@ -237,3 +239,8 @@ Source: [`../src/MediatR.Playground.API/Endpoints/StreamRequestEndpoint.cs`](../
 ## Further Reading
 
 - [C# .NET — Stream Request and Pipeline With MediatR](https://medium.com/@gabrieletronchin/c-net-8-stream-request-and-pipeline-with-mediatr-a26ddb911b39) — Medium article covering stream request and pipeline concepts in depth
+
+## See Also
+
+- [Pipelines](./pipelines.md) — standard pipeline behaviors (IPipelineBehavior)
+- [Caching Pipeline](./caching.md) — query-level caching via FusionCache

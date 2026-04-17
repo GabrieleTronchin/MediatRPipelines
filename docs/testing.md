@@ -1,5 +1,7 @@
 # Testing
 
+[← Back to README](../README.md)
+
 This project includes a unit test suite for verifying pipeline behaviors, notification publishers, and validators, as well as tools for manual API testing.
 
 ## Running the Tests
@@ -54,3 +56,10 @@ Make sure the API is running, then use the script:
 # Stream with the authorization filter pipeline
 .\scripts\stream-client.ps1 -Endpoint streamfilter
 ```
+
+## See Also
+
+- [Pipelines](./pipelines.md) — pipeline behavior overview and registration order
+- [Unit of Work](./unit-of-work.md) — transaction management pipeline
+- [Exception Handling](./exception-handling.md) — per-request exception handlers
+- [Notifications](./notifications.md) — notification publishing strategies

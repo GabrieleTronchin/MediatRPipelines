@@ -1,5 +1,7 @@
 # MediatR Notifications and Notification Publishers
 
+[← Back to README](../README.md)
+
 > **Note:** This documentation was AI-generated based on the original article:
 > [C# .NET 8 — MediatR Notifications and Notification Publisher](https://medium.com/@gabrieletronchin/c-net-8-mediatr-notifications-and-notification-publisher-b72a36f0e9ee).
 > It is intended as a companion reference for the code in this repository.
@@ -128,3 +130,8 @@ Source: [`../src/MediatR.Playground.API/Endpoints/NotificationEndpoint.cs`](../s
 ## Further Reading
 
 - [C# .NET — MediatR Notifications and Notification Publisher](https://medium.com/@gabrieletronchin/c-net-8-mediatr-notifications-and-notification-publisher-b72a36f0e9ee) — Medium article covering notification concepts and custom publishers in depth
+
+## See Also
+
+- [Priority Notification Publisher](./priority-notification-publisher.md) — priority-ordered handler execution
+- [Pipelines](./pipelines.md) — pipeline behavior overview and registration order

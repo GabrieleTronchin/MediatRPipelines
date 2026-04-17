@@ -1,5 +1,7 @@
 # Priority Notification Publisher
 
+[← Back to README](../README.md)
+
 > **Note:** This documentation was AI-generated based on the original article:
 > [C# .NET 8 — MediatR Notifications and Notification Publisher](https://medium.com/@gabrieletronchin/c-net-8-mediatr-notifications-and-notification-publisher-b72a36f0e9ee).
 > It is intended as a companion reference for the code in this repository.
@@ -208,3 +210,8 @@ The priority notification can be tested through the Swagger UI:
 Check the application logs after calling this endpoint to see the handlers execute in priority order.
 
 Source: [`../src/MediatR.Playground.API/Endpoints/NotificationEndpoint.cs`](../src/MediatR.Playground.API/Endpoints/NotificationEndpoint.cs)
+
+## See Also
+
+- [Notifications](./notifications.md) — notification system overview and publishing strategies
+- [Pipelines](./pipelines.md) — pipeline behavior overview and registration order

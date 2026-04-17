@@ -1,5 +1,7 @@
 # Global Exception Handling with MediatR
 
+[← Back to README](../README.md)
+
 > **Note:** This documentation was AI-generated based on the original article:
 > [C# .NET 8 — Handle Exceptions with MediatR](https://medium.com/@gabrieletronchin/c-net-8-handle-exceptions-with-mediatr-48cbf80bae4e).
 > It is intended as a companion reference for the code in this repository.
@@ -89,3 +91,8 @@ This is by design: the endpoint demonstrates that `GlobalExceptionHandlingBehavi
 ## Further Reading
 
 - [C# .NET — Handle Exceptions with MediatR](https://medium.com/@gabrieletronchin/c-net-8-handle-exceptions-with-mediatr-48cbf80bae4e) — Medium article covering exception handling patterns with MediatR, including global exception handling
+
+## See Also
+
+- [Exception Handling](./exception-handling.md) — per-request exception handlers with SetHandled
+- [Pipelines](./pipelines.md) — pipeline behavior overview and registration order

@@ -1,5 +1,7 @@
 # MediatR Pipelines
 
+[← Back to README](../README.md)
+
 > **Note:** This documentation was AI-generated based on the original article:
 > [C# .NET 8 — MediatR Pipelines](https://medium.com/@gabrieletronchin/c-net-8-mediatr-pipelines-edcc9ae8224b).
 > It is intended as a companion reference for the code in this repository.
@@ -173,3 +175,12 @@ Source: [`../src/MediatR.Playground.Domain/ServiceExtension.cs`](../src/MediatR.
 ## Further Reading
 
 - [C# .NET — MediatR Pipelines](https://medium.com/@gabrieletronchin/c-net-8-mediatr-pipelines-edcc9ae8224b) — Medium article covering the pipeline concepts in depth
+
+## See Also
+
+- [Caching Pipeline](./caching.md) — query-level caching via FusionCache
+- [Unit of Work](./unit-of-work.md) — transaction management pipeline
+- [Exception Handling](./exception-handling.md) — per-request exception handlers
+- [Global Exception Handling](./global-exception-handling.md) — cross-cutting exception logging
+- [Stream Requests](./stream-requests.md) — stream pipeline behaviors
+- [Notifications](./notifications.md) — notification publishing strategies

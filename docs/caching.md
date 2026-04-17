@@ -1,5 +1,7 @@
 # Caching Pipeline with FusionCache
 
+[← Back to README](../README.md)
+
 > **Note:** This documentation was AI-generated based on the original article:
 > [C# .NET — Caching Requests with MediatR Pipeline](https://blog.devgenius.io/c-net-caching-requests-with-mediatr-pipeline-44a7b92f9978).
 > It is intended as a companion reference for the code in this repository.
@@ -112,3 +114,8 @@ Source: [`../src/MediatR.Playground.Domain/ServiceExtension.cs`](../src/MediatR.
 ## Further Reading
 
 - [C# .NET — Caching Requests With MediatR Pipeline](https://blog.devgenius.io/c-net-caching-requests-with-mediatr-pipeline-44a7b92f9978) — Medium article covering the caching pipeline pattern in depth
+
+## See Also
+
+- [Pipelines](./pipelines.md) — pipeline behavior overview and registration order
+- [Unit of Work](./unit-of-work.md) — transaction management pipeline
