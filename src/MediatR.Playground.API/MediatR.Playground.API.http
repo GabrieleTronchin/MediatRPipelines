@@ -144,8 +144,7 @@ GET {{baseUrl}}/Exceptions/NotFoundExceptionGlobalHandler
 # STREAM REQUESTS
 #
 # These return IAsyncEnumerable<T> (streamed JSON arrays).
-# The .http client collects the full response. To see elements arriving
-# in real time, use the PowerShell script: scripts/stream-client.ps1
+# The .http client collects the full response once the stream completes.
 #
 # Response: [ { "id": "guid", "eventTime": datetime, "description": string }, ... ]
 #   One JSON object per entity, streamed as they are yielded.

@@ -137,7 +137,7 @@ flowchart LR
 
 Use the Swagger UI to test the different endpoint groups and observe the pipeline behaviors, notification strategies, and exception handling in action. Check the application logs to see pipeline execution, notification delivery order, and exception handling output.
 
-For testing tools (`.http` file, stream client script, and unit tests), see the [Testing documentation](docs/testing.md).
+For testing tools (`.http` file and unit tests), see the [Testing documentation](docs/testing.md).
 
 ## MediatR Fundamentals
 

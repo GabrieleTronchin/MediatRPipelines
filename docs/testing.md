@@ -43,20 +43,6 @@ To use it:
 
 The file covers all endpoint groups: requests, transactions, notifications, exceptions, and stream requests.
 
-## Stream Client Script
-
-Standard HTTP clients wait for the full response before displaying anything. The PowerShell script `scripts/stream-client.ps1` connects to the streaming endpoints and prints each JSON element as it arrives from the server, so you can observe the real-time streaming behavior.
-
-Make sure the API is running, then use the script:
-
-```powershell
-# Stream with the default logging pipeline
-.\scripts\stream-client.ps1
-
-# Stream with the authorization filter pipeline
-.\scripts\stream-client.ps1 -Endpoint streamfilter
-```
-
 ## See Also
 
 - [Pipelines](./pipelines.md) — pipeline behavior overview and registration order
