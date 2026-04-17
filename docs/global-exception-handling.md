@@ -2,95 +2,45 @@
 
 [← Back to README](../README.md)
 
-> **Note:** This documentation was AI-generated based on the original article:
-> [C# .NET 8 — Handle Exceptions with MediatR](https://medium.com/@gabrieletronchin/c-net-8-handle-exceptions-with-mediatr-48cbf80bae4e).
-> It is intended as a companion reference for the code in this repository.
+> Based on: [C# .NET 8 — Handle Exceptions with MediatR](https://medium.com/@gabrieletronchin/c-net-8-handle-exceptions-with-mediatr-48cbf80bae4e)
 
 ## Overview
 
-`GlobalExceptionHandlingBehavior` is a pipeline behavior (`IPipelineBehavior<TRequest, TResponse>`) that wraps every MediatR request in a try/catch block. When any exception is thrown during request processing, the behavior logs the error and re-throws it. This provides a single, centralized place for exception logging across all requests — without swallowing the exception or altering the response.
+`GlobalExceptionHandlingBehavior` is an `IPipelineBehavior` that wraps every MediatR request in a try/catch. It **logs the error and re-throws** — it never swallows exceptions or returns fallback responses. This makes it a pure logging/observability concern.
 
-This approach complements the request-specific exception handling covered in [Exception Handling with MediatR](./exception-handling.md). The two mechanisms serve different purposes and can be used together.
-
-## How It Works
-
-`GlobalExceptionHandlingBehavior<TRequest, TResponse>` implements `IPipelineBehavior<TRequest, TResponse>` with a `where TRequest : notnull` constraint. Because there is no further filtering (no `ICommand`, `IQueryRequest`, or other marker interface constraint), this behavior runs for **every** MediatR request in the pipeline.
-
-The `Handle` method wraps the call to `next()` in a try/catch:
-
-1. Calls `await next()` to invoke the next behavior in the pipeline (or the handler itself)
-2. If the handler completes successfully, the response is returned as-is
-3. If an exception is thrown, the behavior logs the error using `ILogger` and **re-throws** the original exception
-
-The key detail: the behavior does not call `SetHandled` or return a fallback response. It logs and re-throws, so the exception continues to propagate up the call stack. This makes it a pure logging/observability concern — it does not change the outcome of the request.
+It complements the per-request exception handling covered in [Exception Handling](./exception-handling.md). The two mechanisms serve different purposes and work together.
 
 Source: [`../src/MediatR.Playground.Domain/ExceptionsHandler/GlobalExceptionHandlingBehavior.cs`](../src/MediatR.Playground.Domain/ExceptionsHandler/GlobalExceptionHandlingBehavior.cs)
 
-## Registration
+## Registration and Pipeline Position
 
-`GlobalExceptionHandlingBehavior` is registered as an open generic `IPipelineBehavior<,>` in the DI container:
-
-```csharp
-services.AddTransient(typeof(IPipelineBehavior<,>), typeof(GlobalExceptionHandlingBehavior<,>));
-```
-
-Its position in the registration order determines where in the pipeline chain it catches exceptions. In this project, it is registered after `ValidationBehavior` and before `CommandAuthorizationBehavior`:
+Registered as an open generic with no marker interface constraint (`where TRequest : notnull`), so it runs for **every** request type:
 
 ```
 CachingBehavior → LoggingBehavior → ValidationBehavior → GlobalExceptionHandlingBehavior → CommandAuthorizationBehavior → UnitOfWorkBehavior → Handler
 ```
 
-This means `GlobalExceptionHandlingBehavior` will catch exceptions thrown by `CommandAuthorizationBehavior`, `UnitOfWorkBehavior`, and the handler itself. Exceptions thrown by behaviors registered before it (like `ValidationBehavior`) will not pass through it.
+It catches exceptions from behaviors registered after it (Auth, UoW, Handler). Exceptions from behaviors before it (Validation) do not pass through it.
 
 Source: [`../src/MediatR.Playground.Domain/ServiceExtension.cs`](../src/MediatR.Playground.Domain/ServiceExtension.cs)
 
-## Global vs. Request-Specific Exception Handling
-
-MediatR offers two distinct mechanisms for dealing with exceptions. They operate at different levels and serve different purposes.
-
-### Global Exception Handling (IPipelineBehavior)
-
-`GlobalExceptionHandlingBehavior` uses `IPipelineBehavior<TRequest, TResponse>` to intercept exceptions across all requests. It acts as a cross-cutting concern in the pipeline.
-
-- **Scope:** All requests (constrained only by `where TRequest : notnull`)
-- **Mechanism:** Try/catch around `next()` in the pipeline
-- **Typical use:** Centralized logging, metrics, telemetry
-- **Exception outcome:** Re-throws the exception — does not alter the response
-
-### Request-Specific Exception Handling (IRequestExceptionHandler)
-
-`IRequestExceptionHandler<TRequest, TResponse, TException>` targets a specific request type and exception type. MediatR invokes matching handlers after the request handler throws.
-
-- **Scope:** A specific request type and exception type (e.g., `SampleCommand` + `InvalidOperationException`)
-- **Mechanism:** MediatR's built-in exception handler pipeline, invoked after the handler throws
-- **Typical use:** Providing fallback responses, graceful degradation for specific error scenarios
-- **Exception outcome:** Can call `state.SetHandled(response)` to swallow the exception and return an alternative response
-
-For details on request-specific exception handling, see [Exception Handling with MediatR](./exception-handling.md).
-
-### When to Use Each Approach
+## Global vs. Request-Specific
 
 | Scenario | Approach |
 |----------|----------|
-| Centralized logging for all requests | Global (`IPipelineBehavior`) |
-| Metrics and telemetry collection | Global (`IPipelineBehavior`) |
-| Returning a fallback response for a specific request | Request-specific (`IRequestExceptionHandler`) |
-| Handling a particular exception type differently per request | Request-specific (`IRequestExceptionHandler`) |
-| Both logging globally and providing fallback responses | Use both together |
+| Centralized logging / metrics | Global (`IPipelineBehavior`) — logs + rethrows |
+| Fallback response for a specific request | Request-specific (`IRequestExceptionHandler`) — calls `SetHandled` |
+| Both logging and fallback | Use both together |
 
-The two approaches are not mutually exclusive. In this project, `GlobalExceptionHandlingBehavior` logs the exception and re-throws it. If the request also has a registered `IRequestExceptionHandler`, MediatR will invoke that handler afterward, giving it a chance to provide a fallback response. This means you get centralized logging **and** request-specific recovery in a single request flow.
+In this project, `GlobalExceptionHandlingBehavior` logs first, then MediatR's `RequestExceptionProcessorBehavior` invokes any matching `IRequestExceptionHandler` to provide a fallback. You get centralized logging **and** request-specific recovery in a single flow.
 
 ## The NotFoundExceptionGlobalHandler Endpoint
 
-The API exposes a `GET /Exceptions/NotFoundExceptionGlobalHandler` endpoint that sends a `GetSampleEntityQuery` with `Guid.Empty` as the Id. The handler throws an `ArgumentNullException` because the Id is invalid.
+`GET /Exceptions/NotFoundExceptionGlobalHandler` sends a `GetSampleEntityQuery` with `Guid.Empty`. The handler throws `ArgumentNullException`.
 
-This endpoint is intentionally **not** paired with a per-request `IRequestExceptionHandler`. The exception flows through `GlobalExceptionHandlingBehavior` (which logs it), but since no handler calls `SetHandled`, the exception propagates all the way up to ASP.NET Core's error middleware, resulting in a 500 response.
+This endpoint intentionally has **no** `IRequestExceptionHandler` registered. The exception flows through `GlobalExceptionHandlingBehavior` (logged), but since nothing calls `SetHandled`, it propagates to ASP.NET Core's error middleware → **500 response**.
 
-This is by design: the endpoint demonstrates that `GlobalExceptionHandlingBehavior` is a **logging-only** concern. It does not provide fallback responses or graceful degradation — that is the job of `IRequestExceptionHandler`. Compare this endpoint with `POST /Exceptions/SampleCommandWithIOException` and `POST /Exceptions/SampleCommandWithException`, where per-request exception handlers catch the error and return a fallback response.
-
-## Further Reading
-
-- [C# .NET — Handle Exceptions with MediatR](https://medium.com/@gabrieletronchin/c-net-8-handle-exceptions-with-mediatr-48cbf80bae4e) — Medium article covering exception handling patterns with MediatR, including global exception handling
+This is by design: it demonstrates that the global behavior only logs. Compare with `POST /Exceptions/SampleCommandWithIOException` where a per-request handler provides a fallback response.
 
 ## See Also
 
