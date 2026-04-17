@@ -78,6 +78,14 @@ For details on request-specific exception handling, see [Exception Handling with
 
 The two approaches are not mutually exclusive. In this project, `GlobalExceptionHandlingBehavior` logs the exception and re-throws it. If the request also has a registered `IRequestExceptionHandler`, MediatR will invoke that handler afterward, giving it a chance to provide a fallback response. This means you get centralized logging **and** request-specific recovery in a single request flow.
 
+## The NotFoundExceptionGlobalHandler Endpoint
+
+The API exposes a `GET /Exceptions/NotFoundExceptionGlobalHandler` endpoint that sends a `GetSampleEntityQuery` with `Guid.Empty` as the Id. The handler throws an `ArgumentNullException` because the Id is invalid.
+
+This endpoint is intentionally **not** paired with a per-request `IRequestExceptionHandler`. The exception flows through `GlobalExceptionHandlingBehavior` (which logs it), but since no handler calls `SetHandled`, the exception propagates all the way up to ASP.NET Core's error middleware, resulting in a 500 response.
+
+This is by design: the endpoint demonstrates that `GlobalExceptionHandlingBehavior` is a **logging-only** concern. It does not provide fallback responses or graceful degradation — that is the job of `IRequestExceptionHandler`. Compare this endpoint with `POST /Exceptions/SampleCommandWithIOException` and `POST /Exceptions/SampleCommandWithException`, where per-request exception handlers catch the error and return a fallback response.
+
 ## Further Reading
 
 - [C# .NET — Handle Exceptions with MediatR](https://medium.com/@gabrieletronchin/c-net-8-handle-exceptions-with-mediatr-48cbf80bae4e) — Medium article covering exception handling patterns with MediatR, including global exception handling
